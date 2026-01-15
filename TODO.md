@@ -1,10 +1,11 @@
 # Phase 0
 - pick Tech (KISS)
 - Vite, GSAP
-- Harvesting Script. Decide which programming language to use ( Node.js/JavaScript or Python )
+- Harvesting Script (creates MEGA JSON) Decide which programming language to use (Node.js)
 - choose animation scafolding
 	- bottom dial for years ( semi circle, can be dragged with mouse, reacts on scroll, ??? )
-	- while year scroll happens pre-load cards flying around
+	- while year scroll happens spawn skeleton card divs (10-15) that fly around instantly (animated before data loads)
+	- once year JSON fetches, populate skeletons with actual <img> tags and fade/reveal
 	- gallery with "random" moving photos ( 10 - 15 )
 	- click on details ( color/card disolve or flip the card )
 	- card can be zoomed or moved around
@@ -30,6 +31,13 @@
 - The app reads the related array from the current image.
 - It looks up those IDs in the master_map.json to see which year-files they are in.
 - It fetches those years and pulls out the images to show them.
+
+# Phase 3.5: Polish (NICE TO HAVE)
+- IndexedDB caching: Check IndexedDB before fetching year JSON files
+- If cached, load instantly from disk
+- If not cached, fetch from network then save to IndexedDB
+- Consider using `idb` library wrapper for cleaner API
+- Enables offline-first experience and instant repeat visits
 
 # Phase 4: Deployment
 - Git Push: upload index.html, CSS, JS, and the entire /data folder to GitHub.
