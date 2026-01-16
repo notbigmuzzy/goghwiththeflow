@@ -114,10 +114,12 @@ export function initDialerScroll() {
 	};
 
 	const handleMouseDown = (e) => {
+		const pageX = e.pageX || (e.touches && e.touches[0].pageX);
+
 		isDragging = true;
-		startX = e.pageX - dialer.offsetLeft;
+		startX = pageX - dialer.offsetLeft;
 		scrollLeft = dialer.scrollLeft;
-		lastX = e.pageX;
+		lastX = pageX;
 		lastTime = Date.now();
 		velocity = 0;
 		dialer.querySelectorAll('li').forEach(li => li.classList.remove('active'));
@@ -137,20 +139,20 @@ export function initDialerScroll() {
 		e.preventDefault();
 		dialer.querySelectorAll('li').forEach(li => li.classList.remove('active'));
 
-		const x = e.pageX - dialer.offsetLeft;
+		const pageX = e.pageX || (e.touches && e.touches[0].pageX);
+		const x = pageX - dialer.offsetLeft;
 		const walk = (x - startX) * 2;
 
 		const currentTime = Date.now();
 		const timeDelta = currentTime - lastTime;
 		if (timeDelta > 0) {
-			velocity = (e.pageX - lastX) / timeDelta;
+			velocity = (pageX - lastX) / timeDelta;
 		}
 
-		lastX = e.pageX;
+		lastX = pageX;
 		lastTime = currentTime;
 
 		dialer.scrollLeft = scrollLeft - walk;
-		updatePanels();
 	};
 
 	const handleMouseUp = () => {
@@ -160,7 +162,6 @@ export function initDialerScroll() {
 		const applyMomentum = () => {
 			if (Math.abs(velocity) > 0.05) {
 				dialer.scrollLeft -= velocity * 20;
-				updatePanels();
 				velocity *= 0.95;
 				animationFrame = requestAnimationFrame(applyMomentum);
 			} else {
@@ -182,6 +183,7 @@ export function initDialerScroll() {
 	};
 
 	const handleScroll = () => {
+		updatePanels();
 		if (!isDragging && Math.abs(velocity) < 0.01 && !isInitializing) {
 			scheduleSnap();
 		}
@@ -193,6 +195,9 @@ export function initDialerScroll() {
 		dialer.addEventListener('mousemove', handleMouseMove);
 		dialer.addEventListener('mouseup', handleMouseUp);
 		dialer.addEventListener('mouseleave', handleMouseLeave);
+		dialer.addEventListener('touchstart', handleMouseDown, { passive: false });
+		dialer.addEventListener('touchmove', handleMouseMove, { passive: false });
+		dialer.addEventListener('touchend', handleMouseUp);
 		dialer.addEventListener('scroll', handleScroll);
 		dialer.addEventListener('dragstart', (e) => e.preventDefault());
 	}
