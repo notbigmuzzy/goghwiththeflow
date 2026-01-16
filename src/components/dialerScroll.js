@@ -3,7 +3,6 @@ import gsap from 'gsap';
 export function initDialerScroll() {
 	const dialer = document.querySelector('.dialer');
 	const timeline = document.querySelector('#timeline');
-	const gallery = document.querySelector('#gallery');
 	const preloader = document.querySelector('#preloader');
 	const panels = document.querySelectorAll('.panel');
 
@@ -21,20 +20,34 @@ export function initDialerScroll() {
 	const updatePanels = () => {
 		const scrollPos = dialer.scrollLeft;
 		const delta = scrollPos - lastScrollPos;
+		const viewportWidth = window.innerWidth;
 		lastScrollPos = scrollPos;
 
-		const viewportWidth = window.innerWidth;
-
 		panels.forEach(panel => {
+			let speedMultiplier;
+			const paneType = panel.className.includes('panel-further') ? 'further'
+				: panel.className.includes('panel-middle') ? 'middle'
+					: 'closer';
+
+			switch (paneType) {
+				case 'further':
+					speedMultiplier = 0.25;
+					break;
+				case 'middle':
+					speedMultiplier = 0.5;
+					break;
+				case 'closer':
+					speedMultiplier = 1;
+					break;
+			}
+
 			let currentX = gsap.getProperty(panel, 'x') || 0;
 
-			currentX += delta;
+			currentX += delta * speedMultiplier;
 
-			// Calculate actual screen position (baseLeft + transform)
 			const baseLeft = panel.offsetLeft;
 			const screenPos = baseLeft + currentX;
 
-			// Wrap when fully off screen
 			if (screenPos > viewportWidth + 200) {
 				currentX -= viewportWidth + 400;
 			} else if (screenPos < -200) {
