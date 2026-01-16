@@ -1,6 +1,6 @@
 export function createDialer() {
 	const years = [];
-	for (let year = 1000; year <= 2000; year += 10) {
+	for (let year = -1000; year <= 2000; year += 10) {
 		years.push(year);
 	}
 

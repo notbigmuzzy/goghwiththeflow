@@ -92,7 +92,6 @@ export function initDialerScroll() {
 		const targetScroll = itemCenter - dialerCenter;
 
 		timeline.classList.add('dialing');
-
 		gsap.delayedCall(0, () => {
 			preloader.classList.remove('loading');
 		});
