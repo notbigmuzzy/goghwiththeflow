@@ -19,6 +19,10 @@ body {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
+
+	* {
+		box-sizing: border-box;
+	}
 }
 
 a {
@@ -34,6 +38,7 @@ a {
 	justify-content: center;
 	flex-direction: column;
 	box-sizing: border-box;
+	overflow: hidden;
 }
 
 @media (prefers-color-scheme: light) {
