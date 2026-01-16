@@ -92,6 +92,11 @@ export function initDialerScroll() {
 		const targetScroll = itemCenter - dialerCenter;
 
 		timeline.classList.add('dialing');
+
+		gsap.delayedCall(0, () => {
+			preloader.classList.remove('loading');
+		});
+
 		gsap.to(dialer, {
 			scrollLeft: targetScroll,
 			duration: 0.5,
@@ -99,7 +104,6 @@ export function initDialerScroll() {
 			onComplete: () => {
 				setActiveItem(centerItem);
 				timeline.classList.remove('dialing');
-				preloader.classList.remove('loading');
 			}
 		});
 	};
