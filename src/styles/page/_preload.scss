@@ -24,12 +24,14 @@
 	.pane-further {
 		opacity: 0;
 		bottom: -20px;
+		transform: translateY(0) scale(0.95);
 		transition: transform 0.2s ease, opacity 0.2s ease;
 	}
 
 	.pane-middle {
 		opacity: 0;
 		bottom: -30px;
+		transform: scale(0.9);
 		transition: transform 0.3s ease, opacity 0.3s ease;
 		transition-delay: 0.15s;
 	}
@@ -37,6 +39,7 @@
 	.pane-closer {
 		opacity: 0;
 		bottom: -40px;
+		transform: scale(0.85);
 		transition: transform 0.4s ease, opacity 0.4s ease;
 		transition-delay: 0.3s;
 	}
@@ -44,17 +47,17 @@
 	&.loading {
 		.pane-further {
 			opacity: 1;
-			transform: translateY(-20px);
+			transform: translateY(-20px) scale(1);
 		}
 
 		.pane-middle {
 			opacity: 1;
-			transform: translateY(-30px);
+			transform: translateY(-30px) scale(1);
 		}
 
 		.pane-closer {
 			opacity: 1;
-			transform: translateY(-40px);
+			transform: translateY(-40px) scale(1);
 		}
 	}
 }
