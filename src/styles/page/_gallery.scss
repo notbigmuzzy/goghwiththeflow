@@ -1,0 +1,13 @@
+#gallery {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	padding-bottom: 200px;
+
+	border: 2px solid red;
+}

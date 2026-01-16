@@ -1,3 +1,4 @@
+<!-- SKIP FOR NOW 
 # Phase 0
 - pick Tech (KISS)
 - Vite, GSAP
@@ -23,6 +24,7 @@
 - Step A: Create a folder named /data.
 - Step B: The script runs through the MEGA JSON and create a separate file for every year (e.g., 1889.json, 1920.json).
 - Step C: Create a master_map.json. This is a small "index" that tells the app which year a specific painting ID belongs to (e.g., {"p-starry-night": 1889}).
+ -->
 
 # Phase 3: The Frontend (User Experience)
 - The Slider: When the user moves the slider to 1920, the app does fetch('./data/1920.json').
