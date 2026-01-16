@@ -116,16 +116,13 @@ export function initDialerScroll() {
 				velocity *= 0.95;
 				animationFrame = requestAnimationFrame(applyMomentum);
 			} else {
-				// Momentum done, snap will handle removing dialing class
 				snapToCenter();
 			}
 		};
 
 		if (Math.abs(velocity) > 0.25) {
-			// Keep dialing class during momentum
 			applyMomentum();
 		} else {
-			// Low velocity, snap will handle removing dialing class
 			snapToCenter();
 		}
 	};
