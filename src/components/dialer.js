@@ -5,7 +5,6 @@ export function createDialer() {
 	}
 
 	return `
-		<div class="triangle-up"></div>
 		<div class="cover">
 			<div class='cover-left'></div>
 			<div class='cover-selection'></div>

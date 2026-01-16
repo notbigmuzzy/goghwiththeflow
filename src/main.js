@@ -6,7 +6,7 @@ document.querySelector('#app').innerHTML = `
   <div id="gallery">
   	<h1>Image Gallery</h1>
   </div>
-  <div id="timeline">
+  <div id="timeline" class="dialing">
 	${createDialer()}
   </div>
 `

@@ -2,7 +2,7 @@ import gsap from 'gsap';
 
 export function initDialerScroll() {
 	const dialer = document.querySelector('.dialer');
-	if (!dialer) return;
+	const timeline = document.querySelector('#timeline');
 
 	let isDragging = false;
 	let startX = 0;
@@ -12,6 +12,7 @@ export function initDialerScroll() {
 	let lastTime = Date.now();
 	let animationFrame = null;
 	let snapTimeout = null;
+	let isInitializing = true;
 
 	const findCenterItem = () => {
 		const items = dialer.querySelectorAll('li');
@@ -46,12 +47,14 @@ export function initDialerScroll() {
 		const itemCenter = centerItem.offsetLeft + centerItem.offsetWidth / 2;
 		const targetScroll = itemCenter - dialerCenter;
 
+		timeline.classList.add('dialing');
 		gsap.to(dialer, {
 			scrollLeft: targetScroll,
 			duration: 0.5,
 			ease: 'power2.out',
 			onComplete: () => {
 				setActiveItem(centerItem);
+				timeline.classList.remove('dialing');
 			}
 		});
 	};
@@ -73,6 +76,7 @@ export function initDialerScroll() {
 		lastTime = Date.now();
 		velocity = 0;
 		dialer.querySelectorAll('li').forEach(li => li.classList.remove('active'));
+		timeline.classList.add('dialing');
 
 		if (animationFrame) {
 			cancelAnimationFrame(animationFrame);
@@ -112,13 +116,16 @@ export function initDialerScroll() {
 				velocity *= 0.95;
 				animationFrame = requestAnimationFrame(applyMomentum);
 			} else {
+				// Momentum done, snap will handle removing dialing class
 				snapToCenter();
 			}
 		};
 
 		if (Math.abs(velocity) > 0.25) {
+			// Keep dialing class during momentum
 			applyMomentum();
 		} else {
+			// Low velocity, snap will handle removing dialing class
 			snapToCenter();
 		}
 	};
@@ -130,27 +137,34 @@ export function initDialerScroll() {
 	};
 
 	const handleScroll = () => {
-		if (!isDragging && Math.abs(velocity) < 0.01) {
+		if (!isDragging && Math.abs(velocity) < 0.01 && !isInitializing) {
 			scheduleSnap();
 		}
 	};
 
-	dialer.style.userSelect = 'none';
+	{ // Initialize event listeners
+		dialer.style.userSelect = 'none';
+		dialer.addEventListener('mousedown', handleMouseDown);
+		dialer.addEventListener('mousemove', handleMouseMove);
+		dialer.addEventListener('mouseup', handleMouseUp);
+		dialer.addEventListener('mouseleave', handleMouseLeave);
+		dialer.addEventListener('scroll', handleScroll);
+		dialer.addEventListener('dragstart', (e) => e.preventDefault());
+	}
 
-	dialer.addEventListener('mousedown', handleMouseDown);
-	dialer.addEventListener('mousemove', handleMouseMove);
-	dialer.addEventListener('mouseup', handleMouseUp);
-	dialer.addEventListener('mouseleave', handleMouseLeave);
-	dialer.addEventListener('scroll', handleScroll);
-	dialer.addEventListener('dragstart', (e) => e.preventDefault());
-
-	const lastItem = dialer.querySelector('li:last-child');
-	if (lastItem) {
+	{ // Initial centering on TODAY
+		const lastItem = dialer.querySelector('li:last-child');
 		const dialerCenter = dialer.offsetWidth / 2;
 		const itemCenter = lastItem.offsetLeft + lastItem.offsetWidth / 2;
 		const targetScroll = itemCenter - dialerCenter;
 
+		timeline.classList.add('dialing');
 		dialer.scrollLeft = targetScroll;
 		setActiveItem(lastItem);
+
+		setTimeout(() => {
+			isInitializing = false;
+		}, 100);
 	}
+
 }
