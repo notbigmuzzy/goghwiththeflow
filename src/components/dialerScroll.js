@@ -3,6 +3,8 @@ import gsap from 'gsap';
 export function initDialerScroll() {
 	const dialer = document.querySelector('.dialer');
 	const timeline = document.querySelector('#timeline');
+	const gallery = document.querySelector('#gallery');
+	const preloader = document.querySelector('#preloader');
 	const panels = document.querySelectorAll('.panel');
 
 	let isDragging = false;
@@ -84,6 +86,7 @@ export function initDialerScroll() {
 			onComplete: () => {
 				setActiveItem(centerItem);
 				timeline.classList.remove('dialing');
+				preloader.classList.remove('loading');
 			}
 		});
 	};
@@ -106,6 +109,7 @@ export function initDialerScroll() {
 		velocity = 0;
 		dialer.querySelectorAll('li').forEach(li => li.classList.remove('active'));
 		timeline.classList.add('dialing');
+		preloader.classList.add('loading');
 
 		if (animationFrame) {
 			cancelAnimationFrame(animationFrame);
@@ -188,6 +192,7 @@ export function initDialerScroll() {
 
 		timeline.classList.add('dialing');
 		dialer.scrollLeft = targetScroll;
+		lastScrollPos = targetScroll; // Initialize to prevent jump on first drag
 		setActiveItem(lastItem);
 
 		setTimeout(() => {

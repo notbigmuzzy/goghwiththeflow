@@ -1,4 +1,4 @@
-.preloader {
+#preloader {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -19,23 +19,6 @@
 			position: absolute;
 			background-color: rgba(255, 255, 255, 0.1);
 			border: 1px solid rgba(255, 255, 255, 0.3);
-		}
-
-		&.pane-closer {
-			.panel-1 {
-				height: 200px;
-				width: 120px;
-			}
-
-			.panel-2 {
-				height: 200px;
-				width: 120px;
-			}
-
-			.panel-3 {
-				height: 200px;
-				width: 120px;
-			}
 		}
 	}
 }
