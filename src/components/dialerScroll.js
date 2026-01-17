@@ -6,6 +6,7 @@ export function initDialerScroll() {
 	const timeline = document.querySelector('#timeline');
 	const preloader = document.querySelector('#preloader');
 	const panels = document.querySelectorAll('.panel');
+	const mainpage = document.querySelector('#mainPage');
 
 	let isDragging = false;
 	let startX = 0;
@@ -136,6 +137,7 @@ export function initDialerScroll() {
 		dialer.querySelectorAll('li').forEach(li => li.classList.remove('active'));
 		timeline.classList.add('dialing');
 		preloader.classList.add('loading');
+		mainpage.classList.remove('show');
 
 		if (animationFrame) {
 			cancelAnimationFrame(animationFrame);
