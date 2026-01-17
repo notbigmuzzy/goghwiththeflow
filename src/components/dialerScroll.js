@@ -100,7 +100,7 @@ export function initDialerScroll() {
 		gsap.delayedCall(0, () => {
 			preloader.classList.remove('loading');
 			setActiveItem(centerItem);
-			makeApiCall(centerItem.dataset.year ? centerItem.dataset.year : 'TODAY');
+			makeApiCall(centerItem.dataset.year, centerItem.dataset.period);
 		});
 
 		gsap.to(dialer, {
