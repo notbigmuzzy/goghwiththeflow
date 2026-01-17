@@ -78,6 +78,12 @@ export function initPhotoInteractions() {
 			exitFullscreen();
 		}
 	});
+
+	document.addEventListener('keydown', function (e) {
+		if (e.key === 'Escape' && currentFullscreenPhoto) {
+			exitFullscreen();
+		}
+	});
 }
 
 function exitFullscreen() {
@@ -109,7 +115,7 @@ function addZoomHandler(photo) {
 		e.preventDefault();
 
 		const minScale = photo._gsap.initialFullscreenScale || 1;
-		const maxScale = minScale * 3;
+		const maxScale = minScale * 5;
 		const zoomSpeed = 0.010;
 
 		const currentScale = gsap.getProperty(photo, 'scale');
