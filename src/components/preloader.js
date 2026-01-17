@@ -46,7 +46,7 @@ export function createPreloader() {
 				];
 				break;
 			case 'further':
-				dimensions = { width: 60, height: 120 };
+				dimensions = { width: 60, height: 100 };
 				positions = [
 					{ top: Math.floor(viewportHeight * -0.05), left: Math.floor(viewportWidth * -0.3) },
 					{ top: Math.floor(viewportHeight * 0.7), left: Math.floor(viewportWidth * 0.4) },
