@@ -15,6 +15,10 @@ export function initPhotoInteractions() {
 			const photo = this.target;
 			const isFullscreen = photo.classList.contains('fullscreen');
 
+			if (isFullscreen) {
+				return;
+			}
+
 			if (currentFullscreenPhoto && currentFullscreenPhoto !== photo) {
 				currentFullscreenPhoto.classList.remove('fullscreen');
 				gsap.to(currentFullscreenPhoto, {
@@ -27,52 +31,73 @@ export function initPhotoInteractions() {
 				removeZoomHandler();
 				enableBounds(currentFullscreenPhoto);
 				currentFullscreenPhoto = null;
+				document.querySelectorAll('.photo.faded').forEach(p => p.classList.remove('faded'));
 			}
 
-			if (isFullscreen) {
-				photo.classList.remove('fullscreen');
-				gsap.to(photo, {
-					x: photo._gsap.startX || 0,
-					y: photo._gsap.startY || 0,
-					scale: 1,
-					duration: 0.5,
-					ease: 'power2.inOut'
-				});
-				removeZoomHandler();
-				enableBounds(photo);
-				currentFullscreenPhoto = null;
-			} else {
-				photo._gsap.startX = gsap.getProperty(photo, 'x');
-				photo._gsap.startY = gsap.getProperty(photo, 'y');
+			photo._gsap.startX = gsap.getProperty(photo, 'x');
+			photo._gsap.startY = gsap.getProperty(photo, 'y');
 
-				const rect = photo.getBoundingClientRect();
-				const vw = window.innerWidth;
-				const vh = window.innerHeight;
+			const rect = photo.getBoundingClientRect();
+			const vw = window.innerWidth;
+			const vh = window.innerHeight;
 
-				const scaleX = vw / rect.width;
-				const scaleY = vh / rect.height;
-				const scale = Math.min(scaleX, scaleY) * 0.9; // 0.9 for some padding
+			const scaleX = vw / rect.width;
+			const scaleY = vh / rect.height;
+			const scale = Math.min(scaleX, scaleY) * 0.9; // 0.9 for some padding
 
-				const currentX = gsap.getProperty(photo, 'x');
-				const currentY = gsap.getProperty(photo, 'y');
-				const centerX = (vw - rect.width) / 2 - rect.left + currentX;
-				const centerY = (vh - rect.height) / 2 - rect.top + currentY;
+			const currentX = gsap.getProperty(photo, 'x');
+			const currentY = gsap.getProperty(photo, 'y');
+			const centerX = (vw - rect.width) / 2 - rect.left + currentX;
+			const centerY = (vh - rect.height) / 2 - rect.top + currentY;
 
-				photo.classList.add('fullscreen');
-				photo._gsap.initialFullscreenScale = scale;
-				currentFullscreenPhoto = photo;
-				disableBounds(photo);
-				gsap.to(photo, {
-					x: centerX,
-					y: centerY,
-					scale: scale,
-					duration: 0.5,
-					ease: 'power2.inOut'
-				});
-				addZoomHandler(photo);
-			}
+			photo.classList.add('fullscreen');
+			document.querySelectorAll('.photo').forEach(p => {
+				if (p !== photo) {
+					p.classList.add('faded');
+				}
+			});
+
+			const timeline = document.querySelector('#timeline');
+			timeline.classList.add('hide');
+			photo._gsap.initialFullscreenScale = scale;
+			currentFullscreenPhoto = photo;
+			disableBounds(photo);
+			gsap.to(photo, {
+				x: centerX,
+				y: centerY,
+				scale: scale,
+				duration: 0.5,
+				ease: 'power2.inOut'
+			});
+			addZoomHandler(photo);
 		}
 	});
+
+	document.getElementById('mainPage').addEventListener('click', function (e) {
+		if (currentFullscreenPhoto && !e.target.closest('.photo')) {
+			exitFullscreen();
+		}
+	});
+}
+
+function exitFullscreen() {
+	if (!currentFullscreenPhoto) return;
+
+	const photo = currentFullscreenPhoto;
+	photo.classList.remove('fullscreen');
+	gsap.to(photo, {
+		x: photo._gsap.startX || 0,
+		y: photo._gsap.startY || 0,
+		scale: 1,
+		duration: 0.5,
+		ease: 'power2.inOut'
+	});
+	removeZoomHandler();
+	enableBounds(photo);
+	currentFullscreenPhoto = null;
+	document.querySelectorAll('.photo.faded').forEach(p => p.classList.remove('faded'));
+	const timeline = document.querySelector('#timeline');
+	timeline.classList.remove('hide');
 }
 
 function addZoomHandler(photo) {
@@ -85,7 +110,7 @@ function addZoomHandler(photo) {
 
 		const minScale = photo._gsap.initialFullscreenScale || 1;
 		const maxScale = minScale * 3;
-		const zoomSpeed = 0.001;
+		const zoomSpeed = 0.010;
 
 		const currentScale = gsap.getProperty(photo, 'scale');
 		const delta = -e.deltaY * zoomSpeed;
@@ -93,16 +118,23 @@ function addZoomHandler(photo) {
 
 		newScale = Math.max(minScale, Math.min(maxScale, newScale));
 
-		const rect = photo.getBoundingClientRect();
-		const mouseX = e.clientX - rect.left;
-		const mouseY = e.clientY - rect.top;
+		const mouseX = e.clientX;
+		const mouseY = e.clientY;
 
 		const currentX = gsap.getProperty(photo, 'x');
 		const currentY = gsap.getProperty(photo, 'y');
 
-		const scaleRatio = newScale / currentScale;
-		const offsetX = mouseX * (1 - scaleRatio);
-		const offsetY = mouseY * (1 - scaleRatio);
+		const rect = photo.getBoundingClientRect();
+
+		const photoCenterX = rect.left + rect.width / 2;
+		const photoCenterY = rect.top + rect.height / 2;
+
+		const deltaX = mouseX - photoCenterX;
+		const deltaY = mouseY - photoCenterY;
+
+		const scaleChange = newScale / currentScale - 1;
+		const offsetX = -deltaX * scaleChange;
+		const offsetY = -deltaY * scaleChange;
 
 		gsap.to(photo, {
 			scale: newScale,
@@ -144,10 +176,15 @@ function enableBounds(photo) {
 export function createPhotos() {
 	const viewportWidth = window.innerWidth;
 	const viewportHeight = window.innerHeight;
-	const numberOfPhotos = Math.floor(Math.random() * 5) + 4;
-	const dimensions = { width: 200, height: 300 };
+	const numberOfPhotos = Math.floor(Math.random() * 5) + 3; // Between 3 and 7 photos
 
-	let topPositions = [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.55, 0.6, 0.65];
+	const aspectRatio = 240 / 320;
+	const height = Math.floor(viewportHeight * 0.5);
+	const width = Math.floor(height * aspectRatio);
+
+	const dimensions = { width, height };
+
+	let topPositions = [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4, 0.44, 0.5];
 	let leftPositions = [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8];
 
 	if (numberOfPhotos > topPositions.length) topPositions = [...topPositions, ...topPositions];
@@ -164,12 +201,19 @@ export function createPhotos() {
 	const selectedTops = shuffle(topPositions).slice(0, numberOfPhotos);
 	const selectedLefts = shuffle(leftPositions).slice(0, numberOfPhotos);
 
+	const imageFiles = [
+		'first.jpeg', 'second.jpeg', 'third.jpeg', 'fourth.jpeg', 'fifth.jpeg',
+		'sixth.jpeg', 'seventh.jpeg', 'eight.jpeg', 'nine.jpeg', 'tenth.jpeg'
+	];
+	const shuffledImages = shuffle([...imageFiles]);
+
 	let photos = '';
 	for (let i = 0; i < numberOfPhotos; i++) {
 		const top = Math.floor(viewportHeight * selectedTops[i]);
 		const left = Math.floor(viewportWidth * selectedLefts[i]);
+		const imageSrc = `/test_images/${shuffledImages[i % shuffledImages.length]}`;
 
-		photos += `<div class="photo photo-${i + 1}" style="position: absolute; top: ${top}px; left: ${left}px; width: ${dimensions.width}px; height: ${dimensions.height}px;"></div>`;
+		photos += `<div class="photo photo-${i + 1}" style="position: absolute; top: ${top}px; left: ${left}px; width: ${dimensions.width}px; height: ${dimensions.height}px;"><img src="${imageSrc}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" alt="photo ${i + 1}" /></div>`;
 	}
 	return photos;
 }

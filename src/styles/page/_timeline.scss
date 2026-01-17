@@ -10,7 +10,7 @@
 	justify-content: center;
 	box-sizing: border-box;
 	background-color: transparent;
-	transition: transform 0.5s ease, background-color 0.5s ease;
+	transition: transform 0.5s ease, background-color 0.5s ease, opacity 0.5s ease;
 
 	.cover {
 		position: absolute;
@@ -126,6 +126,11 @@
 	}
 
 	&.downloading {
+		pointer-events: none;
+	}
+
+	&.hide {
+		opacity: 0;
 		pointer-events: none;
 	}
 }
