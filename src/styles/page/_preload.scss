@@ -17,7 +17,7 @@
 			display: block;
 			position: absolute;
 			background-color: rgba(255, 255, 255, 0.1);
-			border: 2px solid rgba(255, 255, 255, 0.3);
+			border: 1px solid rgba(255, 255, 255, 0.3);
 		}
 	}
 
@@ -99,6 +99,59 @@
 		100% {
 			opacity: 0;
 			transform: translateX(100vw) translateY(-50px);
+		}
+	}
+
+	&.downloading {
+		.panel {
+			overflow: hidden;
+
+			&::after {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 100%);
+				transform: translateX(-100%);
+				animation: shimmer 1.5s infinite;
+			}
+
+			&:nth-child(even)::after {
+				background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 100%);
+				transform: translateY(-100%);
+				animation-name: shimmer-vertical;
+			}
+
+			&:nth-child(3n)::after {
+				animation-duration: 2s;
+				animation-direction: reverse;
+			}
+
+			&:nth-child(5)::after {
+				background: linear-gradient(45deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 100%);
+				transform: translate(-100%, -100%);
+				animation-name: shimmer-diagonal;
+			}
+		}
+	}
+
+	@keyframes shimmer {
+		100% {
+			transform: translateX(100%);
+		}
+	}
+
+	@keyframes shimmer-vertical {
+		100% {
+			transform: translateY(100%);
+		}
+	}
+
+	@keyframes shimmer-diagonal {
+		100% {
+			transform: translate(100%, 100%);
 		}
 	}
 }

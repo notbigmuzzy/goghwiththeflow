@@ -126,4 +126,8 @@
 			}
 		}
 	}
+
+	&.downloading {
+		pointer-events: none;
+	}
 }

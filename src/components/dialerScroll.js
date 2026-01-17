@@ -98,8 +98,8 @@ export function initDialerScroll() {
 
 		timeline.classList.add('dialing');
 		gsap.delayedCall(0, () => {
-			preloader.classList.remove('loading');
 			setActiveItem(centerItem);
+			timeline.classList.add('downloading');
 			makeApiCall(centerItem.dataset.year, centerItem.dataset.period);
 		});
 
@@ -109,7 +109,7 @@ export function initDialerScroll() {
 			ease: 'power2.out',
 			onComplete: () => {
 				setTimeout(() => {
-					timeline.classList.remove('dialing');
+					preloader.classList.add('downloading');
 				}, 150)
 			}
 		});
