@@ -3,9 +3,11 @@ import { Draggable } from 'gsap/Draggable';
 import { InertiaPlugin } from 'gsap/InertiaPlugin';
 gsap.registerPlugin(Draggable, InertiaPlugin);
 let currentFullscreenPhoto = null;
+let wheelHandler = null;
+let draggableInstances = [];
 
 export function initPhotoInteractions() {
-	Draggable.create('.photo', {
+	draggableInstances = Draggable.create('.photo', {
 		type: 'x,y',
 		bounds: '#mainPage',
 		inertia: true,
@@ -22,6 +24,8 @@ export function initPhotoInteractions() {
 					duration: 0.5,
 					ease: 'power2.inOut'
 				});
+				removeZoomHandler();
+				enableBounds(currentFullscreenPhoto);
 				currentFullscreenPhoto = null;
 			}
 
@@ -34,6 +38,8 @@ export function initPhotoInteractions() {
 					duration: 0.5,
 					ease: 'power2.inOut'
 				});
+				removeZoomHandler();
+				enableBounds(photo);
 				currentFullscreenPhoto = null;
 			} else {
 				photo._gsap.startX = gsap.getProperty(photo, 'x');
@@ -53,7 +59,9 @@ export function initPhotoInteractions() {
 				const centerY = (vh - rect.height) / 2 - rect.top + currentY;
 
 				photo.classList.add('fullscreen');
+				photo._gsap.initialFullscreenScale = scale;
 				currentFullscreenPhoto = photo;
+				disableBounds(photo);
 				gsap.to(photo, {
 					x: centerX,
 					y: centerY,
@@ -61,9 +69,76 @@ export function initPhotoInteractions() {
 					duration: 0.5,
 					ease: 'power2.inOut'
 				});
+				addZoomHandler(photo);
 			}
 		}
 	});
+}
+
+function addZoomHandler(photo) {
+	removeZoomHandler();
+
+	wheelHandler = (e) => {
+		if (!photo.classList.contains('fullscreen')) return;
+
+		e.preventDefault();
+
+		const minScale = photo._gsap.initialFullscreenScale || 1;
+		const maxScale = minScale * 3;
+		const zoomSpeed = 0.001;
+
+		const currentScale = gsap.getProperty(photo, 'scale');
+		const delta = -e.deltaY * zoomSpeed;
+		let newScale = currentScale + delta;
+
+		newScale = Math.max(minScale, Math.min(maxScale, newScale));
+
+		const rect = photo.getBoundingClientRect();
+		const mouseX = e.clientX - rect.left;
+		const mouseY = e.clientY - rect.top;
+
+		const currentX = gsap.getProperty(photo, 'x');
+		const currentY = gsap.getProperty(photo, 'y');
+
+		const scaleRatio = newScale / currentScale;
+		const offsetX = mouseX * (1 - scaleRatio);
+		const offsetY = mouseY * (1 - scaleRatio);
+
+		gsap.to(photo, {
+			scale: newScale,
+			x: currentX + offsetX,
+			y: currentY + offsetY,
+			duration: 0.2,
+			ease: 'power2.out'
+		});
+	};
+
+	photo.addEventListener('wheel', wheelHandler, { passive: false });
+}
+
+function removeZoomHandler() {
+	if (wheelHandler && currentFullscreenPhoto) {
+		currentFullscreenPhoto.removeEventListener('wheel', wheelHandler);
+		wheelHandler = null;
+	}
+}
+
+function getDraggableInstance(photo) {
+	return draggableInstances.find(instance => instance.target === photo);
+}
+
+function disableBounds(photo) {
+	const instance = getDraggableInstance(photo);
+	if (instance) {
+		instance.applyBounds({ minX: -Infinity, maxX: Infinity, minY: -Infinity, maxY: Infinity });
+	}
+}
+
+function enableBounds(photo) {
+	const instance = getDraggableInstance(photo);
+	if (instance) {
+		instance.applyBounds('#mainPage');
+	}
 }
 
 export function createPhotos() {

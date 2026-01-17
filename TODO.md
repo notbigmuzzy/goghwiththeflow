@@ -1,29 +1,16 @@
 <!-- SKIP FOR NOW 
-# Phase 0
-- pick Tech (KISS)
-- Vite, GSAP
-- Harvesting Script (creates MEGA JSON) Decide which programming language to use (Node.js)
-- choose animation scafolding
-	- bottom dial for years ( semi circle, can be dragged with mouse, reacts on scroll, ??? )
-	- while year scroll happens spawn skeleton card divs (10-15) that fly around instantly (animated before data loads)
-	- once year JSON fetches, populate skeletons with actual <img> tags and fade/reveal
-	- gallery with "random" moving photos ( 10 - 15 )
-	- click on details ( color/card disolve or flip the card )
-	- card can be zoomed or moved around
-	- user can dig-down in the related to this photo ( what animation for this? )
 
-# Phase 1: The One-Time "Harvest" (Build Step)
-- Authentication: get API keys from WikiArt.
-- The Artist Crawl: call the /AlphabetJson endpoint to get a list of all 3,000 artists.
-- The Portfolio Dive: For each artist, call /PaintingsByArtist.
-- The Cleanup: Script strips out the junk and keeps: ID, Artist, Title, Year, Style, Genre, Image URL.
-- The Link Maker: Script looks at the Style and Genre and picks 3–5 IDs for the related field in each painting object.
+PHASE 1: HARVEST (Collecting MET Data)
+[ ] Fetch Object IDs: Call the MET API search endpoint to retrieve a list of all IDs categorized as Paintings that have images.
+[ ] Data Scraping: Iterate through the IDs and extract: objectID, title, artistDisplayName, objectBeginDate (year), and primaryImageSmall (image URL).
+[ ] Cleanup: Remove any entries that are missing a year or a valid image URL.
+[ ] Generate MEGA.json: Save the entire collection into a single master file on your local machine as a backup.
 
-# Phase 2: Data Sharding (Preparation for GH Pages)
-*MEGA JSON*
-- Step A: Create a folder named /data.
-- Step B: The script runs through the MEGA JSON and create a separate file for every year (e.g., 1889.json, 1920.json).
-- Step C: Create a master_map.json. This is a small "index" that tells the app which year a specific painting ID belongs to (e.g., {"p-starry-night": 1889}).
+PHASE 2: SHARDING (Splitting by Year)
+[ ] Develop Sharding Script: Create a script to parse MEGA.json and generate individual files for each year (e.g., data/years/1890.json).
+[ ] Data Minification: Use abbreviated keys in the year-shards (e.g., "a" for artist, "t" for title, "u" for URL) to minimize file size.
+[ ] Create Index Map: Generate a years_index.json file that lists all valid years containing artwork so the UI slider knows which steps to enable.
+
  -->
 
 # Phase 3: The Frontend (User Experience)
