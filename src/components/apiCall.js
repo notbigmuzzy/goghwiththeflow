@@ -1,4 +1,4 @@
-import { createPhotos } from './mainPage.js';
+import { createPhotos, initPhotoInteractions } from './mainPage.js';
 
 export function makeApiCall(year, period) {
 	const storedYear = localStorage.getItem('currentYear');
@@ -20,6 +20,7 @@ export function makeApiCall(year, period) {
 		const photoPane = mainpage.querySelector('.pane-photos');
 		if (photoPane) {
 			photoPane.innerHTML = createPhotos();
+			initPhotoInteractions();
 		}
 	}
 

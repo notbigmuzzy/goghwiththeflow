@@ -1,3 +1,17 @@
+import gsap from 'gsap';
+import { Draggable } from 'gsap/Draggable';
+import { InertiaPlugin } from 'gsap/InertiaPlugin';
+
+gsap.registerPlugin(Draggable, InertiaPlugin);
+
+export function initPhotoInteractions() {
+	Draggable.create('.photo', {
+		type: 'x,y',
+		bounds: '#mainPage',
+		inertia: true
+	});
+}
+
 export function createPhotos() {
 	const viewportWidth = window.innerWidth;
 	const viewportHeight = window.innerHeight;
@@ -33,8 +47,10 @@ export function createPhotos() {
 
 export function createMainPage() {
 	return `
-		<div id="mainPage">
-			<div class="pane pane-photos"></div>
+		<div id="mainPage" class="show">
+			<div class="pane pane-photos">
+				${createPhotos()}
+			</div>
 		</div>
 	`;
 }
