@@ -47,10 +47,8 @@ export function createPhotos() {
 
 export function createMainPage() {
 	return `
-		<div id="mainPage" class="show">
-			<div class="pane pane-photos">
-				${createPhotos()}
-			</div>
+		<div id="mainPage">
+			<div class="pane pane-photos"></div>
 		</div>
 	`;
 }
