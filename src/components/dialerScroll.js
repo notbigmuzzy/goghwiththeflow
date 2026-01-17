@@ -27,7 +27,8 @@ export function initDialerScroll() {
 			let speedMultiplier;
 			const paneType = panel.className.includes('panel-further') ? 'further'
 				: panel.className.includes('panel-middle') ? 'middle'
-					: 'closer';
+					: panel.className.includes('panel-window') ? 'window'
+						: 'closer';
 
 			switch (paneType) {
 				case 'further':
@@ -35,6 +36,9 @@ export function initDialerScroll() {
 					break;
 				case 'middle':
 					speedMultiplier = 0.5;
+					break;
+				case 'window':
+					speedMultiplier = -1.5;
 					break;
 				case 'closer':
 					speedMultiplier = 1;
