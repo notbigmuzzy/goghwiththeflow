@@ -1,4 +1,5 @@
 import gsap from 'gsap';
+import { makeApiCall } from './apiCall.js';
 
 export function initDialerScroll() {
 	const dialer = document.querySelector('.dialer');
@@ -98,6 +99,8 @@ export function initDialerScroll() {
 		timeline.classList.add('dialing');
 		gsap.delayedCall(0, () => {
 			preloader.classList.remove('loading');
+			setActiveItem(centerItem);
+			makeApiCall(centerItem.dataset.year ? centerItem.dataset.year : 'TODAY');
 		});
 
 		gsap.to(dialer, {
@@ -105,8 +108,9 @@ export function initDialerScroll() {
 			duration: 0.5,
 			ease: 'power2.out',
 			onComplete: () => {
-				setActiveItem(centerItem);
-				timeline.classList.remove('dialing');
+				setTimeout(() => {
+					timeline.classList.remove('dialing');
+				}, 150)
 			}
 		});
 	};
@@ -191,7 +195,7 @@ export function initDialerScroll() {
 
 	const handleScroll = () => {
 		updatePanels();
-		if (!isDragging && Math.abs(velocity) < 0.01 && !isInitializing) {
+		if (!isDragging && Math.abs(velocity) < 0.01 && !isInitializing && !timeline.classList.contains('dialing')) {
 			scheduleSnap();
 		}
 	};
