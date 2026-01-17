@@ -1,14 +1,68 @@
 import gsap from 'gsap';
 import { Draggable } from 'gsap/Draggable';
 import { InertiaPlugin } from 'gsap/InertiaPlugin';
-
 gsap.registerPlugin(Draggable, InertiaPlugin);
+let currentFullscreenPhoto = null;
 
 export function initPhotoInteractions() {
 	Draggable.create('.photo', {
 		type: 'x,y',
 		bounds: '#mainPage',
-		inertia: true
+		inertia: true,
+		onClick: function () {
+			const photo = this.target;
+			const isFullscreen = photo.classList.contains('fullscreen');
+
+			if (currentFullscreenPhoto && currentFullscreenPhoto !== photo) {
+				currentFullscreenPhoto.classList.remove('fullscreen');
+				gsap.to(currentFullscreenPhoto, {
+					x: currentFullscreenPhoto._gsap.startX || 0,
+					y: currentFullscreenPhoto._gsap.startY || 0,
+					scale: 1,
+					duration: 0.5,
+					ease: 'power2.inOut'
+				});
+				currentFullscreenPhoto = null;
+			}
+
+			if (isFullscreen) {
+				photo.classList.remove('fullscreen');
+				gsap.to(photo, {
+					x: photo._gsap.startX || 0,
+					y: photo._gsap.startY || 0,
+					scale: 1,
+					duration: 0.5,
+					ease: 'power2.inOut'
+				});
+				currentFullscreenPhoto = null;
+			} else {
+				photo._gsap.startX = gsap.getProperty(photo, 'x');
+				photo._gsap.startY = gsap.getProperty(photo, 'y');
+
+				const rect = photo.getBoundingClientRect();
+				const vw = window.innerWidth;
+				const vh = window.innerHeight;
+
+				const scaleX = vw / rect.width;
+				const scaleY = vh / rect.height;
+				const scale = Math.min(scaleX, scaleY) * 0.9; // 0.9 for some padding
+
+				const currentX = gsap.getProperty(photo, 'x');
+				const currentY = gsap.getProperty(photo, 'y');
+				const centerX = (vw - rect.width) / 2 - rect.left + currentX;
+				const centerY = (vh - rect.height) / 2 - rect.top + currentY;
+
+				photo.classList.add('fullscreen');
+				currentFullscreenPhoto = photo;
+				gsap.to(photo, {
+					x: centerX,
+					y: centerY,
+					scale: scale,
+					duration: 0.5,
+					ease: 'power2.inOut'
+				});
+			}
+		}
 	});
 }
 
