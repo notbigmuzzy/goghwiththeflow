@@ -3,17 +3,26 @@ export function makeApiCall(year, period) {
 	const timeline = document.querySelector('#timeline');
 	const preloader = document.querySelector('#preloader');
 
-	// DEBUG
+	if (year === 'TODAY') {
+		preloader.classList.remove('loading');
+		preloader.classList.remove('downloading');
+		timeline.classList.remove('downloading');
+
+		return;
+	}
+
+
+	// DEBUG //////////////////////////////
 	let delay = 800;
-	// DEBUG
+	// DEBUG //////////////////////////////
 
 	if (storedYear !== String(year)) {
 		localStorage.setItem('currentYear', year);
 
-		// DEBUG
+		// DEBUG //////////////////////////////
 		console.log(`API call made for year: ${year} and period: ${period}`);
 		delay = Math.floor(Math.random() * (5000 - 2000 + 1)) + 2000;
-		// DEBUG
+		// DEBUG //////////////////////////////
 	}
 
 	setTimeout(() => {
