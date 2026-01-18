@@ -34,6 +34,7 @@ export function initPhotoInteractions() {
 				document.querySelectorAll('.photo.faded').forEach(p => p.classList.remove('faded'));
 			}
 
+			// CALCULATE SCALE AND CENTER POSITION
 			photo._gsap.startX = gsap.getProperty(photo, 'x');
 			photo._gsap.startY = gsap.getProperty(photo, 'y');
 
@@ -43,7 +44,7 @@ export function initPhotoInteractions() {
 
 			const scaleX = vw / rect.width;
 			const scaleY = vh / rect.height;
-			const scale = Math.min(scaleX, scaleY) * 0.9; // 0.9 for some padding
+			const scale = Math.min(scaleX, scaleY) * 0.9;
 
 			const currentX = gsap.getProperty(photo, 'x');
 			const currentY = gsap.getProperty(photo, 'y');
@@ -55,11 +56,8 @@ export function initPhotoInteractions() {
 			if (img) {
 				const currentSrc = img.src;
 				const highResSrc = currentSrc.replace('web-large', 'original');
-
-				// Add loading state
 				photo.classList.add('getting-high-res');
 
-				// Listen for when the new image loads
 				const onLoad = () => {
 					photo.classList.remove('getting-high-res');
 					img.removeEventListener('load', onLoad);
@@ -107,8 +105,6 @@ export function initPhotoInteractions() {
 
 				img.addEventListener('load', onLoad);
 				img.addEventListener('error', onError);
-
-				// Swap the src (this triggers the download)
 				img.src = highResSrc;
 			}
 		}
