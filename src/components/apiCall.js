@@ -39,7 +39,7 @@ export async function fetchArtworks() {
 		const response = await fetch('/src/api/mock_photo.json');
 		if (!response.ok) throw new Error('Failed to fetch artworks');
 		const data = await response.json();
-		return data;
+		return data.objects || [];
 	} catch (error) {
 		console.error('Error fetching artworks:', error);
 		return [];

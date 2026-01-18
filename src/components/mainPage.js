@@ -51,6 +51,11 @@ export function initPhotoInteractions() {
 			const centerY = (vh - rect.height) / 2 - rect.top + currentY;
 
 			photo.classList.add('fullscreen');
+			const img = photo.querySelector('img');
+			if (img) {
+				const currentSrc = img.src;
+				img.src = currentSrc.replace('web-large', 'original');
+			}
 			document.querySelectorAll('.photo').forEach(p => {
 				if (p !== photo) {
 					p.classList.add('faded');
@@ -91,6 +96,11 @@ function exitFullscreen() {
 
 	const photo = currentFullscreenPhoto;
 	photo.classList.remove('fullscreen');
+	const img = photo.querySelector('img');
+	if (img) {
+		const currentSrc = img.src;
+		img.src = currentSrc.replace('original', 'web-large');
+	}
 	gsap.to(photo, {
 		x: photo._gsap.startX || 0,
 		y: photo._gsap.startY || 0,
@@ -216,7 +226,7 @@ export function createPhotos(artworks = []) {
 		const left = Math.floor(viewportWidth * selectedLefts[i]);
 		const artwork = shuffledArtworks[i];
 
-		photos += `<div class="photo photo-${i + 1}" data-id="${artwork.id}" style="position: absolute; top: ${top}px; left: ${left}px; width: ${dimensions.width}px; height: ${dimensions.height}px;"><img src="${artwork.u}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" alt="${artwork.t} by ${artwork.a} (${artwork.y})" /></div>`;
+		photos += `<div class="photo photo-${i + 1}" data-id="${artwork.objectID}" style="position: absolute; top: ${top}px; left: ${left}px; width: ${dimensions.width}px; height: ${dimensions.height}px;"><img src="${artwork.primaryImage}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" alt="${artwork.title} by ${artwork.artistDisplayName} (${artwork.objectDate})" /></div>`;
 	}
 	return photos;
 }

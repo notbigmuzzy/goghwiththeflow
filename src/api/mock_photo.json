@@ -1,44 +1,84 @@
-[
-	{
-		"id": 437980,
-		"t": "Self-Portrait with a Straw Hat",
-		"a": "Vincent van Gogh",
-		"y": 1887,
-		"u": "https://images.metmuseum.org/CRDImages/ep/web-large/DP130999.jpg"
-	},
-	{
-		"id": 437133,
-		"t": "Madame X (Madame Pierre Gautreau)",
-		"a": "John Singer Sargent",
-		"y": 1883,
-		"u": "https://images.metmuseum.org/CRDImages/ep/web-large/DP164848.jpg"
-	},
-	{
-		"id": 435809,
-		"t": "Young Woman with a Water Pitcher",
-		"a": "Johannes Vermeer",
-		"y": 1662,
-		"u": "https://images.metmuseum.org/CRDImages/ep/web-large/DP145947.jpg"
-	},
-	{
-		"id": 436105,
-		"t": "The Crucifixion",
-		"a": "Fra Angelico",
-		"y": 1420,
-		"u": "https://images.metmuseum.org/CRDImages/ep/web-large/DP-31245-001.jpg"
-	},
-	{
-		"id": 438012,
-		"t": "Self-Portrait",
-		"a": "Rembrandt van Rijn",
-		"y": 1660,
-		"u": "https://images.metmuseum.org/CRDImages/ep/web-large/DP145903.jpg"
-	},
-	{
-		"id": 435882,
-		"t": "Helmet crest from a nja masquerade",
-		"a": "Grassfields artists",
-		"y": 1800,
-		"u": "https://images.metmuseum.org/CRDImages/ao/web-large/DP-25400-001.jpg"
-	}
-]
+{
+	"objectIDs": [
+		437980,
+		437133,
+		435809,
+		436105,
+		438012,
+		435882
+	],
+	"objects": [
+		{
+			"objectID": 437980,
+			"isHighlight": true,
+			"primaryImage": "https://images.metmuseum.org/CRDImages/ep/web-large/DP130999.jpg",
+			"department": "European Paintings",
+			"title": "Self-Portrait with a Straw Hat",
+			"artistDisplayName": "Vincent van Gogh",
+			"artistNationality": "Dutch",
+			"objectDate": "1887",
+			"medium": "Oil on canvas",
+			"dimensions": "16 × 12 5/8 in. (40.6 × 32.1 cm)"
+		},
+		{
+			"objectID": 437133,
+			"isHighlight": true,
+			"primaryImage": "https://images.metmuseum.org/CRDImages/ep/web-large/DP164848.jpg",
+			"department": "European Paintings",
+			"title": "Madame X (Madame Pierre Gautreau)",
+			"artistDisplayName": "John Singer Sargent",
+			"artistNationality": "American",
+			"objectDate": "1883-84",
+			"medium": "Oil on canvas",
+			"dimensions": "82 1/8 × 43 1/4 in. (208.6 × 109.9 cm)"
+		},
+		{
+			"objectID": 435809,
+			"isHighlight": true,
+			"primaryImage": "https://images.metmuseum.org/CRDImages/ep/web-large/DP145947.jpg",
+			"department": "European Paintings",
+			"title": "Young Woman with a Water Pitcher",
+			"artistDisplayName": "Johannes Vermeer",
+			"artistNationality": "Dutch",
+			"objectDate": "ca. 1662",
+			"medium": "Oil on canvas",
+			"dimensions": "18 × 16 in. (45.7 × 40.6 cm)"
+		},
+		{
+			"objectID": 436105,
+			"isHighlight": true,
+			"primaryImage": "https://images.metmuseum.org/CRDImages/ep/web-large/DP-31245-001.jpg",
+			"department": "European Paintings",
+			"title": "The Crucifixion",
+			"artistDisplayName": "Fra Angelico",
+			"artistNationality": "Italian",
+			"objectDate": "ca. 1420-23",
+			"medium": "Tempera on wood, gold ground",
+			"dimensions": "25 1/4 × 15 1/4 in. (64.1 × 38.7 cm)"
+		},
+		{
+			"objectID": 438012,
+			"isHighlight": true,
+			"primaryImage": "https://images.metmuseum.org/CRDImages/ep/web-large/DP145903.jpg",
+			"department": "European Paintings",
+			"title": "Self-Portrait",
+			"artistDisplayName": "Rembrandt van Rijn",
+			"artistNationality": "Dutch",
+			"objectDate": "1660",
+			"medium": "Oil on canvas",
+			"dimensions": "31 7/8 × 26 3/8 in. (80.9 × 67 cm)"
+		},
+		{
+			"objectID": 435882,
+			"isHighlight": true,
+			"primaryImage": "https://images.metmuseum.org/CRDImages/ao/web-large/DP-25400-001.jpg",
+			"department": "Arts of Africa, Oceania, and the Americas",
+			"title": "Helmet crest from a nja masquerade",
+			"artistDisplayName": "Grassfields artists",
+			"artistNationality": "Cameroon",
+			"objectDate": "19th-early 20th century",
+			"medium": "Wood, pigment",
+			"dimensions": "H. 20 1/2 in. (52.1 cm)"
+		}
+	]
+}
