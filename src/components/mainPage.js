@@ -50,31 +50,36 @@ export function initPhotoInteractions() {
 			const centerX = (vw - rect.width) / 2 - rect.left + currentX;
 			const centerY = (vh - rect.height) / 2 - rect.top + currentY;
 
-			photo.classList.add('fullscreen');
+
+			// SWAP IMAGE TO HIGH-RES
 			const img = photo.querySelector('img');
 			if (img) {
 				const currentSrc = img.src;
 				img.src = currentSrc.replace('web-large', 'original');
 			}
-			document.querySelectorAll('.photo').forEach(p => {
-				if (p !== photo) {
-					p.classList.add('faded');
-				}
-			});
 
-			const timeline = document.querySelector('#timeline');
-			timeline.classList.add('hide');
-			photo._gsap.initialFullscreenScale = scale;
-			currentFullscreenPhoto = photo;
-			disableBounds(photo);
-			gsap.to(photo, {
-				x: centerX,
-				y: centerY,
-				scale: scale,
-				duration: 0.5,
-				ease: 'power2.inOut'
-			});
-			addZoomHandler(photo);
+			// ENTER FULLSCREEN AFTER A SHORT DELAY FOR SMOOTHNESS
+			setTimeout(() => {
+				photo.classList.add('fullscreen');
+				document.querySelectorAll('.photo').forEach(p => {
+					if (p !== photo) {
+						p.classList.add('faded');
+					}
+				});
+				const timeline = document.querySelector('#timeline');
+				timeline.classList.add('hide');
+				photo._gsap.initialFullscreenScale = scale;
+				currentFullscreenPhoto = photo;
+				disableBounds(photo);
+				gsap.to(photo, {
+					x: centerX,
+					y: centerY,
+					scale: scale,
+					duration: 0.5,
+					ease: 'power2.inOut'
+				});
+				addZoomHandler(photo);
+			}, 250);
 		}
 	});
 
@@ -94,26 +99,31 @@ export function initPhotoInteractions() {
 function exitFullscreen() {
 	if (!currentFullscreenPhoto) return;
 
+	// SWAP IMAGE BACK TO LOW-RES
 	const photo = currentFullscreenPhoto;
-	photo.classList.remove('fullscreen');
 	const img = photo.querySelector('img');
 	if (img) {
 		const currentSrc = img.src;
 		img.src = currentSrc.replace('original', 'web-large');
 	}
-	gsap.to(photo, {
-		x: photo._gsap.startX || 0,
-		y: photo._gsap.startY || 0,
-		scale: 1,
-		duration: 0.5,
-		ease: 'power2.inOut'
-	});
-	removeZoomHandler();
-	enableBounds(photo);
-	currentFullscreenPhoto = null;
-	document.querySelectorAll('.photo.faded').forEach(p => p.classList.remove('faded'));
-	const timeline = document.querySelector('#timeline');
-	timeline.classList.remove('hide');
+
+	// EXIT FULLSCREEN AFTER A SHORT DELAY FOR SMOOTHNESS
+	setTimeout(() => {
+		photo.classList.remove('fullscreen');
+		gsap.to(photo, {
+			x: photo._gsap.startX || 0,
+			y: photo._gsap.startY || 0,
+			scale: 1,
+			duration: 0.5,
+			ease: 'power2.inOut'
+		});
+		removeZoomHandler();
+		enableBounds(photo);
+		currentFullscreenPhoto = null;
+		document.querySelectorAll('.photo.faded').forEach(p => p.classList.remove('faded'));
+		const timeline = document.querySelector('#timeline');
+		timeline.classList.remove('hide');
+	}, 100);
 }
 
 function addZoomHandler(photo) {
