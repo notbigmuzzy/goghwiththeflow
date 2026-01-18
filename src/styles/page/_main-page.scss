@@ -21,6 +21,23 @@
 			border: 2px solid rgba(255, 255, 255, 1);
 			transition: background-color 0.5s ease, border-color 0.5s ease, opacity 0.5s ease, box-shadow 0.5s ease;
 
+			&.getting-high-res {
+				&::after {
+					content: '';
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					width: 40px;
+					height: 40px;
+					margin: -20px 0 0 -20px;
+					border: 3px solid rgba(255, 255, 255, 0.3);
+					border-top-color: rgba(255, 255, 255, 0.9);
+					border-radius: 50%;
+					animation: spin 0.8s linear infinite;
+					z-index: 10;
+				}
+			}
+
 			.photo-info {
 				position: absolute;
 				bottom: 10px;
@@ -70,5 +87,15 @@
 			transform: scale(1);
 			transition: transform 0.5s ease, opacity 0.5s ease;
 		}
+	}
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
 	}
 }

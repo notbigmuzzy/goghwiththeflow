@@ -54,52 +54,68 @@ export function initPhotoInteractions() {
 			const img = photo.querySelector('img');
 			if (img) {
 				const currentSrc = img.src;
-				img.src = currentSrc.replace('web-large', 'original');
-			}
+				const highResSrc = currentSrc.replace('web-large', 'original');
 
-			// ENTER FULLSCREEN AFTER A SHORT DELAY FOR SMOOTHNESS
-			setTimeout(() => {
-				photo.classList.add('fullscreen');
-				document.querySelectorAll('.photo').forEach(p => {
-					if (p !== photo) {
-						p.classList.add('faded');
+				// Add loading state
+				photo.classList.add('getting-high-res');
+
+				// Listen for when the new image loads
+				const onLoad = () => {
+					photo.classList.remove('getting-high-res');
+					img.removeEventListener('load', onLoad);
+					img.removeEventListener('error', onError);
+
+					{ // ENTER FULLSCREEN AFTER IMAGE LOADS
+						photo.classList.add('fullscreen');
+						document.querySelectorAll('.photo').forEach(p => {
+							if (p !== photo) {
+								p.classList.add('faded');
+							}
+						});
+						const timeline = document.querySelector('#timeline');
+						timeline.classList.add('hide');
+						photo._gsap.initialFullscreenScale = scale;
+						currentFullscreenPhoto = photo;
+						disableBounds(photo);
+						const photoInfo = photo.querySelector('.photo-info');
+						if (photoInfo) {
+							const offsetX = rect.width + 20;
+							gsap.to(photoInfo, {
+								x: offsetX,
+								y: -(rect.height * 0.45),
+								duration: 0.5,
+								ease: 'power2.inOut'
+							});
+						}
+						gsap.to(photo, {
+							x: centerX,
+							y: centerY,
+							scale: scale,
+							duration: 0.5,
+							ease: 'power2.inOut'
+						});
+						addZoomHandler(photo);
 					}
-				});
-				const timeline = document.querySelector('#timeline');
-				timeline.classList.add('hide');
-				photo._gsap.initialFullscreenScale = scale;
-				currentFullscreenPhoto = photo;
-				disableBounds(photo);
-				const photoInfo = photo.querySelector('.photo-info');
-				if (photoInfo) {
-					const offsetX = rect.width + 20;
-					gsap.to(photoInfo, {
-						x: offsetX,
-						y: -(rect.height * 0.45),
-						duration: 0.5,
-						ease: 'power2.inOut'
-					});
-				}
-				gsap.to(photo, {
-					x: centerX,
-					y: centerY,
-					scale: scale,
-					duration: 0.5,
-					ease: 'power2.inOut'
-				});
-				addZoomHandler(photo);
-			}, 250);
+				};
+
+				const onError = () => {
+					photo.classList.remove('getting-high-res');
+					img.src = currentSrc; // Revert to low-res on error
+					img.removeEventListener('load', onLoad);
+					img.removeEventListener('error', onError);
+				};
+
+				img.addEventListener('load', onLoad);
+				img.addEventListener('error', onError);
+
+				// Swap the src (this triggers the download)
+				img.src = highResSrc;
+			}
 		}
 	});
 
 	document.getElementById('mainPage').addEventListener('click', function (e) {
 		if (currentFullscreenPhoto && !e.target.closest('.photo')) {
-			exitFullscreen();
-		}
-	});
-
-	document.addEventListener('keydown', function (e) {
-		if (e.key === 'Escape' && currentFullscreenPhoto) {
 			exitFullscreen();
 		}
 	});
@@ -110,6 +126,7 @@ function exitFullscreen() {
 
 	// SWAP IMAGE BACK TO LOW-RES
 	const photo = currentFullscreenPhoto;
+	photo.classList.remove('getting-high-res'); // Clean up loading state if still present
 	const img = photo.querySelector('img');
 	if (img) {
 		const currentSrc = img.src;
