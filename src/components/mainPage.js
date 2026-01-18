@@ -179,10 +179,12 @@ function enableBounds(photo) {
 	}
 }
 
-export function createPhotos() {
+export function createPhotos(artworks = []) {
+	if (!artworks.length) return '';
+
 	const viewportWidth = window.innerWidth;
 	const viewportHeight = window.innerHeight;
-	const numberOfPhotos = Math.floor(Math.random() * 5) + 3; // Between 3 and 7 photos
+	const numberOfPhotos = Math.min(Math.floor(Math.random() * 5) + 3, artworks.length);
 
 	const aspectRatio = 240 / 320;
 	const height = Math.floor(viewportHeight * 0.5);
@@ -206,20 +208,15 @@ export function createPhotos() {
 
 	const selectedTops = shuffle(topPositions).slice(0, numberOfPhotos);
 	const selectedLefts = shuffle(leftPositions).slice(0, numberOfPhotos);
-
-	const imageFiles = [
-		'first.jpeg', 'second.jpeg', 'third.jpeg', 'fourth.jpeg', 'fifth.jpeg',
-		'sixth.jpeg', 'seventh.jpeg', 'eight.jpeg', 'nine.jpeg', 'tenth.jpeg'
-	];
-	const shuffledImages = shuffle([...imageFiles]);
+	const shuffledArtworks = shuffle([...artworks]).slice(0, numberOfPhotos);
 
 	let photos = '';
 	for (let i = 0; i < numberOfPhotos; i++) {
 		const top = Math.floor(viewportHeight * selectedTops[i]);
 		const left = Math.floor(viewportWidth * selectedLefts[i]);
-		const imageSrc = `/test_images/${shuffledImages[i % shuffledImages.length]}`;
+		const artwork = shuffledArtworks[i];
 
-		photos += `<div class="photo photo-${i + 1}" style="position: absolute; top: ${top}px; left: ${left}px; width: ${dimensions.width}px; height: ${dimensions.height}px;"><img src="${imageSrc}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" alt="photo ${i + 1}" /></div>`;
+		photos += `<div class="photo photo-${i + 1}" data-id="${artwork.id}" style="position: absolute; top: ${top}px; left: ${left}px; width: ${dimensions.width}px; height: ${dimensions.height}px;"><img src="${artwork.u}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" alt="${artwork.t} by ${artwork.a} (${artwork.y})" /></div>`;
 	}
 	return photos;
 }

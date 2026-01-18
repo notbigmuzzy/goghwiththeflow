@@ -1,6 +1,6 @@
 import { createPhotos, initPhotoInteractions } from './mainPage.js';
 
-export function makeApiCall(year, period) {
+export async function makeApiCall(year, period) {
 	const storedYear = localStorage.getItem('currentYear');
 	const timeline = document.querySelector('#timeline');
 	const preloader = document.querySelector('#preloader');
@@ -15,25 +15,33 @@ export function makeApiCall(year, period) {
 	}
 
 	if (newYearSelected) {
+		const artworks = await fetchArtworks();
 		localStorage.setItem('currentYear', year); // SET NEW YEAR IN LOCAL STORAGE
 		mainpage.querySelectorAll('.photo').forEach(photo => photo.remove()); // REFRESH PHOTOS
 		const photoPane = mainpage.querySelector('.pane-photos');
 		if (photoPane) {
-			photoPane.innerHTML = createPhotos();
+			photoPane.innerHTML = createPhotos(artworks);
 			initPhotoInteractions();
 		}
 	}
 
-	// API CALL HERE //////////////////////////////
-	let delay = 800;
-	delay = Math.floor(Math.random() * (5000 - 2000 + 1)) + 2000;
-	setTimeout(() => {
+	{ // SHOW MAIN PAGE AFTER LOADING
 		preloader.classList.remove('loading', 'downloading');
 		timeline.classList.remove('dialing', 'downloading');
-
 		setTimeout(() => {
 			mainpage.classList.add('show');
 		}, 400);
-	}, delay);
-	// API CALL HERE //////////////////////////////
+	}
+}
+
+export async function fetchArtworks() {
+	try {
+		const response = await fetch('/src/api/mock_photo.json');
+		if (!response.ok) throw new Error('Failed to fetch artworks');
+		const data = await response.json();
+		return data;
+	} catch (error) {
+		console.error('Error fetching artworks:', error);
+		return [];
+	}
 }
