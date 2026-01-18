@@ -47,9 +47,8 @@ export function initPhotoInteractions() {
 
 			const currentX = gsap.getProperty(photo, 'x');
 			const currentY = gsap.getProperty(photo, 'y');
-			const centerX = (vw - rect.width) / 2 - rect.left + currentX;
+			const centerX = (vw * 0.25) - rect.left + currentX;
 			const centerY = (vh - rect.height) / 2 - rect.top + currentY;
-
 
 			// SWAP IMAGE TO HIGH-RES
 			const img = photo.querySelector('img');
@@ -71,6 +70,16 @@ export function initPhotoInteractions() {
 				photo._gsap.initialFullscreenScale = scale;
 				currentFullscreenPhoto = photo;
 				disableBounds(photo);
+				const photoInfo = photo.querySelector('.photo-info');
+				if (photoInfo) {
+					const offsetX = rect.width + 20;
+					gsap.to(photoInfo, {
+						x: offsetX,
+						y: -(rect.height * 0.45),
+						duration: 0.5,
+						ease: 'power2.inOut'
+					});
+				}
 				gsap.to(photo, {
 					x: centerX,
 					y: centerY,
@@ -110,6 +119,18 @@ function exitFullscreen() {
 	// EXIT FULLSCREEN AFTER A SHORT DELAY FOR SMOOTHNESS
 	setTimeout(() => {
 		photo.classList.remove('fullscreen');
+
+		// Animate photo-info back to original position
+		const photoInfo = photo.querySelector('.photo-info');
+		if (photoInfo) {
+			gsap.to(photoInfo, {
+				x: 0,
+				y: 0,
+				duration: 0.5,
+				ease: 'power2.inOut'
+			});
+		}
+
 		gsap.to(photo, {
 			x: photo._gsap.startX || 0,
 			y: photo._gsap.startY || 0,
@@ -236,7 +257,13 @@ export function createPhotos(artworks = []) {
 		const left = Math.floor(viewportWidth * selectedLefts[i]);
 		const artwork = shuffledArtworks[i];
 
-		photos += `<div class="photo photo-${i + 1}" data-id="${artwork.objectID}" style="position: absolute; top: ${top}px; left: ${left}px; width: ${dimensions.width}px; height: ${dimensions.height}px;"><img src="${artwork.primaryImage}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" alt="${artwork.title} by ${artwork.artistDisplayName} (${artwork.objectDate})" /></div>`;
+		photos += `<div class="photo photo-${i + 1}" data-id="${artwork.objectID}" style="position: absolute; top: ${top}px; left: ${left}px; width: ${dimensions.width}px; height: ${dimensions.height}px;">
+			<img src="${artwork.primaryImage}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" alt="${artwork.title} by ${artwork.artistDisplayName} (${artwork.objectDate})" />
+			<div class="photo-info">
+				<div class="photo-artist">${artwork.artistDisplayName}</div>
+				<div class="photo-title">${artwork.title}</div>
+			</div>
+		</div>`;
 	}
 	return photos;
 }
