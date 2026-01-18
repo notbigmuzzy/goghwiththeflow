@@ -115,7 +115,7 @@ function addZoomHandler(photo) {
 		e.preventDefault();
 
 		const minScale = photo._gsap.initialFullscreenScale || 1;
-		const maxScale = minScale * 5;
+		const maxScale = minScale * 8;
 		const zoomSpeed = 0.010;
 
 		const currentScale = gsap.getProperty(photo, 'scale');
