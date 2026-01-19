@@ -17,6 +17,8 @@
 		.photo {
 			display: block;
 			position: absolute;
+			will-change: transform;
+			transition: transform 0.2s cubic-bezier(0.25, 0.51, 0.45, 0.94);
 
 			.img-wrapper {
 				position: absolute;
@@ -105,7 +107,8 @@
 			}
 
 			&.faded {
-				opacity: 0.2;
+				opacity: 0.15;
+				filter: blur(5px);
 				border: 1px solid rgba(255, 255, 255, 0.5);
 				pointer-events: none;
 			}
@@ -122,7 +125,7 @@
 				}
 
 				.img-wrapper {
-					z-index: 9;
+					z-index: 1000;
 					background-color: rgb(217 205 188);
 					border: 2px solid rgb(60 55 48);
 					box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
@@ -132,8 +135,27 @@
 				}
 			}
 
-			&:hover {
+			&:hover:not(.fullscreen):not(.faded) {
 				z-index: 3000 !important;
+
+				.img-wrapper {
+					border-color: white;
+					box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.4);
+				}
+			}
+
+			&:nth-child(1):not(.fullscreen):not(.faded):hover,
+			&:nth-child(4):not(.fullscreen):not(.faded):hover {
+				transform: perspective(1000px) rotateX(-7deg) rotateY(14deg) scale(1.07) !important;
+			}
+
+			&:nth-child(2):not(.fullscreen):not(.faded):hover {
+				transform: perspective(1000px) rotateX(-5deg) rotateY(0deg) scale(1.05) !important;
+			}
+
+			&:nth-child(3):not(.fullscreen):not(.faded):hover,
+			&:nth-child(5):not(.fullscreen):not(.faded):hover {
+				transform: perspective(1000px) rotateX(-7deg) rotateY(-14deg) scale(1.07) !important;
 			}
 		}
 	}
