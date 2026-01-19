@@ -286,13 +286,15 @@ export function createPhotos(artworks = []) {
 		const left = Math.floor(viewportWidth * positions[i].left) - Math.floor(width / 2);
 		const artwork = shuffledArtworks[i];
 
-		photos += `<div class="photo photo-${i + 1}" data-id="${artwork.objectID}" style="position: absolute; top: ${top}px; left: ${left}px; width: ${dimensions.width}px; height: ${dimensions.height}px;">
-		<img src="${artwork.primaryImageSmall}" loading="lazy" style="width: 100%; height: 100%; object-fit: contain;" alt="${artwork.title} by ${artwork.artistDisplayName} (${artwork.objectDate})" />
-			<div class="photo-info">
-				<div class="photo-artist">${artwork.artistDisplayName}</div>
-				<div class="photo-title">${artwork.title}</div>
+		photos += `
+			<div class="photo photo-${i + 1}" data-id="${artwork.objectID}" style="position: absolute; top: ${top}px; left: ${left}px; width: ${dimensions.width}px; height: ${dimensions.height}px;">
+				<img src="${artwork.primaryImageSmall}" loading="lazy" style="width: 100%; height: 100%; object-fit: contain;" alt="${artwork.title} by ${artwork.artistDisplayName} (${artwork.objectDate})" />
+				<div class="photo-info">
+					<div class="photo-artist">${artwork.artistDisplayName}</div>
+					<div class="photo-title">${artwork.title}</div>
+				</div>
 			</div>
-		</div>`;
+		`;
 	}
 	return photos;
 }
