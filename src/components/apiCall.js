@@ -1,6 +1,6 @@
 import { createPhotos, initPhotoInteractions } from './mainPage.js';
 
-export async function makeApiCall(year, period) {
+export async function makeApiCall(year) {
 	const storedYear = localStorage.getItem('currentYear');
 	const timeline = document.querySelector('#timeline');
 	const preloader = document.querySelector('#preloader');
