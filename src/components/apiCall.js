@@ -35,32 +35,32 @@ export async function makeApiCall(year) {
 }
 
 export async function fetchArtworks(year) {
-	const searchUrl = `https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&dateBegin=${year}&dateEnd=${year}&q=*`;
-
 	try {
-		const paintingsResponse = await fetch(searchUrl);
-		const paintingsData = await paintingsResponse.json();
+		// Load pre-scraped valid IDs for the year
+		const response = await fetch(`/src/api/ids/${year}.json`);
+		const validIds = await response.json();
 
-		if (!paintingsData.objectIDs || paintingsData.objectIDs.length === 0) {
-			console.log('No artworks found for year:', year);
+		if (!validIds || validIds.length === 0) {
+			console.log('No valid IDs found for year:', year);
 			return [];
 		}
 
-		const shuffledIDs = paintingsData.objectIDs.sort(() => 0.5 - Math.random());
+		console.log(`Loaded ${validIds.length} valid IDs for ${year}`);
+
+		// Randomly select target number of IDs
 		const targetCount = Math.floor(Math.random() * 3) + 3; // 3-5 artworks
+		const shuffled = validIds.sort(() => 0.5 - Math.random());
+		const selectedIds = shuffled.slice(0, targetCount);
+
+		// Fetch the selected artworks
 		const artworks = [];
-		let attempts = 0;
-
-		for (const id of shuffledIDs) {
-			if (artworks.length >= targetCount || attempts >= 10) break;
-			attempts++;
-
+		for (const id of selectedIds) {
 			const objectUrl = `https://collectionapi.metmuseum.org/public/collection/v1/objects/${id}`;
 			try {
 				const response = await fetch(objectUrl);
 				const artwork = await response.json();
 
-				if (artwork && artwork.primaryImage && artwork.primaryImage !== '') {
+				if (artwork && artwork.primaryImage) {
 					artworks.push(artwork);
 				}
 			} catch (err) {
@@ -68,7 +68,7 @@ export async function fetchArtworks(year) {
 			}
 		}
 
-		console.log(`Final artworks: ${artworks.length} found after ${attempts} attempts`);
+		console.log(`Fetched ${artworks.length} artworks for ${year}`);
 		return artworks;
 	} catch (error) {
 		console.error('Error fetching artworks:', error);
