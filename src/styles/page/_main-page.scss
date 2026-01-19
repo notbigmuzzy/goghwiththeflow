@@ -17,9 +17,18 @@
 		.photo {
 			display: block;
 			position: absolute;
-			background-color: rgb(217 205 188);
-			border: 2px solid rgb(60 55 48);
-			transition: background-color 0.5s ease, border-color 0.5s ease, opacity 0.5s ease, box-shadow 0.5s ease;
+
+			.img-wrapper {
+				position: absolute;
+				background-color: rgb(217 205 188);
+				border: 2px solid rgb(60 55 48);
+				transition: background-color 0.5s ease, border-color 0.5s ease, opacity 0.5s ease, box-shadow 0.5s ease;
+
+				&:hover {
+					border-color: white;
+					box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+				}
+			}
 
 			&.getting-high-res {
 				&::after {
@@ -46,6 +55,7 @@
 				width: 100%;
 				color: white;
 				text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+				pointer-events: none;
 			}
 
 			.photo-artist {
@@ -61,6 +71,24 @@
 				font-weight: bold;
 			}
 
+			.additional-info {
+				display: none;
+				margin-top: 15px;
+				font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+				font-size: 12px;
+				line-height: 1.4;
+
+				hr {
+					border: 0;
+					border-top: 1px solid rgba(255, 255, 255, 0.4);
+					margin: 10px 0;
+				}
+
+				.info-item {
+					margin-bottom: 5px;
+				}
+			}
+
 			&.faded {
 				opacity: 0.2;
 				border: 1px solid rgba(255, 255, 255, 0.5);
@@ -68,19 +96,16 @@
 			}
 
 			&.fullscreen {
-				background-color: rgba(255, 255, 255, 0.9);
-				border-color: rgba(255, 255, 255, 0.6);
-				cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="20" viewBox="0 0 120 20"><circle cx="6" cy="10" r="4" fill="none" stroke="white" stroke-width="1.5"/><line x1="9" y1="13" x2="12" y2="16" stroke="white" stroke-width="1.5" stroke-linecap="round"/><text x="16" y="15" font-family="monospace" font-size="12" fill="white" stroke="white" stroke-width="0.5">SCROLL TO ZOOM</text><line x1="111" y1="13" x2="108" y2="16" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>') 60 10, grab !important;
-
-				.photo-info {
-					width: 50%;
-					pointer-events: none;
+				.photo-info .additional-info {
+					display: block;
 				}
-			}
 
-			&:hover {
-				border-color: white;
-				box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+				.img-wrapper {
+					z-index: 9;
+					background-color: rgb(217 205 188);
+					border: 2px solid rgb(60 55 48);
+					cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="20" viewBox="0 0 120 20"><circle cx="6" cy="10" r="4" fill="none" stroke="white" stroke-width="1.5"/><line x1="9" y1="13" x2="12" y2="16" stroke="white" stroke-width="1.5" stroke-linecap="round"/><text x="16" y="15" font-family="monospace" font-size="12" fill="white" stroke="white" stroke-width="0.5">SCROLL TO ZOOM</text><line x1="111" y1="13" x2="108" y2="16" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>') 60 10, grab !important;
+				}
 			}
 		}
 	}
