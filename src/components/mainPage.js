@@ -6,6 +6,8 @@ let currentFullscreenPhoto = null;
 let wheelHandler = null;
 let draggableInstances = [];
 
+let currentWrapperDraggable = null;
+
 export function initPhotoInteractions() {
 	draggableInstances = Draggable.create('.photo', {
 		type: 'x,y',
@@ -20,21 +22,9 @@ export function initPhotoInteractions() {
 			}
 
 			if (currentFullscreenPhoto && currentFullscreenPhoto !== photo) {
-				currentFullscreenPhoto.classList.remove('fullscreen');
-				gsap.to(currentFullscreenPhoto, {
-					x: currentFullscreenPhoto._gsap.startX || 0,
-					y: currentFullscreenPhoto._gsap.startY || 0,
-					scale: 1,
-					duration: 0.5,
-					ease: 'power2.inOut'
-				});
-				removeZoomHandler();
-				enableBounds(currentFullscreenPhoto);
-				currentFullscreenPhoto = null;
-				document.querySelectorAll('.photo.faded').forEach(p => p.classList.remove('faded'));
+				exitFullscreen();
 			}
 
-			// CALCULATE SCALE AND CENTER POSITION
 			photo._gsap.startX = gsap.getProperty(photo, 'x');
 			photo._gsap.startY = gsap.getProperty(photo, 'y');
 
@@ -52,7 +42,9 @@ export function initPhotoInteractions() {
 			const centerY = (vh - rect.height) / 2 - rect.top + currentY;
 
 			// SWAP IMAGE TO HIGH-RES
-			const img = photo.querySelector('img');
+			const wrapper = photo.querySelector('.img-wrapper');
+			const img = wrapper ? wrapper.querySelector('img') : photo.querySelector('img');
+
 			if (img) {
 				const currentSrc = img.src;
 				const highResSrc = currentSrc.replace('web-large', 'original');
@@ -72,13 +64,22 @@ export function initPhotoInteractions() {
 							}
 						});
 						const timeline = document.querySelector('#timeline');
-						timeline.classList.add('hide');
-						photo._gsap.initialFullscreenScale = scale;
+						if (timeline) timeline.classList.add('hide');
+
 						currentFullscreenPhoto = photo;
-						disableBounds(photo);
+
+						// Disable drag on .photo container
+						const photoDraggable = getDraggableInstance(photo);
+						if (photoDraggable) photoDraggable.disable();
+
 						const photoInfo = photo.querySelector('.photo-info');
 						if (photoInfo) {
-							const offsetX = rect.width + 20;
+							// Calculate offset for info
+							// Wrapper scales up from center. 
+							// Info should be at right edge of scaled wrapper.
+							const zoomedWidth = rect.width * scale;
+							const offsetX = (rect.width + zoomedWidth) / 2 + 20;
+
 							gsap.to(photoInfo, {
 								x: offsetX,
 								y: -(rect.height * 0.45),
@@ -86,14 +87,39 @@ export function initPhotoInteractions() {
 								ease: 'power2.inOut'
 							});
 						}
+
+						// Move Photo to center (without scaling container)
 						gsap.to(photo, {
 							x: centerX,
 							y: centerY,
-							scale: scale,
+							scale: 1,
 							duration: 0.5,
 							ease: 'power2.inOut'
 						});
-						addZoomHandler(photo);
+
+						// Scale Wrapper
+						if (wrapper) {
+							gsap.to(wrapper, {
+								scale: scale,
+								x: 0,
+								y: 0,
+								duration: 0.5,
+								ease: 'power2.inOut',
+								onComplete: () => {
+									// Enable drag on wrapper
+									if (currentWrapperDraggable) currentWrapperDraggable.kill();
+									currentWrapperDraggable = Draggable.create(wrapper, {
+										type: 'x,y',
+										inertia: true
+									})[0];
+								}
+							});
+
+							// Store initial scale for zoom limits
+							wrapper._gsap = wrapper._gsap || {};
+							wrapper._gsap.initialFullscreenScale = scale;
+							addZoomHandler(wrapper);
+						}
 					}, 250);
 				};
 
@@ -121,20 +147,27 @@ export function initPhotoInteractions() {
 function exitFullscreen() {
 	if (!currentFullscreenPhoto) return;
 
-	// SWAP IMAGE BACK TO LOW-RES
 	const photo = currentFullscreenPhoto;
-	photo.classList.remove('getting-high-res'); // Clean up loading state if still present
-	const img = photo.querySelector('img');
+	photo.classList.remove('getting-high-res');
+
+	// Kill wrapper drag
+	if (currentWrapperDraggable) {
+		currentWrapperDraggable.kill();
+		currentWrapperDraggable = null;
+	}
+
+	const wrapper = photo.querySelector('.img-wrapper');
+	const img = wrapper ? wrapper.querySelector('img') : photo.querySelector('img');
+
 	if (img) {
 		const currentSrc = img.src;
 		img.src = currentSrc.replace('original', 'web-large');
 	}
 
-	// EXIT FULLSCREEN AFTER A SHORT DELAY FOR SMOOTHNESS
 	setTimeout(() => {
 		photo.classList.remove('fullscreen');
 
-		// Animate photo-info back to original position
+		// Animate photo-info back
 		const photoInfo = photo.querySelector('.photo-info');
 		if (photoInfo) {
 			gsap.to(photoInfo, {
@@ -145,6 +178,7 @@ function exitFullscreen() {
 			});
 		}
 
+		// Reset Photo position
 		gsap.to(photo, {
 			x: photo._gsap.startX || 0,
 			y: photo._gsap.startY || 0,
@@ -152,41 +186,69 @@ function exitFullscreen() {
 			duration: 0.5,
 			ease: 'power2.inOut'
 		});
+
+		// Reset Wrapper
+		if (wrapper) {
+			gsap.to(wrapper, {
+				scale: 1,
+				x: 0,
+				y: 0,
+				duration: 0.5,
+				ease: 'power2.inOut'
+			});
+		}
+
 		removeZoomHandler();
-		enableBounds(photo);
+
+		// Re-enable photo drag
+		const photoDraggable = getDraggableInstance(photo);
+		if (photoDraggable) {
+			// Ensure bounds are reset to #mainPage if they were changed
+			photoDraggable.enable();
+			photoDraggable.applyBounds('#mainPage');
+		}
+
 		currentFullscreenPhoto = null;
 		document.querySelectorAll('.photo.faded').forEach(p => p.classList.remove('faded'));
 		const timeline = document.querySelector('#timeline');
-		timeline.classList.remove('hide');
+		if (timeline) timeline.classList.remove('hide');
 	}, 100);
 }
 
-function addZoomHandler(photo) {
+function addZoomHandler(target) {
 	removeZoomHandler();
 
+	// Attach wheel listener to the photo container or the target?
+	// The target (wrapper) is scaled.
+	// Let's attach to the target for direct interaction.
+
 	wheelHandler = (e) => {
-		if (!photo.classList.contains('fullscreen')) return;
+		// e.target might be img inside wrapper.
+		// using 'target' closure variable which is the wrapper.
 
 		e.preventDefault();
+		e.stopPropagation();
 
-		const minScale = photo._gsap.initialFullscreenScale || 1;
+		const minScale = target._gsap.initialFullscreenScale || 1;
 		const maxScale = minScale * 8;
 		const zoomSpeed = 0.010;
 
-		const currentScale = gsap.getProperty(photo, 'scale');
+		const currentScale = gsap.getProperty(target, 'scale');
 		const delta = -e.deltaY * zoomSpeed;
 		let newScale = currentScale + delta;
 
 		newScale = Math.max(minScale, Math.min(maxScale, newScale));
 
+		const rect = target.getBoundingClientRect();
+
+		// Mouse position relative to viewport
 		const mouseX = e.clientX;
 		const mouseY = e.clientY;
 
-		const currentX = gsap.getProperty(photo, 'x');
-		const currentY = gsap.getProperty(photo, 'y');
+		const currentX = gsap.getProperty(target, 'x');
+		const currentY = gsap.getProperty(target, 'y');
 
-		const rect = photo.getBoundingClientRect();
-
+		// Calculate center of the transformed element
 		const photoCenterX = rect.left + rect.width / 2;
 		const photoCenterY = rect.top + rect.height / 2;
 
@@ -197,7 +259,7 @@ function addZoomHandler(photo) {
 		const offsetX = -deltaX * scaleChange;
 		const offsetY = -deltaY * scaleChange;
 
-		gsap.to(photo, {
+		gsap.to(target, {
 			scale: newScale,
 			x: currentX + offsetX,
 			y: currentY + offsetY,
@@ -206,32 +268,21 @@ function addZoomHandler(photo) {
 		});
 	};
 
-	photo.addEventListener('wheel', wheelHandler, { passive: false });
+	target.addEventListener('wheel', wheelHandler, { passive: false });
 }
 
 function removeZoomHandler() {
 	if (wheelHandler && currentFullscreenPhoto) {
-		currentFullscreenPhoto.removeEventListener('wheel', wheelHandler);
+		const wrapper = currentFullscreenPhoto.querySelector('.img-wrapper');
+		if (wrapper) {
+			wrapper.removeEventListener('wheel', wheelHandler);
+		}
 		wheelHandler = null;
 	}
 }
 
 function getDraggableInstance(photo) {
 	return draggableInstances.find(instance => instance.target === photo);
-}
-
-function disableBounds(photo) {
-	const instance = getDraggableInstance(photo);
-	if (instance) {
-		instance.applyBounds({ minX: -Infinity, maxX: Infinity, minY: -Infinity, maxY: Infinity });
-	}
-}
-
-function enableBounds(photo) {
-	const instance = getDraggableInstance(photo);
-	if (instance) {
-		instance.applyBounds('#mainPage');
-	}
 }
 
 export function createPhotos(artworks = []) {
@@ -288,10 +339,20 @@ export function createPhotos(artworks = []) {
 
 		photos += `
 			<div class="photo photo-${i + 1}" data-id="${artwork.objectID}" style="position: absolute; top: ${top}px; left: ${left}px; width: ${dimensions.width}px; height: ${dimensions.height}px;">
-				<img src="${artwork.primaryImageSmall}" loading="lazy" style="width: 100%; height: 100%; object-fit: contain;" alt="${artwork.title} by ${artwork.artistDisplayName} (${artwork.objectDate})" />
+				<div class="img-wrapper" style="width: 100%; height: 100%;">
+					<img src="${artwork.primaryImageSmall}" loading="lazy" style="width: 100%; height: 100%; object-fit: contain;" alt="${artwork.title} by ${artwork.artistDisplayName} (${artwork.objectDate})" />
+				</div>
 				<div class="photo-info">
 					<div class="photo-artist">${artwork.artistDisplayName}</div>
 					<div class="photo-title">${artwork.title}</div>
+					<div class="additional-info">
+						<hr>
+						<div class="info-item">${artwork.department}</div>
+						<div class="info-item">${artwork.artistDisplayBio}</div>
+						<div class="info-item">${artwork.medium}</div>
+						<div class="info-item">${artwork.dimensions}</div>
+						<div class="info-item">${artwork.creditLine}</div>
+					</div>
 				</div>
 			</div>
 		`;
