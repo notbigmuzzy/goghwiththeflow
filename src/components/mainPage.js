@@ -30,25 +30,20 @@ export function initPhotoInteractions() {
 
 			photo._gsap.startX = gsap.getProperty(photo, 'x');
 			photo._gsap.startY = gsap.getProperty(photo, 'y');
+			photo._gsap.originalWidth = parseFloat(getComputedStyle(photo).width);
+			photo._gsap.originalHeight = parseFloat(getComputedStyle(photo).height);
 
 			const rect = photo.getBoundingClientRect();
 			const vw = window.innerWidth;
 			const vh = window.innerHeight;
-
-			const scaleX = vw / rect.width;
-			const scaleY = vh / rect.height;
-			const scale = Math.min(scaleX, scaleY) * 0.9;
-
-			const currentX = gsap.getProperty(photo, 'x');
-			const currentY = gsap.getProperty(photo, 'y');
-			const centerX = (vw * 0.25) - rect.left + currentX;
-			const centerY = (vh - rect.height) / 2 - rect.top + currentY;
 
 			// SWAP IMAGE TO HIGH-RES
 			const wrapper = photo.querySelector('.img-wrapper');
 			const img = wrapper ? wrapper.querySelector('img') : photo.querySelector('img');
 
 			gsap.to(photo, { rotationX: 0, rotationY: 0, scale: 1, duration: 0.3 });
+			const currentX = gsap.getProperty(photo, 'x');
+			const currentY = gsap.getProperty(photo, 'y');
 
 			if (img) {
 				const currentSrc = img.src;
@@ -59,6 +54,26 @@ export function initPhotoInteractions() {
 					photo.classList.remove('getting-high-res');
 					img.removeEventListener('load', onLoad);
 					img.removeEventListener('error', onError);
+
+					// Calculate fit dimensions based on ORIGINAL CONTAINER aspect ratio
+					// (User does not want aspect ratio changed, just size increased)
+					const scaleX = vw / rect.width;
+					const scaleY = vh / rect.height;
+					const scale = Math.min(scaleX, scaleY) * 0.9;
+
+					const targetWidth = rect.width * scale;
+					const targetHeight = rect.height * scale;
+
+					// Target position logic (Replicating center-scaling alignment)
+					// Previous logic: Left at 25% VW, then scaled from center.
+					// Visual Center = (vw * 0.25) + (rect.width / 2)
+					// New Left = Visual Center - (targetWidth / 2)
+					const visualCenterX = (vw * 0.25) + (rect.width / 2);
+
+					const targetX = visualCenterX - (targetWidth / 2) - rect.left + currentX;
+
+					// Center Y in viewport
+					const targetY = (vh - targetHeight) / 2 - rect.top + currentY;
 
 					// ENTER FULLSCREEN AFTER IMAGE LOADS
 					setTimeout(() => {
@@ -78,28 +93,32 @@ export function initPhotoInteractions() {
 
 						const photoInfo = photo.querySelector('.photo-info');
 						if (photoInfo) {
-							const zoomedWidth = rect.width * scale;
-							const offsetX = (rect.width + zoomedWidth) / 2 + 20;
-
+							// Position info to the right of the expanded photo
 							gsap.to(photoInfo, {
-								x: offsetX,
-								y: -(rect.height * 0.45),
+								x: targetWidth + 20,
+								y: -targetHeight * 0.45,
+								width: 300,
 								duration: 0.5,
 								ease: 'power2.inOut'
 							});
 						}
+
 						gsap.to(photo, {
-							x: centerX,
-							y: centerY,
+							x: targetX,
+							y: targetY,
+							width: targetWidth,
+							height: targetHeight,
 							scale: 1,
 							rotationX: 0,
 							rotationY: 0,
 							duration: 0.5,
 							ease: 'power2.inOut'
 						});
+
 						if (wrapper) {
+							// NO SCALING on wrapper
 							gsap.to(wrapper, {
-								scale: scale,
+								scale: 1,
 								x: 0,
 								y: 0,
 								duration: 0.5,
@@ -124,8 +143,9 @@ export function initPhotoInteractions() {
 								}
 							});
 
+							// Initial zoom scale ref? used for zoom handler?
 							wrapper._gsap = wrapper._gsap || {};
-							wrapper._gsap.initialFullscreenScale = scale;
+							wrapper._gsap.initialFullscreenScale = 1;
 							addZoomHandler(wrapper);
 						}
 					}, 300);
@@ -183,13 +203,18 @@ function exitFullscreen() {
 			ease: 'power2.inOut'
 		});
 	}
-	gsap.to(photo, {
+	const animProps = {
 		x: photo._gsap.startX || 0,
 		y: photo._gsap.startY || 0,
 		scale: 1,
 		duration: 0.5,
 		ease: 'power2.inOut'
-	});
+	};
+
+	if (photo._gsap.originalWidth) animProps.width = photo._gsap.originalWidth;
+	if (photo._gsap.originalHeight) animProps.height = photo._gsap.originalHeight;
+
+	gsap.to(photo, animProps);
 	if (wrapper) {
 		gsap.to(wrapper, {
 			scale: 1,
