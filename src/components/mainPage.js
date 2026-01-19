@@ -68,15 +68,11 @@ export function initPhotoInteractions() {
 
 						currentFullscreenPhoto = photo;
 
-						// Disable drag on .photo container
 						const photoDraggable = getDraggableInstance(photo);
 						if (photoDraggable) photoDraggable.disable();
 
 						const photoInfo = photo.querySelector('.photo-info');
 						if (photoInfo) {
-							// Calculate offset for info
-							// Wrapper scales up from center. 
-							// Info should be at right edge of scaled wrapper.
 							const zoomedWidth = rect.width * scale;
 							const offsetX = (rect.width + zoomedWidth) / 2 + 20;
 
@@ -87,8 +83,6 @@ export function initPhotoInteractions() {
 								ease: 'power2.inOut'
 							});
 						}
-
-						// Move Photo to center (without scaling container)
 						gsap.to(photo, {
 							x: centerX,
 							y: centerY,
@@ -96,8 +90,6 @@ export function initPhotoInteractions() {
 							duration: 0.5,
 							ease: 'power2.inOut'
 						});
-
-						// Scale Wrapper
 						if (wrapper) {
 							gsap.to(wrapper, {
 								scale: scale,
@@ -106,16 +98,25 @@ export function initPhotoInteractions() {
 								duration: 0.5,
 								ease: 'power2.inOut',
 								onComplete: () => {
-									// Enable drag on wrapper
 									if (currentWrapperDraggable) currentWrapperDraggable.kill();
 									currentWrapperDraggable = Draggable.create(wrapper, {
 										type: 'x,y',
-										inertia: true
+										inertia: true,
+										onDragStart: function () {
+											this.target.classList.add('drag-in-progress');
+										},
+										onDragEnd: function () {
+											if (!this.isThrowing) {
+												this.target.classList.remove('drag-in-progress');
+											}
+										},
+										onThrowComplete: function () {
+											this.target.classList.remove('drag-in-progress');
+										}
 									})[0];
 								}
 							});
 
-							// Store initial scale for zoom limits
 							wrapper._gsap = wrapper._gsap || {};
 							wrapper._gsap.initialFullscreenScale = scale;
 							addZoomHandler(wrapper);
@@ -200,10 +201,8 @@ function exitFullscreen() {
 
 		removeZoomHandler();
 
-		// Re-enable photo drag
 		const photoDraggable = getDraggableInstance(photo);
 		if (photoDraggable) {
-			// Ensure bounds are reset to #mainPage if they were changed
 			photoDraggable.enable();
 			photoDraggable.applyBounds('#mainPage');
 		}
@@ -218,16 +217,26 @@ function exitFullscreen() {
 function addZoomHandler(target) {
 	removeZoomHandler();
 
-	// Attach wheel listener to the photo container or the target?
-	// The target (wrapper) is scaled.
-	// Let's attach to the target for direct interaction.
+	let zoomTimeout;
 
 	wheelHandler = (e) => {
-		// e.target might be img inside wrapper.
-		// using 'target' closure variable which is the wrapper.
+		// Prevent zoom if dragging
+		if (target.classList.contains('drag-in-progress')) return;
 
 		e.preventDefault();
 		e.stopPropagation();
+
+		// Handle zoom state
+		if (!target.classList.contains('zoom-in-progress')) {
+			target.classList.add('zoom-in-progress');
+			if (currentWrapperDraggable) currentWrapperDraggable.disable();
+		}
+
+		clearTimeout(zoomTimeout);
+		zoomTimeout = setTimeout(() => {
+			target.classList.remove('zoom-in-progress');
+			if (currentWrapperDraggable) currentWrapperDraggable.enable();
+		}, 200);
 
 		const minScale = target._gsap.initialFullscreenScale || 1;
 		const maxScale = minScale * 8;
