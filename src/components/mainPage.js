@@ -383,8 +383,8 @@ export function createPhotos(artworks = []) {
 
 		photos += `
 			<div class="photo photo-${i + 1}" data-id="${artwork.objectID}" style="position: absolute; top: ${top}px; left: ${left}px; width: ${dimensions.width}px; height: ${dimensions.height}px;">
-				<div class="img-wrapper" style="width: 100%; height: 100%;">
-					<img src="${artwork.primaryImageSmall}" loading="lazy" style="width: 100%; height: 100%; object-fit: contain;" alt="${artwork.title} by ${artwork.artistDisplayName} (${artwork.objectDate})" />
+				<div class="img-wrapper">
+					<img src="${artwork.primaryImageSmall}" loading="lazy" alt="${artwork.title} by ${artwork.artistDisplayName} (${artwork.objectDate})" />
 				</div>
 				<div class="photo-info">
 					<div class="photo-artist">${artwork.artistDisplayName}</div>
