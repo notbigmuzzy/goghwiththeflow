@@ -70,6 +70,7 @@
 				color: white;
 				text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
 				pointer-events: none;
+				z-index: 6666 !important;
 			}
 
 			.photo-artist {
@@ -110,10 +111,14 @@
 			}
 
 			&.fullscreen {
-				z-index: 5000 !important;
+				z-index: 9999 !important;
 
-				.photo-info .additional-info {
-					display: block;
+				.photo-info {
+					z-index: 100 !important;
+
+					.additional-info {
+						display: block;
+					}
 				}
 
 				.img-wrapper {
@@ -128,7 +133,7 @@
 			}
 
 			&:hover {
-				z-index: 2000 !important;
+				z-index: 3000 !important;
 			}
 		}
 	}
