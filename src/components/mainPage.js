@@ -13,6 +13,9 @@ export function initPhotoInteractions() {
 		type: 'x,y',
 		bounds: '#mainPage',
 		inertia: true,
+		onDragStart: function () {
+			gsap.to(this.target, { rotation: 0, rotationX: 0, rotationY: 0, scale: 1, duration: 0.2 });
+		},
 		onClick: function () {
 			const photo = this.target;
 			const isFullscreen = photo.classList.contains('fullscreen');
@@ -44,6 +47,8 @@ export function initPhotoInteractions() {
 			// SWAP IMAGE TO HIGH-RES
 			const wrapper = photo.querySelector('.img-wrapper');
 			const img = wrapper ? wrapper.querySelector('img') : photo.querySelector('img');
+
+			gsap.to(photo, { rotationX: 0, rotationY: 0, scale: 1, duration: 0.3 });
 
 			if (img) {
 				const currentSrc = img.src;
@@ -87,6 +92,8 @@ export function initPhotoInteractions() {
 							x: centerX,
 							y: centerY,
 							scale: 1,
+							rotationX: 0,
+							rotationY: 0,
 							duration: 0.5,
 							ease: 'power2.inOut'
 						});
@@ -121,7 +128,7 @@ export function initPhotoInteractions() {
 							wrapper._gsap.initialFullscreenScale = scale;
 							addZoomHandler(wrapper);
 						}
-					}, 250);
+					}, 300);
 				};
 
 				const onError = () => {
@@ -143,6 +150,12 @@ export function initPhotoInteractions() {
 			exitFullscreen();
 		}
 	});
+
+	document.addEventListener('keydown', function (e) {
+		if (e.key === 'Escape' && currentFullscreenPhoto) {
+			exitFullscreen();
+		}
+	});
 }
 
 function exitFullscreen() {
@@ -151,7 +164,6 @@ function exitFullscreen() {
 	const photo = currentFullscreenPhoto;
 	photo.classList.remove('getting-high-res');
 
-	// Kill wrapper drag
 	if (currentWrapperDraggable) {
 		currentWrapperDraggable.kill();
 		currentWrapperDraggable = null;
@@ -160,58 +172,53 @@ function exitFullscreen() {
 	const wrapper = photo.querySelector('.img-wrapper');
 	const img = wrapper ? wrapper.querySelector('img') : photo.querySelector('img');
 
-	if (img) {
-		const currentSrc = img.src;
-		img.src = currentSrc.replace('original', 'web-large');
-	}
+	photo.classList.remove('fullscreen');
 
-	setTimeout(() => {
-		photo.classList.remove('fullscreen');
-
-		// Animate photo-info back
-		const photoInfo = photo.querySelector('.photo-info');
-		if (photoInfo) {
-			gsap.to(photoInfo, {
-				x: 0,
-				y: 0,
-				duration: 0.5,
-				ease: 'power2.inOut'
-			});
-		}
-
-		// Reset Photo position
-		gsap.to(photo, {
-			x: photo._gsap.startX || 0,
-			y: photo._gsap.startY || 0,
-			scale: 1,
+	const photoInfo = photo.querySelector('.photo-info');
+	if (photoInfo) {
+		gsap.to(photoInfo, {
+			x: 0,
+			y: 0,
 			duration: 0.5,
 			ease: 'power2.inOut'
 		});
+	}
+	gsap.to(photo, {
+		x: photo._gsap.startX || 0,
+		y: photo._gsap.startY || 0,
+		scale: 1,
+		duration: 0.5,
+		ease: 'power2.inOut'
+	});
+	if (wrapper) {
+		gsap.to(wrapper, {
+			scale: 1,
+			x: 0,
+			y: 0,
+			duration: 0.5,
+			ease: 'power2.inOut'
+		});
+	}
 
-		// Reset Wrapper
-		if (wrapper) {
-			gsap.to(wrapper, {
-				scale: 1,
-				x: 0,
-				y: 0,
-				duration: 0.5,
-				ease: 'power2.inOut'
-			});
+	removeZoomHandler();
+
+	const photoDraggable = getDraggableInstance(photo);
+	if (photoDraggable) {
+		photoDraggable.enable();
+		photoDraggable.applyBounds('#mainPage');
+	}
+
+	currentFullscreenPhoto = null;
+	document.querySelectorAll('.photo.faded').forEach(p => p.classList.remove('faded'));
+	const timeline = document.querySelector('#timeline');
+	if (timeline) timeline.classList.remove('hide');
+
+	setTimeout(() => {
+		if (img) {
+			const currentSrc = img.src;
+			img.src = currentSrc.replace('original', 'web-large');
 		}
-
-		removeZoomHandler();
-
-		const photoDraggable = getDraggableInstance(photo);
-		if (photoDraggable) {
-			photoDraggable.enable();
-			photoDraggable.applyBounds('#mainPage');
-		}
-
-		currentFullscreenPhoto = null;
-		document.querySelectorAll('.photo.faded').forEach(p => p.classList.remove('faded'));
-		const timeline = document.querySelector('#timeline');
-		if (timeline) timeline.classList.remove('hide');
-	}, 100);
+	}, 500);
 }
 
 function addZoomHandler(target) {
@@ -220,13 +227,11 @@ function addZoomHandler(target) {
 	let zoomTimeout;
 
 	wheelHandler = (e) => {
-		// Prevent zoom if dragging
 		if (target.classList.contains('drag-in-progress')) return;
 
 		e.preventDefault();
 		e.stopPropagation();
 
-		// Handle zoom state
 		if (!target.classList.contains('zoom-in-progress')) {
 			target.classList.add('zoom-in-progress');
 			if (currentWrapperDraggable) currentWrapperDraggable.disable();
@@ -240,7 +245,7 @@ function addZoomHandler(target) {
 
 		const minScale = target._gsap.initialFullscreenScale || 1;
 		const maxScale = minScale * 8;
-		const zoomSpeed = 0.010;
+		const zoomSpeed = 0.008;
 
 		const currentScale = gsap.getProperty(target, 'scale');
 		const delta = -e.deltaY * zoomSpeed;
@@ -250,14 +255,12 @@ function addZoomHandler(target) {
 
 		const rect = target.getBoundingClientRect();
 
-		// Mouse position relative to viewport
 		const mouseX = e.clientX;
 		const mouseY = e.clientY;
 
 		const currentX = gsap.getProperty(target, 'x');
 		const currentY = gsap.getProperty(target, 'y');
 
-		// Calculate center of the transformed element
 		const photoCenterX = rect.left + rect.width / 2;
 		const photoCenterY = rect.top + rect.height / 2;
 
@@ -302,7 +305,7 @@ export function createPhotos(artworks = []) {
 	const numberOfPhotos = artworks.length;
 
 	const aspectRatio = 240 / 320;
-	const height = Math.floor(viewportHeight * 0.5);
+	const height = Math.floor(viewportHeight * 0.45);
 	const width = Math.floor(height * aspectRatio);
 
 	const dimensions = { width, height };
@@ -310,6 +313,7 @@ export function createPhotos(artworks = []) {
 
 	const topRowCount = Math.min(3, numberOfPhotos);
 	const topRowLefts = [0.2, 0.5, 0.8];
+
 	for (let i = 0; i < topRowCount; i++) {
 		positions.push({
 			top: 0.15,
