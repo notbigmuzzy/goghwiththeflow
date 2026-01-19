@@ -11,13 +11,14 @@ export async function makeApiCall(year) {
 		preloader.classList.remove('loading');
 		preloader.classList.remove('downloading');
 		timeline.classList.remove('downloading');
+		mainpage.querySelectorAll('.photo').forEach(photo => photo.remove());
 		return;
 	}
 
 	if (newYearSelected) {
 		const artworks = await fetchArtworks(year);
-		localStorage.setItem('currentYear', year); // SET NEW YEAR IN LOCAL STORAGE
-		mainpage.querySelectorAll('.photo').forEach(photo => photo.remove()); // REFRESH PHOTOS
+		localStorage.setItem('currentYear', year);
+		mainpage.querySelectorAll('.photo').forEach(photo => photo.remove());
 		const photoPane = mainpage.querySelector('.pane-photos');
 		if (photoPane) {
 			photoPane.innerHTML = createPhotos(artworks);
@@ -36,7 +37,6 @@ export async function makeApiCall(year) {
 
 export async function fetchArtworks(year) {
 	try {
-		// Load pre-scraped valid IDs for the year
 		const response = await fetch(`/src/api/ids/${year}.json`);
 		const validIds = await response.json();
 
@@ -45,14 +45,10 @@ export async function fetchArtworks(year) {
 			return [];
 		}
 
-		console.log(`Loaded ${validIds.length} valid IDs for ${year}`);
-
-		// Randomly select target number of IDs
 		const targetCount = Math.floor(Math.random() * 3) + 3; // 3-5 artworks
 		const shuffled = validIds.sort(() => 0.5 - Math.random());
 		const selectedIds = shuffled.slice(0, targetCount);
 
-		// Fetch the selected artworks
 		const artworks = [];
 		for (const id of selectedIds) {
 			const objectUrl = `https://collectionapi.metmuseum.org/public/collection/v1/objects/${id}`;
@@ -68,7 +64,6 @@ export async function fetchArtworks(year) {
 			}
 		}
 
-		console.log(`Fetched ${artworks.length} artworks for ${year}`);
 		return artworks;
 	} catch (error) {
 		console.error('Error fetching artworks:', error);
