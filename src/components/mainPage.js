@@ -37,7 +37,6 @@ export function initPhotoInteractions() {
 			const vw = window.innerWidth;
 			const vh = window.innerHeight;
 
-			// SWAP IMAGE TO HIGH-RES
 			const wrapper = photo.querySelector('.img-wrapper');
 			const img = wrapper ? wrapper.querySelector('img') : photo.querySelector('img');
 
@@ -55,8 +54,6 @@ export function initPhotoInteractions() {
 					img.removeEventListener('load', onLoad);
 					img.removeEventListener('error', onError);
 
-					// Calculate fit dimensions based on ORIGINAL CONTAINER aspect ratio
-					// (User does not want aspect ratio changed, just size increased)
 					const scaleX = vw / rect.width;
 					const scaleY = vh / rect.height;
 					const scale = Math.min(scaleX, scaleY) * 0.9;
@@ -64,18 +61,12 @@ export function initPhotoInteractions() {
 					const targetWidth = rect.width * scale;
 					const targetHeight = rect.height * scale;
 
-					// Target position logic (Replicating center-scaling alignment)
-					// Previous logic: Left at 25% VW, then scaled from center.
-					// Visual Center = (vw * 0.25) + (rect.width / 2)
-					// New Left = Visual Center - (targetWidth / 2)
 					const visualCenterX = (vw * 0.25) + (rect.width / 2);
 
 					const targetX = visualCenterX - (targetWidth / 2) - rect.left + currentX;
 
-					// Center Y in viewport
 					const targetY = (vh - targetHeight) / 2 - rect.top + currentY;
 
-					// ENTER FULLSCREEN AFTER IMAGE LOADS
 					setTimeout(() => {
 						photo.classList.add('fullscreen');
 						document.querySelectorAll('.photo').forEach(p => {
@@ -93,7 +84,6 @@ export function initPhotoInteractions() {
 
 						const photoInfo = photo.querySelector('.photo-info');
 						if (photoInfo) {
-							// Position info to the right of the expanded photo
 							gsap.to(photoInfo, {
 								x: targetWidth + 20,
 								y: -targetHeight * 0.45,
@@ -116,7 +106,6 @@ export function initPhotoInteractions() {
 						});
 
 						if (wrapper) {
-							// NO SCALING on wrapper
 							gsap.to(wrapper, {
 								scale: 1,
 								x: 0,
@@ -142,8 +131,6 @@ export function initPhotoInteractions() {
 									})[0];
 								}
 							});
-
-							// Initial zoom scale ref? used for zoom handler?
 							wrapper._gsap = wrapper._gsap || {};
 							wrapper._gsap.initialFullscreenScale = 1;
 							addZoomHandler(wrapper);
@@ -153,7 +140,7 @@ export function initPhotoInteractions() {
 
 				const onError = () => {
 					photo.classList.remove('getting-high-res');
-					img.src = currentSrc; // Revert to low-res on error
+					img.src = currentSrc;
 					img.removeEventListener('load', onLoad);
 					img.removeEventListener('error', onError);
 				};
@@ -166,8 +153,11 @@ export function initPhotoInteractions() {
 	});
 
 	document.getElementById('mainPage').addEventListener('click', function (e) {
-		if (currentFullscreenPhoto && !e.target.closest('.photo')) {
-			exitFullscreen();
+		if (currentFullscreenPhoto) {
+			const clickedContent = e.target.closest('.img-wrapper') || e.target.closest('.photo-info');
+			if (!clickedContent) {
+				exitFullscreen();
+			}
 		}
 	});
 
@@ -225,6 +215,14 @@ function exitFullscreen() {
 		});
 	}
 
+	if (img) {
+		gsap.to(img, {
+			scale: 1,
+			duration: 0.5,
+			ease: 'power2.inOut'
+		});
+	}
+
 	removeZoomHandler();
 
 	const photoDraggable = getDraggableInstance(photo);
@@ -272,7 +270,8 @@ function addZoomHandler(target) {
 		const maxScale = minScale * 8;
 		const zoomSpeed = 0.008;
 
-		const currentScale = gsap.getProperty(target, 'scale');
+		const img = target.querySelector('img');
+		const currentScale = img ? (gsap.getProperty(img, 'scale') || 1) : 1;
 		const delta = -e.deltaY * zoomSpeed;
 		let newScale = currentScale + delta;
 
@@ -296,8 +295,15 @@ function addZoomHandler(target) {
 		const offsetX = -deltaX * scaleChange;
 		const offsetY = -deltaY * scaleChange;
 
+		if (img) {
+			gsap.to(img, {
+				scale: newScale,
+				duration: 0.2,
+				ease: 'power2.out'
+			});
+		}
+
 		gsap.to(target, {
-			scale: newScale,
 			x: currentX + offsetX,
 			y: currentY + offsetY,
 			duration: 0.2,
