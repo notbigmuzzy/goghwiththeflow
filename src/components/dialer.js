@@ -10,7 +10,7 @@ export function createDialer() {
 	];
 
 	// 1477-1918
-	for (let year = 1899; year <= 1900; year++) {
+	for (let year = 1899; year <= 1910; year++) {
 		if (!excludedYears.includes(year)) {
 			years.push({ value: year, type: 'year' });
 		}

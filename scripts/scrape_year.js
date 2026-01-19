@@ -1,7 +1,8 @@
 import fs from 'fs';
 import https from 'https';
 
-const YEAR = 1900;
+const START_YEAR = 1901;
+const END_YEAR = 1920;
 const MAX_IDS = 100000;
 const DELAY_MS = 1300; // ~46 calls per minute to stay under 50/min limit
 
@@ -91,7 +92,20 @@ async function scrapeYear(year) {
 }
 
 async function main() {
-	await scrapeYear(YEAR);
+	console.log(`\nScraping years ${START_YEAR} to ${END_YEAR}\n`);
+
+	for (let year = START_YEAR; year <= END_YEAR; year++) {
+		console.log(`\n=== Year ${year} (${year - START_YEAR + 1}/${END_YEAR - START_YEAR + 1}) ===`);
+		await scrapeYear(year);
+
+		// Small pause between years
+		if (year < END_YEAR) {
+			console.log(`Waiting before next year...`);
+			await sleep(2000);
+		}
+	}
+
+	console.log(`\n✓ Completed scraping all years from ${START_YEAR} to ${END_YEAR}`);
 }
 
 main().catch(console.error);
