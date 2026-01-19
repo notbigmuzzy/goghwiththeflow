@@ -13,7 +13,11 @@ export function initPhotoInteractions() {
 		type: 'x,y',
 		bounds: '#mainPage',
 		inertia: true,
-		onDragStart: function () {
+		onDragStart: function (e) {
+			if (!this.target.classList.contains('fullscreen')) {
+				this.endDrag(e);
+				return;
+			}
 			gsap.to(this.target, { rotation: 0, rotationX: 0, rotationY: 0, scale: 1, duration: 0.2 });
 		},
 		onClick: function () {
@@ -62,9 +66,7 @@ export function initPhotoInteractions() {
 					const targetHeight = rect.height * scale;
 
 					const visualCenterX = (vw * 0.25) + (rect.width / 2);
-
 					const targetX = visualCenterX - (targetWidth / 2) - rect.left + currentX;
-
 					const targetY = (vh - targetHeight) / 2 - rect.top + currentY;
 
 					setTimeout(() => {
@@ -82,6 +84,7 @@ export function initPhotoInteractions() {
 						const photoDraggable = getDraggableInstance(photo);
 						if (photoDraggable) photoDraggable.disable();
 
+
 						const photoInfo = photo.querySelector('.photo-info');
 						if (photoInfo) {
 							gsap.to(photoInfo, {
@@ -93,17 +96,60 @@ export function initPhotoInteractions() {
 							});
 						}
 
-						gsap.to(photo, {
-							x: targetX,
-							y: targetY,
-							width: targetWidth,
-							height: targetHeight,
-							scale: 1,
-							rotationX: 0,
-							rotationY: 0,
-							duration: 0.5,
-							ease: 'power2.inOut'
-						});
+						// FLIP Animation Logic to avoid layout thrashing
+						// 1. Calculate the start scale needed to make targetWidth look like current rect.width
+						const startScale = rect.width / targetWidth;
+						
+						// 2. Set the FINAL dimensions immediately
+						gsap.set(photo, { width: targetWidth, height: targetHeight });
+
+						// 3. Calculate start positions (centering the scaled-down element)
+						// We need the center of the NEW box (at scale 1) to align with where it is now?
+						// No, we need visual alignment.
+						// Visual Center Start = rect.left + rect.width / 2;
+						// Layout Center (if x=0) = rect.left - currentX + targetWidth / 2;
+						// We need 'x' such that: (LayoutCenter + x) matches Visual Center.
+						// But remember transfrom-origin is usually center.
+						// If we scale from center, the center stays put.
+						// So we just need to align the CENTERS.
+						
+						// Current Visual Center:
+						const centerX = rect.left + rect.width / 2;
+						const centerY = rect.top + rect.height / 2;
+						
+						// Center of the element if it were placed at (0,0) offset relative to its static position:
+						// Static Left = rect.left - currentX;
+						// Static Top = rect.top - currentY;
+						const staticLeft = rect.left - currentX;
+						const staticTop = rect.top - currentY;
+						
+						const centerOfTargetIfStatic = {
+							x: staticLeft + targetWidth / 2,
+							y: staticTop + targetHeight / 2
+						};
+						
+						const startX = centerX - centerOfTargetIfStatic.x;
+						const startY = centerY - centerOfTargetIfStatic.y;
+						
+						// 4. Animate from inverted state to final state
+						gsap.fromTo(photo, 
+							{
+								x: startX,
+								y: startY,
+								scale: startScale,
+								rotationX: 0,
+								rotationY: 0
+							},
+							{
+								x: targetX,
+								y: targetY,
+								scale: 1,
+								rotationX: 0,
+								rotationY: 0,
+								duration: 0.5,
+								ease: 'power2.inOut'
+							}
+						);
 
 						if (wrapper) {
 							gsap.to(wrapper, {
@@ -135,7 +181,7 @@ export function initPhotoInteractions() {
 							wrapper._gsap.initialFullscreenScale = 1;
 							addZoomHandler(wrapper);
 						}
-					}, 300);
+					}, 450);
 				};
 
 				const onError = () => {
@@ -343,7 +389,7 @@ export function createPhotos(artworks = []) {
 	const positions = [];
 
 	const topRowCount = Math.min(3, numberOfPhotos);
-	const topRowLefts = [0.2, 0.5, 0.8];
+	const topRowLefts = [0.175, 0.5, 0.825];
 
 	for (let i = 0; i < topRowCount; i++) {
 		positions.push({
@@ -359,7 +405,7 @@ export function createPhotos(artworks = []) {
 				[0.2, 0.5, 0.8];
 		for (let i = 0; i < bottomRowCount; i++) {
 			positions.push({
-				top: 0.35,
+				top: 0.45,
 				left: bottomRowLefts[i]
 			});
 		}

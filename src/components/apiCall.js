@@ -8,9 +8,8 @@ export async function makeApiCall(year) {
 	const newYearSelected = storedYear !== String(year);
 
 	if (year === 'TODAY') {
-		preloader.classList.remove('loading');
-		preloader.classList.remove('downloading');
-		timeline.classList.remove('downloading');
+		preloader.classList.remove('loading', 'downloading');
+		timeline.classList.remove('dialing', 'downloading');
 		mainpage.querySelectorAll('.photo').forEach(photo => photo.remove());
 		return;
 	}
