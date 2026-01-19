@@ -63,7 +63,8 @@ export function initPhotoInteractions() {
 					img.removeEventListener('load', onLoad);
 					img.removeEventListener('error', onError);
 
-					{ // ENTER FULLSCREEN AFTER IMAGE LOADS
+					// ENTER FULLSCREEN AFTER IMAGE LOADS
+					setTimeout(() => {
 						photo.classList.add('fullscreen');
 						document.querySelectorAll('.photo').forEach(p => {
 							if (p !== photo) {
@@ -93,7 +94,7 @@ export function initPhotoInteractions() {
 							ease: 'power2.inOut'
 						});
 						addZoomHandler(photo);
-					}
+					}, 250);
 				};
 
 				const onError = () => {
@@ -238,19 +239,36 @@ export function createPhotos(artworks = []) {
 
 	const viewportWidth = window.innerWidth;
 	const viewportHeight = window.innerHeight;
-	const numberOfPhotos = Math.min(Math.floor(Math.random() * 5) + 3, artworks.length);
+	const numberOfPhotos = artworks.length;
 
 	const aspectRatio = 240 / 320;
 	const height = Math.floor(viewportHeight * 0.5);
 	const width = Math.floor(height * aspectRatio);
 
 	const dimensions = { width, height };
+	const positions = [];
 
-	let topPositions = [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4, 0.44, 0.5];
-	let leftPositions = [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8];
+	const topRowCount = Math.min(3, numberOfPhotos);
+	const topRowLefts = [0.2, 0.5, 0.8];
+	for (let i = 0; i < topRowCount; i++) {
+		positions.push({
+			top: 0.15,
+			left: topRowLefts[i]
+		});
+	}
 
-	if (numberOfPhotos > topPositions.length) topPositions = [...topPositions, ...topPositions];
-	if (numberOfPhotos > leftPositions.length) leftPositions = [...leftPositions, ...leftPositions];
+	const bottomRowCount = numberOfPhotos - topRowCount;
+	if (bottomRowCount > 0) {
+		const bottomRowLefts = bottomRowCount === 1 ? [0.35] :
+			bottomRowCount === 2 ? [0.35, 0.65] :
+				[0.2, 0.5, 0.8];
+		for (let i = 0; i < bottomRowCount; i++) {
+			positions.push({
+				top: 0.35,
+				left: bottomRowLefts[i]
+			});
+		}
+	}
 
 	const shuffle = (array) => {
 		for (let i = array.length - 1; i > 0; i--) {
@@ -260,18 +278,16 @@ export function createPhotos(artworks = []) {
 		return array;
 	};
 
-	const selectedTops = shuffle(topPositions).slice(0, numberOfPhotos);
-	const selectedLefts = shuffle(leftPositions).slice(0, numberOfPhotos);
-	const shuffledArtworks = shuffle([...artworks]).slice(0, numberOfPhotos);
+	const shuffledArtworks = shuffle([...artworks]);
 
 	let photos = '';
 	for (let i = 0; i < numberOfPhotos; i++) {
-		const top = Math.floor(viewportHeight * selectedTops[i]);
-		const left = Math.floor(viewportWidth * selectedLefts[i]);
+		const top = Math.floor(viewportHeight * positions[i].top);
+		const left = Math.floor(viewportWidth * positions[i].left) - Math.floor(width / 2);
 		const artwork = shuffledArtworks[i];
 
 		photos += `<div class="photo photo-${i + 1}" data-id="${artwork.objectID}" style="position: absolute; top: ${top}px; left: ${left}px; width: ${dimensions.width}px; height: ${dimensions.height}px;">
-			<img src="${artwork.primaryImage}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" alt="${artwork.title} by ${artwork.artistDisplayName} (${artwork.objectDate})" />
+		<img src="${artwork.primaryImageSmall}" loading="lazy" style="width: 100%; height: 100%; object-fit: contain;" alt="${artwork.title} by ${artwork.artistDisplayName} (${artwork.objectDate})" />
 			<div class="photo-info">
 				<div class="photo-artist">${artwork.artistDisplayName}</div>
 				<div class="photo-title">${artwork.title}</div>

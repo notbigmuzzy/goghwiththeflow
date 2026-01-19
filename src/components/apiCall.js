@@ -15,7 +15,7 @@ export async function makeApiCall(year, period) {
 	}
 
 	if (newYearSelected) {
-		const artworks = await fetchArtworks();
+		const artworks = await fetchArtworks(year);
 		localStorage.setItem('currentYear', year); // SET NEW YEAR IN LOCAL STORAGE
 		mainpage.querySelectorAll('.photo').forEach(photo => photo.remove()); // REFRESH PHOTOS
 		const photoPane = mainpage.querySelector('.pane-photos');
@@ -34,12 +34,42 @@ export async function makeApiCall(year, period) {
 	}
 }
 
-export async function fetchArtworks() {
+export async function fetchArtworks(year) {
+	const searchUrl = `https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&dateBegin=${year}&dateEnd=${year}&q=*`;
+
 	try {
-		const response = await fetch('/src/api/mock_photo.json');
-		if (!response.ok) throw new Error('Failed to fetch artworks');
-		const data = await response.json();
-		return data.objects || [];
+		const paintingsResponse = await fetch(searchUrl);
+		const paintingsData = await paintingsResponse.json();
+
+		if (!paintingsData.objectIDs || paintingsData.objectIDs.length === 0) {
+			console.log('No artworks found for year:', year);
+			return [];
+		}
+
+		const shuffledIDs = paintingsData.objectIDs.sort(() => 0.5 - Math.random());
+		const targetCount = Math.floor(Math.random() * 3) + 3; // 3-5 artworks
+		const artworks = [];
+		let attempts = 0;
+
+		for (const id of shuffledIDs) {
+			if (artworks.length >= targetCount || attempts >= 10) break;
+			attempts++;
+
+			const objectUrl = `https://collectionapi.metmuseum.org/public/collection/v1/objects/${id}`;
+			try {
+				const response = await fetch(objectUrl);
+				const artwork = await response.json();
+
+				if (artwork && artwork.primaryImage && artwork.primaryImage !== '') {
+					artworks.push(artwork);
+				}
+			} catch (err) {
+				console.error(`Failed to fetch object ${id}:`, err);
+			}
+		}
+
+		console.log(`Final artworks: ${artworks.length} found after ${attempts} attempts`);
+		return artworks;
 	} catch (error) {
 		console.error('Error fetching artworks:', error);
 		return [];

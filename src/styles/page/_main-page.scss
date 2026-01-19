@@ -17,8 +17,8 @@
 		.photo {
 			display: block;
 			position: absolute;
-			background-color: rgba(255, 255, 255, 0.1);
-			border: 2px solid rgba(255, 255, 255, 1);
+			background-color: rgb(217 205 188);
+			border: 2px solid rgb(60 55 48);
 			transition: background-color 0.5s ease, border-color 0.5s ease, opacity 0.5s ease, box-shadow 0.5s ease;
 
 			&.getting-high-res {
@@ -76,6 +76,11 @@
 					width: 50%;
 					pointer-events: none;
 				}
+			}
+
+			&:hover {
+				border-color: white;
+				box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 			}
 		}
 	}

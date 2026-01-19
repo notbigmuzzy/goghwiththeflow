@@ -1,19 +1,18 @@
 export function createDialer() {
 
 	const years = [];
+	const excludedYears = [
+		1482, 1483, 1486, 1487, 1488, 1489, 1492, 1495, 1496, 1497, 1499,
+		1501, 1503, 1504, 1505, 1507, 1509, 1514, 1522, 1523, 1529, 1530, 1534, 1538, 1541,
+		1544, 1546, 1550, 1552, 1553, 1555, 1567, 1573, 1575, 1576, 1579, 1580, 1581, 1583,
+		1584, 1590, 1600, 1601, 1606, 1609, 1612, 1614, 1617, 1618, 1706, 1715, 1718, 1719,
+		1720, 1722, 1723, 1728, 1731, 1734, 1831, 1906
+	];
 
-	// Centuries from 0 to 1400
-	const centuries = [0, 200, 300, 600, 700, 800, 900, 1000, 1100, 1200, 1300];
-	centuries.forEach(year => years.push({ value: year, type: 'century' }));
-
-	// Decades from 1400 to 1799
-	for (let year = 1400; year <= 1799; year += 10) {
-		years.push({ value: year, type: 'decade' });
-	}
-
-	// Years from 1800 to 2025
-	for (let year = 1800; year <= 2025; year++) {
-		years.push({ value: year, type: 'year' });
+	for (let year = 1477; year <= 1918; year++) {
+		if (!excludedYears.includes(year)) {
+			years.push({ value: year, type: 'year' });
+		}
 	}
 
 	return `
