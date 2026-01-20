@@ -64,7 +64,7 @@ export async function makeApiCall(year, source) {
 
 export async function fetchArtworks(year) {
 	try {
-		const response = await fetch(`src/api/ids/${year}.json`);
+		const response = await fetch(`/goghwiththeflow/api/ids/${year}.json`);
 		const validIds = await response.json();
 
 		if (!validIds || validIds.length === 0) {
