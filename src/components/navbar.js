@@ -9,7 +9,7 @@ export function createNavBar() {
 			</div>
 			<div class="link-wrapper middle">
 				<a href="#" id="moreLink" class="more-link">
-					<span id="exhibitLabel" class="exhibit-label">Get more Art</span>
+					<span id="exhibitLabel" class="exhibit-label"></span>
 				</a>
 			</div>
 			<div class="link-wrapper last">

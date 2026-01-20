@@ -28,10 +28,6 @@
 			}
 		}
 
-		i {
-			font-weight: bold;
-		}
-
 		&.middle {
 			display: flex;
 			justify-content: center;
@@ -51,7 +47,11 @@
 			right: 0;
 		}
 
-		.exhibit-link {
+		i {
+			font-weight: bold;
+		}
+
+		.exhibit-link i {
 			position: relative;
 			font-size: 18px;
 			transform: rotate(45deg);
@@ -64,6 +64,13 @@
 			position: relative;
 			bottom: -2px;
 			font-size: 20px;
+		}
+
+		.exhibit-label i {
+			position: relative;
+			bottom: -1px;
+			font-size: 18px;
+			left: -4px;
 		}
 	}
 

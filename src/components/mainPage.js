@@ -416,7 +416,7 @@ export function createPhotos(artworks = []) {
 
 	for (let i = 0; i < topRowCount; i++) {
 		positions.push({
-			top: 0.15,
+			top: 0.1,
 			left: topRowLefts[i]
 		});
 	}
@@ -428,7 +428,7 @@ export function createPhotos(artworks = []) {
 				[0.2, 0.5, 0.8];
 		for (let i = 0; i < bottomRowCount; i++) {
 			positions.push({
-				top: 0.45,
+				top: 0.4,
 				left: bottomRowLefts[i]
 			});
 		}

@@ -8,4 +8,50 @@
 	justify-content: center;
 	box-sizing: border-box;
 	background-color: #0b0b1f;
+	will-change: background-color;
+	transition: background-color 0.5s ease;
+
+	&.pre-renaissance {
+		background-color: #1f0b0b; // Deep burgundy - Medieval richness
+	}
+
+	&.high-renaissance {
+		background-color: #1f150b; // Warm amber - Golden age warmth
+	}
+
+	&.mannerism {
+		background-color: #150b1f; // Deep violet - Dramatic tension
+	}
+
+	&.baroque {
+		background-color: #1f0b15; // Dark crimson - Opulent drama
+	}
+
+	&.rococo {
+		background-color: #1f1a1f; // Soft plum - Delicate elegance
+	}
+
+	&.romanticism {
+		background-color: #0b0f1f; // Midnight blue - Emotional depth
+	}
+
+	&.realism {
+		background-color: #0f1f0b; // Dark forest - Earthy naturalism
+	}
+
+	&.impressionism {
+		background-color: #0b1a1f; // Deep teal - Water and light
+	}
+
+	&.post-impressionism {
+		background-color: #1f1f0b; // Dark olive - Vibrant experimentation
+	}
+
+	&.early-modernism {
+		background-color: #1f0b1f; // Deep magenta - Bold innovation
+	}
+
+	&.landing-page {
+		background-color: #0b0b1f;
+	}
 }

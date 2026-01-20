@@ -218,15 +218,15 @@ export function initDialerScroll() {
 	}
 
 	{ // Initial centering on TODAY
-		const lastItem = dialer.querySelector('li:last-child');
+		const itemToCenter = dialer.querySelector('li:last-child');
 		const dialerCenter = dialer.offsetWidth / 2;
-		const itemCenter = lastItem.offsetLeft + lastItem.offsetWidth / 2;
+		const itemCenter = itemToCenter.offsetLeft + itemToCenter.offsetWidth / 2;
 		const targetScroll = itemCenter - dialerCenter;
 
 		timeline.classList.add('dialing');
 		dialer.scrollLeft = targetScroll;
 		lastScrollPos = targetScroll; // Initialize to prevent jump on first drag
-		setActiveItem(lastItem);
+		setActiveItem(itemToCenter);
 
 		setTimeout(() => {
 			isInitializing = false;
@@ -241,26 +241,42 @@ export function initDialerScroll() {
 	});
 
 	function changePeriods(year) {
+		const gallery = document.querySelector('#gallery');
+		const exhibitLabel = document.querySelector('#exhibitLabel');
+		const era = getEra(year);
+		const eraWrapperClass = era.toLowerCase().replace(/\s+/g, '-');
 
-		console.log('Changing period to year:', year);
+		// UI update for era change
+		gallery.classList.remove(...gallery.classList);
+		gallery.classList.add(eraWrapperClass);
+		exhibitLabel.innerHTML = `<i>→</i> Click me to see More from "${era}"`;
 
-		// function getEra(year) {
-		// 	const y = parseInt(year);
-
-		// 	switch (true) {
-		// 		case (y < 1477): return "Pre-Renaissance";
-		// 		case (y <= 1520): return "High Renaissance";
-		// 		case (y <= 1600): return "Mannerism";
-		// 		case (y <= 1730): return "Baroque";
-		// 		case (y <= 1770): return "Rococo";
-		// 		case (y <= 1830): return "Neoclassicism & Romanticism";
-		// 		case (y <= 1870): return "Realism";
-		// 		case (y <= 1890): return "Impressionism";
-		// 		case (y <= 1905): return "Post-Impressionism";
-		// 		case (y <= 1918): return "Early Modernism";
-		// 		default: return "Modern Art";
-		// 	}
-		// }
 	}
 
+	function getEra(year) {
+		switch (true) {
+			case (parseInt(year, 10) < 1477):
+				return "Pre-Renaissance";
+			case (parseInt(year, 10) <= 1520):
+				return "High Renaissance";
+			case (parseInt(year, 10) <= 1600):
+				return "Mannerism";
+			case (parseInt(year, 10) <= 1730):
+				return "Baroque";
+			case (parseInt(year, 10) <= 1770):
+				return "Rococo";
+			case (parseInt(year, 10) <= 1830):
+				return "Romanticism";
+			case (parseInt(year, 10) <= 1870):
+				return "Realism";
+			case (parseInt(year, 10) <= 1890):
+				return "Impressionism";
+			case (parseInt(year, 10) <= 1905):
+				return "Post-Impressionism";
+			case (parseInt(year, 10) <= 1918):
+				return "Early Modernism";
+			default:
+				return "landing-page";
+		}
+	}
 }
