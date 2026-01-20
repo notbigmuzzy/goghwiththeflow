@@ -33,11 +33,9 @@
 				transition: background-color 0.5s ease, border-color 0.5s ease, opacity 0.5s ease, box-shadow 0.5s ease;
 
 				img {
-					display: block;
-					margin: auto;
-					max-width: 100%;
-					max-height: 100%;
-					will-change: scale;
+					width: 100%;
+					height: 100%;
+					object-fit: contain;
 				}
 
 				&:hover {
@@ -119,6 +117,16 @@
 				.photo-info {
 					z-index: 100 !important;
 
+					.photo-artist {
+						font-size: 14px;
+						margin-bottom: 7px;
+					}
+
+					.photo-title {
+						font-size: 22px;
+						line-height: 1.25;
+					}
+
 					.additional-info {
 						display: block;
 					}
@@ -137,30 +145,11 @@
 
 			&:hover:not(.fullscreen):not(.faded) {
 				z-index: 3000 !important;
-
-				.img-wrapper {
-					border-color: white;
-					box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.4);
-				}
-			}
-
-			&:nth-child(1):not(.fullscreen):not(.faded):hover,
-			&:nth-child(4):not(.fullscreen):not(.faded):hover {
-				transform: perspective(1000px) rotateX(-7deg) rotateY(14deg) scale(1.07) !important;
-			}
-
-			&:nth-child(2):not(.fullscreen):not(.faded):hover {
-				transform: perspective(1000px) rotateX(-5deg) rotateY(0deg) scale(1.05) !important;
-			}
-
-			&:nth-child(3):not(.fullscreen):not(.faded):hover,
-			&:nth-child(5):not(.fullscreen):not(.faded):hover {
-				transform: perspective(1000px) rotateX(-7deg) rotateY(-14deg) scale(1.07) !important;
 			}
 		}
 	}
 
-	&.show {
+	&.show-exhibit {
 		pointer-events: initial;
 
 		.pane {

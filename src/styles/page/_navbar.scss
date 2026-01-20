@@ -1,4 +1,5 @@
 #navbar {
+	pointer-events: none;
 
 	.navbar-content {
 		position: absolute;
@@ -11,5 +12,19 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		display: flex;
+		justify-content: space-between;
 	}
+
+	.exhibit-link,
+	.more-link,
+	.close-link {
+		pointer-events: all;
+		padding: 0 10px;
+		text-transform: uppercase;
+	}
+
+	.more-link {}
+
+	.close-link {}
 }

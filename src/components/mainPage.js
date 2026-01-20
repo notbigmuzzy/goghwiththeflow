@@ -14,10 +14,10 @@ export function initPhotoInteractions() {
 		bounds: '#mainPage',
 		inertia: true,
 		onDragStart: function (e) {
-			if (!this.target.classList.contains('fullscreen')) {
-				this.endDrag(e);
-				return;
-			}
+			// if (!this.target.classList.contains('fullscreen')) {
+			// 	this.endDrag(e);
+			// 	return;
+			// }
 			gsap.to(this.target, { rotation: 0, rotationX: 0, rotationY: 0, scale: 1, duration: 0.2 });
 		},
 		onClick: function () {
@@ -96,43 +96,39 @@ export function initPhotoInteractions() {
 							});
 						}
 
-						// FLIP Animation Logic to avoid layout thrashing
-						// 1. Calculate the start scale needed to make targetWidth look like current rect.width
-						const startScale = rect.width / targetWidth;
-						
-						// 2. Set the FINAL dimensions immediately
+						gsap.killTweensOf(photo);
+						photo.style.transition = 'none';
+
+						const freshRect = photo.getBoundingClientRect();
+						const freshCurrentX = gsap.getProperty(photo, 'x');
+						const freshCurrentY = gsap.getProperty(photo, 'y');
+
+						const startScale = freshRect.width / targetWidth;
+
 						gsap.set(photo, { width: targetWidth, height: targetHeight });
 
-						// 3. Calculate start positions (centering the scaled-down element)
-						// We need the center of the NEW box (at scale 1) to align with where it is now?
-						// No, we need visual alignment.
-						// Visual Center Start = rect.left + rect.width / 2;
-						// Layout Center (if x=0) = rect.left - currentX + targetWidth / 2;
-						// We need 'x' such that: (LayoutCenter + x) matches Visual Center.
-						// But remember transfrom-origin is usually center.
-						// If we scale from center, the center stays put.
-						// So we just need to align the CENTERS.
-						
-						// Current Visual Center:
-						const centerX = rect.left + rect.width / 2;
-						const centerY = rect.top + rect.height / 2;
-						
-						// Center of the element if it were placed at (0,0) offset relative to its static position:
-						// Static Left = rect.left - currentX;
-						// Static Top = rect.top - currentY;
-						const staticLeft = rect.left - currentX;
-						const staticTop = rect.top - currentY;
-						
+						const centerX = freshRect.left + freshRect.width / 2;
+						const centerY = freshRect.top + freshRect.height / 2;
+
+						const staticLeft = freshRect.left - freshCurrentX;
+						const staticTop = freshRect.top - freshCurrentY;
+
 						const centerOfTargetIfStatic = {
 							x: staticLeft + targetWidth / 2,
 							y: staticTop + targetHeight / 2
 						};
-						
+
 						const startX = centerX - centerOfTargetIfStatic.x;
 						const startY = centerY - centerOfTargetIfStatic.y;
-						
-						// 4. Animate from inverted state to final state
-						gsap.fromTo(photo, 
+
+						photo._gsap.startX = startX;
+						photo._gsap.startY = startY;
+						photo._gsap.originalWidth = freshRect.width;
+						photo._gsap.originalHeight = freshRect.height;
+						photo._gsap.currentX = freshCurrentX;
+						photo._gsap.currentY = freshCurrentY;
+
+						gsap.fromTo(photo,
 							{
 								x: startX,
 								y: startY,
@@ -147,7 +143,10 @@ export function initPhotoInteractions() {
 								rotationX: 0,
 								rotationY: 0,
 								duration: 0.5,
-								ease: 'power2.inOut'
+								ease: 'power2.inOut',
+								onComplete: () => {
+									photo.style.transition = '';
+								}
 							}
 						);
 
@@ -181,7 +180,7 @@ export function initPhotoInteractions() {
 							wrapper._gsap.initialFullscreenScale = 1;
 							addZoomHandler(wrapper);
 						}
-					}, 450);
+					}, 300);
 				};
 
 				const onError = () => {
@@ -219,6 +218,7 @@ function exitFullscreen() {
 
 	const photo = currentFullscreenPhoto;
 	photo.classList.remove('getting-high-res');
+	photo.style.transition = 'none';
 
 	if (currentWrapperDraggable) {
 		currentWrapperDraggable.kill();
@@ -242,13 +242,22 @@ function exitFullscreen() {
 	const animProps = {
 		x: photo._gsap.startX || 0,
 		y: photo._gsap.startY || 0,
-		scale: 1,
+		scale: photo._gsap.originalWidth / parseFloat(photo.style.width),
 		duration: 0.5,
-		ease: 'power2.inOut'
+		ease: 'power2.inOut',
+		onComplete: () => {
+			if (photo._gsap.originalWidth) photo.style.width = photo._gsap.originalWidth + 'px';
+			if (photo._gsap.originalHeight) photo.style.height = photo._gsap.originalHeight + 'px';
+			gsap.set(photo, {
+				scale: 1,
+				x: photo._gsap.currentX || 0,
+				y: photo._gsap.currentY || 0
+			});
+			setTimeout(() => {
+				photo.style.transition = '';
+			}, 20);
+		}
 	};
-
-	if (photo._gsap.originalWidth) animProps.width = photo._gsap.originalWidth;
-	if (photo._gsap.originalHeight) animProps.height = photo._gsap.originalHeight;
 
 	gsap.to(photo, animProps);
 	if (wrapper) {
@@ -287,7 +296,7 @@ function exitFullscreen() {
 			const currentSrc = img.src;
 			img.src = currentSrc.replace('original', 'web-large');
 		}
-	}, 500);
+	}, 300);
 }
 
 function addZoomHandler(target) {

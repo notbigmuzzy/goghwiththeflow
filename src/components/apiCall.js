@@ -1,36 +1,65 @@
 import { createPhotos, initPhotoInteractions } from './mainPage.js';
 
-export async function makeApiCall(year) {
+export async function makeApiCall(year, source) {
 	const storedYear = localStorage.getItem('currentYear');
 	const timeline = document.querySelector('#timeline');
 	const preloader = document.querySelector('#preloader');
 	const mainpage = document.querySelector('#mainPage');
+	const navbar = document.querySelector('#navbar');
 	const newYearSelected = storedYear !== String(year);
 
 	if (year === 'TODAY') {
 		preloader.classList.remove('loading', 'downloading');
 		timeline.classList.remove('dialing', 'downloading');
+		[mainpage, navbar].forEach(el => el.classList.remove('show-exhibit'));
 		mainpage.querySelectorAll('.photo').forEach(photo => photo.remove());
+
 		return;
 	}
 
-	if (newYearSelected) {
-		const artworks = await fetchArtworks(year);
-		localStorage.setItem('currentYear', year);
-		mainpage.querySelectorAll('.photo').forEach(photo => photo.remove());
-		const photoPane = mainpage.querySelector('.pane-photos');
-		if (photoPane) {
+
+	if (source === 'dialer') {
+		if (newYearSelected) {
+			const artworks = await fetchArtworks(year);
+			localStorage.setItem('currentYear', year);
+			mainpage.querySelectorAll('.photo').forEach(photo => photo.remove());
+
+			const photoPane = mainpage.querySelector('.pane-photos');
 			photoPane.innerHTML = createPhotos(artworks);
 			initPhotoInteractions();
-		}
-	}
 
-	{ // SHOW MAIN PAGE AFTER LOADING
-		preloader.classList.remove('loading', 'downloading');
-		timeline.classList.remove('dialing', 'downloading');
-		setTimeout(() => {
-			mainpage.classList.add('show');
-		}, 400);
+			{ // SHOW MAIN PAGE AFTER LOADING
+				preloader.classList.remove('loading', 'downloading');
+				timeline.classList.remove('dialing', 'downloading');
+				setTimeout(() => {
+					[mainpage, navbar].forEach(el => el.classList.add('show-exhibit'));
+				}, 300);
+			}
+		}
+	} else if (source === 'more') {
+		const mainpage = document.querySelector('#mainPage');
+		const preloader = document.querySelector('#preloader');
+		const timeline = document.querySelector('#timeline');
+
+		preloader.classList.add('loading');
+		mainpage.classList.remove('show-exhibit');
+		mainpage.querySelectorAll('.photo').forEach(photo => photo.remove());
+		timeline.classList.remove('hide');
+
+		setTimeout(async () => {
+			const artworks = await fetchArtworks(year);
+			const photoPane = mainpage.querySelector('.pane-photos');
+			photoPane.innerHTML = createPhotos(artworks);
+			initPhotoInteractions();
+
+			{ // SHOW MAIN PAGE AFTER LOADING
+				preloader.classList.remove('loading', 'downloading');
+				timeline.classList.remove('dialing', 'downloading');
+				setTimeout(() => {
+					[mainpage, navbar].forEach(el => el.classList.add('show-exhibit'));
+				}, 300);
+			}
+		}, 500);
 	}
 }
 

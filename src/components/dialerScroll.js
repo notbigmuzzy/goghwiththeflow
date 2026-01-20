@@ -101,7 +101,7 @@ export function initDialerScroll() {
 		gsap.delayedCall(0, () => {
 			setActiveItem(centerItem);
 			timeline.classList.add('downloading');
-			makeApiCall(centerItem.dataset.year, centerItem.dataset.period);
+			makeApiCall(centerItem.dataset.year, 'dialer');
 		});
 
 		gsap.to(dialer, {
@@ -137,7 +137,7 @@ export function initDialerScroll() {
 		dialer.querySelectorAll('li').forEach(li => li.classList.remove('active'));
 		timeline.classList.add('dialing');
 		preloader.classList.add('loading');
-		mainpage.classList.remove('show');
+		mainpage.classList.remove('show-exhibit');
 
 		if (animationFrame) {
 			cancelAnimationFrame(animationFrame);
@@ -230,5 +230,17 @@ export function initDialerScroll() {
 			isInitializing = false;
 		}, 100);
 	}
+
+	document.querySelector('#moreLink').addEventListener('click', (e) => {
+		e.preventDefault();
+		console.log('More link clicked');
+
+		const centerItem = findCenterItem();
+
+		console.log('Center item:', centerItem.dataset.year);
+		if (!centerItem) return;
+
+		makeApiCall(centerItem.dataset.year, 'more');
+	});
 
 }
