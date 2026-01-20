@@ -98,6 +98,8 @@ export function initDialerScroll() {
 		const targetScroll = itemCenter - dialerCenter;
 
 		timeline.classList.add('dialing');
+		changePeriods(centerItem.dataset.year);
+
 		gsap.delayedCall(0, () => {
 			setActiveItem(centerItem);
 			timeline.classList.add('downloading');
@@ -122,7 +124,7 @@ export function initDialerScroll() {
 		}
 		snapTimeout = setTimeout(() => {
 			snapToCenter();
-		}, 50);
+		}, 0);
 	};
 
 	const handleMouseDown = (e) => {
@@ -237,5 +239,28 @@ export function initDialerScroll() {
 		const centerItem = findCenterItem();
 		makeApiCall(centerItem.dataset.year, 'more');
 	});
+
+	function changePeriods(year) {
+
+		console.log('Changing period to year:', year);
+
+		// function getEra(year) {
+		// 	const y = parseInt(year);
+
+		// 	switch (true) {
+		// 		case (y < 1477): return "Pre-Renaissance";
+		// 		case (y <= 1520): return "High Renaissance";
+		// 		case (y <= 1600): return "Mannerism";
+		// 		case (y <= 1730): return "Baroque";
+		// 		case (y <= 1770): return "Rococo";
+		// 		case (y <= 1830): return "Neoclassicism & Romanticism";
+		// 		case (y <= 1870): return "Realism";
+		// 		case (y <= 1890): return "Impressionism";
+		// 		case (y <= 1905): return "Post-Impressionism";
+		// 		case (y <= 1918): return "Early Modernism";
+		// 		default: return "Modern Art";
+		// 	}
+		// }
+	}
 
 }

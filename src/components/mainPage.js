@@ -234,7 +234,7 @@ function exitFullscreen() {
 
 	const wrapper = photo.querySelector('.img-wrapper');
 	const img = wrapper ? wrapper.querySelector('img') : photo.querySelector('img');
-
+	if (wrapper) wrapper.classList.remove('zoomed');
 	const navbar = document.querySelector('#navbar');
 	photo.classList.remove('fullscreen');
 	navbar.classList.remove('fullscreen');
@@ -360,6 +360,11 @@ function addZoomHandler(target) {
 		const offsetY = -deltaY * scaleChange;
 
 		if (img) {
+			const wrapper = target.classList.contains('img-wrapper') ? target : target.querySelector('.img-wrapper');
+			if (wrapper) {
+				if (newScale > minScale * 1.01) wrapper.classList.add('zoomed');
+				else wrapper.classList.remove('zoomed');
+			}
 			gsap.to(img, {
 				scale: newScale,
 				duration: 0.2,

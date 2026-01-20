@@ -4,13 +4,15 @@ export function createNavBar() {
 
 	return `
 		<div class="navbar-content">
-			<div class="link-wrapper">
-				<a href="#" id="exhibitLink" class="exhibit-link">Exhibit link</a>
+			<div class="link-wrapper first">
+				<a href="#" id="exhibitLink" class="exhibit-link">Exhibit link <i>⭡</i></a>
 			</div>
-			<div class="link-wrapper">
-				<a href="#" id="moreLink" class="more-link">Get more Art</a>
+			<div class="link-wrapper middle">
+				<a href="#" id="moreLink" class="more-link">
+					<span id="exhibitLabel" class="exhibit-label">Get more Art</span>
+				</a>
 			</div>
-			<div class="link-wrapper">
+			<div class="link-wrapper last">
 				<a href="#" id="closeLink" class="close-link"><i>×</i> Exit Fullscreen</a>
 			</div>
 		</div>
