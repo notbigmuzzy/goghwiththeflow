@@ -81,6 +81,12 @@ export function initPhotoInteractions() {
 						const timeline = document.querySelector('#timeline');
 						if (timeline) timeline.classList.add('hide');
 
+						const exhibitLink = document.querySelector('#exhibitLink');
+						if (exhibitLink) {
+							const objectURL = photo.dataset.objectUrl;
+							if (objectURL) exhibitLink.href = objectURL;
+						}
+
 						currentFullscreenPhoto = photo;
 
 						const photoDraggable = getDraggableInstance(photo);
@@ -451,7 +457,7 @@ export function createPhotos(artworks = []) {
 		const artwork = shuffledArtworks[i];
 
 		photos += `
-			<div class="photo photo-${i + 1}" data-id="${artwork.objectID}" style="position: absolute; top: ${top}px; left: ${left}px; width: ${dimensions.width}px; height: ${dimensions.height}px;">
+			<div class="photo photo-${i + 1}" data-id="${artwork.objectID}" data-object-url="${artwork.objectURL}" style="position: absolute; top: ${top}px; left: ${left}px; width: ${dimensions.width}px; height: ${dimensions.height}px;">
 				<div class="img-wrapper">
 					<img src="${artwork.primaryImageSmall}" loading="lazy" alt="${artwork.title} by ${artwork.artistDisplayName} (${artwork.objectDate})" />
 				</div>

@@ -96,14 +96,19 @@ export function initDialerScroll() {
 		const dialerCenter = dialer.offsetWidth / 2;
 		const itemCenter = centerItem.offsetLeft + centerItem.offsetWidth / 2;
 		const targetScroll = itemCenter - dialerCenter;
+		const year = centerItem.dataset.year;
 
 		timeline.classList.add('dialing');
-		changePeriods(centerItem.dataset.year);
+		changePeriods(year);
+
+		const url = new URL(window.location);
+		url.searchParams.set('year', year);
+		window.history.replaceState({}, '', url);
 
 		gsap.delayedCall(0, () => {
 			setActiveItem(centerItem);
 			timeline.classList.add('downloading');
-			makeApiCall(centerItem.dataset.year, 'dialer');
+			makeApiCall(year, 'dialer');
 		});
 
 		gsap.to(dialer, {
@@ -210,23 +215,44 @@ export function initDialerScroll() {
 		dialer.addEventListener('mousemove', handleMouseMove);
 		dialer.addEventListener('mouseup', handleMouseUp);
 		dialer.addEventListener('mouseleave', handleMouseLeave);
-		// dialer.addEventListener('touchstart', handleMouseDown, { passive: false });
-		// dialer.addEventListener('touchmove', handleMouseMove, { passive: false });
-		// dialer.addEventListener('touchend', handleMouseUp);
-		// dialer.addEventListener('scroll', handleScroll);
+		dialer.addEventListener('touchstart', handleMouseDown, { passive: false });
+		dialer.addEventListener('touchmove', handleMouseMove, { passive: false });
+		dialer.addEventListener('touchend', handleMouseUp);
+		dialer.addEventListener('scroll', handleScroll);
 		dialer.addEventListener('dragstart', (e) => e.preventDefault());
 	}
 
-	{ // Initial centering on TODAY
-		const itemToCenter = dialer.querySelector('li:last-child');
+	{ // Initial centering
+		const urlParams = new URLSearchParams(window.location.search);
+		const urlYear = urlParams.get('year');
+		const storedYear = localStorage.getItem('currentYear');
+		const initialYear = urlYear || storedYear || 'TODAY';
+
+		let itemToCenter;
+		if (initialYear === 'TODAY') {
+			itemToCenter = dialer.querySelector('li:last-child');
+		} else {
+			itemToCenter = dialer.querySelector(`li[data-year="${initialYear}"]`) || dialer.querySelector('li:last-child');
+		}
+
 		const dialerCenter = dialer.offsetWidth / 2;
 		const itemCenter = itemToCenter.offsetLeft + itemToCenter.offsetWidth / 2;
 		const targetScroll = itemCenter - dialerCenter;
 
 		timeline.classList.add('dialing');
 		dialer.scrollLeft = targetScroll;
-		lastScrollPos = targetScroll; // Initialize to prevent jump on first drag
+		lastScrollPos = targetScroll;
 		setActiveItem(itemToCenter);
+
+		if (initialYear !== 'TODAY') {
+			timeline.classList.add('dialing');
+			preloader.classList.add('loading');
+			mainpage.classList.remove('show-exhibit');
+			changePeriods(initialYear);
+			setTimeout(() => {
+				makeApiCall(initialYear, 'dialer');
+			}, 100);
+		}
 
 		setTimeout(() => {
 			isInitializing = false;
