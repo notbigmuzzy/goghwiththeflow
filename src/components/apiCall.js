@@ -9,14 +9,15 @@ export async function makeApiCall(year, source) {
 	const newYearSelected = storedYear !== String(year);
 
 	if (year === 'TODAY') {
+		localStorage.setItem('currentYear', 'TODAY');
 		preloader.classList.remove('loading', 'downloading');
 		timeline.classList.remove('dialing', 'downloading');
 		[mainpage, navbar].forEach(el => el.classList.remove('show-exhibit'));
+		mainpage.classList.add('show-intro');
 		mainpage.querySelectorAll('.photo').forEach(photo => photo.remove());
 
 		return;
 	}
-
 
 	if (source === 'dialer') {
 		if (newYearSelected) {

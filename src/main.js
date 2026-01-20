@@ -5,6 +5,8 @@ import { createPreloader } from './components/preloader.js'
 import { createMainPage } from './components/mainPage.js'
 import { initDialerScroll } from './components/dialerScroll.js'
 
+localStorage.removeItem('currentYear');
+
 document.querySelector('#app').innerHTML = `
   <div id="gallery">
   	${createPreloader()}

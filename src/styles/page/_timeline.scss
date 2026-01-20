@@ -87,12 +87,14 @@
 				margin: 0 auto;
 				text-align: center;
 				color: transparent;
+				mix-blend-mode: difference;
 			}
 
 			span {
 				display: block;
 				transform: rotate(-90deg);
 				transition: all 0.3s ease;
+				mix-blend-mode: difference;
 			}
 
 			&.active {

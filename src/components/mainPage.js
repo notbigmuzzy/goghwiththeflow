@@ -70,7 +70,9 @@ export function initPhotoInteractions() {
 					const targetY = (vh - targetHeight) / 2 - rect.top + currentY;
 
 					setTimeout(() => {
+						const navbar = document.querySelector('#navbar');
 						photo.classList.add('fullscreen');
+						navbar.classList.add('fullscreen');
 						document.querySelectorAll('.photo').forEach(p => {
 							if (p !== photo) {
 								p.classList.add('faded');
@@ -211,6 +213,11 @@ export function initPhotoInteractions() {
 			exitFullscreen();
 		}
 	});
+
+	document.getElementById('closeLink').addEventListener('click', function (e) {
+		e.preventDefault();
+		exitFullscreen();
+	});
 }
 
 function exitFullscreen() {
@@ -228,7 +235,9 @@ function exitFullscreen() {
 	const wrapper = photo.querySelector('.img-wrapper');
 	const img = wrapper ? wrapper.querySelector('img') : photo.querySelector('img');
 
+	const navbar = document.querySelector('#navbar');
 	photo.classList.remove('fullscreen');
+	navbar.classList.remove('fullscreen');
 
 	const photoInfo = photo.querySelector('.photo-info');
 	if (photoInfo) {

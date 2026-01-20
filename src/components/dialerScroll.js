@@ -208,10 +208,10 @@ export function initDialerScroll() {
 		dialer.addEventListener('mousemove', handleMouseMove);
 		dialer.addEventListener('mouseup', handleMouseUp);
 		dialer.addEventListener('mouseleave', handleMouseLeave);
-		dialer.addEventListener('touchstart', handleMouseDown, { passive: false });
-		dialer.addEventListener('touchmove', handleMouseMove, { passive: false });
-		dialer.addEventListener('touchend', handleMouseUp);
-		dialer.addEventListener('scroll', handleScroll);
+		// dialer.addEventListener('touchstart', handleMouseDown, { passive: false });
+		// dialer.addEventListener('touchmove', handleMouseMove, { passive: false });
+		// dialer.addEventListener('touchend', handleMouseUp);
+		// dialer.addEventListener('scroll', handleScroll);
 		dialer.addEventListener('dragstart', (e) => e.preventDefault());
 	}
 
@@ -233,13 +233,8 @@ export function initDialerScroll() {
 
 	document.querySelector('#moreLink').addEventListener('click', (e) => {
 		e.preventDefault();
-		console.log('More link clicked');
 
 		const centerItem = findCenterItem();
-
-		console.log('Center item:', centerItem.dataset.year);
-		if (!centerItem) return;
-
 		makeApiCall(centerItem.dataset.year, 'more');
 	});
 

@@ -16,15 +16,52 @@
 		justify-content: space-between;
 	}
 
+	.link-wrapper {
+		a {
+			text-decoration: none;
+			mix-blend-mode: difference;
+		}
+	}
+
 	.exhibit-link,
 	.more-link,
 	.close-link {
-		pointer-events: all;
+		display: block;
+		position: relative;
 		padding: 0 10px;
 		text-transform: uppercase;
+		font-size: 12px;
+		font-weight: 600;
+		color: #fff;
+		opacity: 0;
+		top: -32px;
+		transition: opacity 0.3s ease, transform 0.3s ease;
 	}
 
-	.more-link {}
+	&.fullscreen {
 
-	.close-link {}
+		.exhibit-link,
+		.close-link {
+			pointer-events: initial;
+			opacity: 1;
+			transform: translateY(32px);
+		}
+	}
+
+	&.show-exhibit {
+		.more-link {
+			pointer-events: initial;
+			opacity: 1;
+			transform: translateY(32px);
+		}
+
+		&.fullscreen {
+			.more-link {
+				opacity: 0;
+				transform: translateY(0);
+			}
+		}
+	}
+
+
 }

@@ -18,7 +18,6 @@
 			display: block;
 			position: absolute;
 			will-change: transform, box-shadow, border-color, width, height, opacity;
-			transition: transform 0.2s cubic-bezier(0.25, 0.51, 0.45, 0.94);
 
 			.img-wrapper {
 				position: absolute;
