@@ -91,6 +91,11 @@
 
 	.more-link {
 		display: inline-block;
+
+		&.loading {
+			pointer-events: none !important;
+			opacity: 0.6 !important;
+		}
 	}
 
 	&.fullscreen {

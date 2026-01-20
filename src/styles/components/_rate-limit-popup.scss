@@ -1,0 +1,56 @@
+.rate-limit-popup {
+	position: fixed;
+	top: 32px;
+	left: 50%;
+	transform: translateX(-50%) translateY(-120%);
+	z-index: 10000;
+	opacity: 0;
+	transition: transform 0.3s ease, opacity 0.3s ease;
+
+	&.show {
+		transform: translateX(-50%) translateY(0);
+		opacity: 1;
+	}
+}
+
+.rate-limit-content {
+	background-color: rgba(31, 11, 11, 0.95);
+	border: 1px solid rgba(255, 100, 100, 0.3);
+	border-radius: 8px;
+	padding: 16px 24px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+	backdrop-filter: blur(10px);
+
+	p {
+		margin: 0 0 12px 0;
+		color: #fff;
+		font-size: 14px;
+		line-height: 1.4;
+		text-align: center;
+		max-width: 400px;
+	}
+}
+
+.rate-limit-timer {
+	height: 3px;
+	background-color: rgba(255, 255, 255, 0.1);
+	border-radius: 2px;
+	overflow: hidden;
+}
+
+.rate-limit-bar {
+	height: 100%;
+	width: 100%;
+	background: linear-gradient(90deg, #ff6464, #ff4444);
+	transform-origin: left;
+}
+
+@keyframes shrinkBar {
+	from {
+		transform: scaleX(1);
+	}
+
+	to {
+		transform: scaleX(0);
+	}
+}
