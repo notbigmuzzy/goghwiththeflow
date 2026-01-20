@@ -1,34 +1,30 @@
-<!-- SKIP FOR NOW 
+# The Soundscape (Audio Crossfading)
+- To make this work without the audio "glitching" when the user slides the bar quickly, use Web Audio API or a library like Howler.js.
+- 3 or 4 ambient loops (Lute for Renaissance, Harpsichord for Baroque, Soft Piano for Impressionism).
+- The Trigger: As getEra(year) changes, trigger a crossfade.
+- The Feel: Volume of Era A goes to 0 while Era B goes to 0.5 over about 2 seconds.
 
-PHASE 1: HARVEST (Collecting MET Data)
-[ ] Fetch Object IDs: Call the MET API search endpoint to retrieve a list of all IDs categorized as Paintings that have images.
-[ ] Data Scraping: Iterate through the IDs and extract: objectID, title, artistDisplayName, objectBeginDate (year), and primaryImageSmall (image URL).
-[ ] Cleanup: Remove any entries that are missing a year or a valid image URL.
-[ ] Generate MEGA.json: Save the entire collection into a single master file on your local machine as a backup.
+# The "Curated Path" (Auto-Pilot)
+- Basically a "Guided Tour." Since we have local shards, this is just a sequence of GSAP tweens.
+- Create a highlights.json with an array of [year, id].
+- A "Play" button that runs a loop:
 
-PHASE 2: SHARDING (Splitting by Year)
-[ ] Develop Sharding Script: Create a script to parse MEGA.json and generate individual files for each year (e.g., data/years/1890.json).
-[ ] Data Minification: Use abbreviated keys in the year-shards (e.g., "a" for artist, "t" for title, "u" for URL) to minimize file size.
-[ ] Create Index Map: Generate a years_index.json file that lists all valid years containing artwork so the UI slider knows which steps to enable.
+- GSAP animates the slider value to the target year.
+- The app loads the shard and renders.
+- A 5-second pause.
+- Move to the next highlight.
 
- -->
+# Virtual Postcard (Canvas Export)
+- Use an off-screen HTML5 Canvas.
+	1. Draw the painting image to the canvas
+	2. Add a "frame" border
+	3. Draw the Title, Artist, and Year in a nice font at the bottom
+	4. Add a small "GoghWithTheFlow" watermark
+- canvas.toDataURL("image/png") triggers a download OR soc. share
 
-# Phase 3: The Frontend (User Experience)
-- The Slider: When the user moves the slider to 1920, the app does fetch('./data/1920.json').
-- The Gallery: The app loops through that year's data and builds the <img> tags.
-- User clicks a painting.
-- The app reads the related array from the current image.
-- It looks up those IDs in the master_map.json to see which year-files they are in.
-- It fetches those years and pulls out the images to show them.
-
-# Phase 3.5: Polish (NICE TO HAVE)
+# NICE TO HAVE
 - IndexedDB caching: Check IndexedDB before fetching year JSON files
 - If cached, load instantly from disk
 - If not cached, fetch from network then save to IndexedDB
 - Consider using `idb` library wrapper for cleaner API
 - Enables offline-first experience and instant repeat visits
-
-# Phase 4: Deployment
-- Git Push: upload index.html, CSS, JS, and the entire /data folder to GitHub.
-- Setup GitHub Pages
-- Go Live

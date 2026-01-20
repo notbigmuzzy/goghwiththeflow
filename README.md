@@ -1,1 +1,17 @@
-# goghwiththeflow
+# Ꞷ goghwiththeflow Ꞷ
+A time-traveling art gallery that lets you scrub through 500 years of art history in seconds. Instead of jumping between static pages, you use a chronological slider to watch the world change from the 1400s to the 1900s—moving seamlessly from Renaissance to early 20th century.
+
+If you ever wanted to scroll through 500 years of Art without a single loading spinner, this is it ;)
+
+## Tech & Fluidity
+- The Star of the Show is absolutely wonderfull "The MET API" - (https://metmuseum.github.io/)
+- Not to abuse the API every time I scraped the collection for several days to build local JSON shards indexed by year. When you move the slider, the app pulls a tiny year.json file. It’s instant.
+- GSAP handles the heavy lifting. The animations are timed to prevent "ghosting" or layout pops, making the transition between years feel like a single, continuous stream
+- Mega-Image Zoom: Click any work to ping the API for the full-resolution source. Once the real file hits, it swaps the source and enables scroll-based scaling for looking at brushstrokes and other details
+
+---
+
+### Check it out at:
+https://notbigmuzzy.github.io/goghwiththeflow/
+
+---
