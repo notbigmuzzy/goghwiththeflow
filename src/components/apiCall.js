@@ -9,14 +9,15 @@ export async function makeApiCall(year, source) {
 	const exhibitMoreBtn = document.querySelector('#moreLink');
 	const newYearSelected = storedYear !== String(year);
 
-	if (year === 'TODAY') {
-		localStorage.setItem('currentYear', 'TODAY');
+	if (year === 'Today') {
+		localStorage.setItem('currentYear', 'Today');
 		preloader.classList.remove('loading', 'downloading');
 		exhibitMoreBtn.classList.remove('loading');
 		timeline.classList.remove('dialing', 'downloading');
 		[mainpage, navbar].forEach(el => el.classList.remove('show-exhibit'));
 		mainpage.classList.add('show-intro');
 		mainpage.querySelectorAll('.photo').forEach(photo => photo.remove());
+		timeline.classList.add('dialing');
 
 		return;
 	}

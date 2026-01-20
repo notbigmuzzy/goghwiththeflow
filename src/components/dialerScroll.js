@@ -226,10 +226,10 @@ export function initDialerScroll() {
 		const urlParams = new URLSearchParams(window.location.search);
 		const urlYear = urlParams.get('year');
 		const storedYear = localStorage.getItem('currentYear');
-		const initialYear = urlYear || storedYear || 'TODAY';
+		const initialYear = urlYear || storedYear || 'Today';
 
 		let itemToCenter;
-		if (initialYear === 'TODAY') {
+		if (initialYear === 'Today') {
 			itemToCenter = dialer.querySelector('li:last-child');
 		} else {
 			itemToCenter = dialer.querySelector(`li[data-year="${initialYear}"]`) || dialer.querySelector('li:last-child');
@@ -244,7 +244,7 @@ export function initDialerScroll() {
 		lastScrollPos = targetScroll;
 		setActiveItem(itemToCenter);
 
-		if (initialYear !== 'TODAY') {
+		if (initialYear !== 'Today') {
 			timeline.classList.add('dialing');
 			preloader.classList.add('loading');
 			mainpage.classList.remove('show-exhibit');
@@ -275,7 +275,13 @@ export function initDialerScroll() {
 		// UI update for era change
 		gallery.classList.remove(...gallery.classList);
 		gallery.classList.add(eraWrapperClass);
-		exhibitLabel.innerHTML = `<i>→</i> Click me to see More from "${era}"`;
+
+		if (year === 'Today') {
+			exhibitLabel.innerHTML = `Welcome to Gogh With The Flow`;
+		} else {
+			exhibitLabel.innerHTML = `<i>→</i> Click me to see More from "${era}"`;
+		}
+
 
 	}
 
@@ -299,7 +305,7 @@ export function initDialerScroll() {
 				return "Impressionism";
 			case (parseInt(year, 10) <= 1905):
 				return "Post-Impressionism";
-			case (parseInt(year, 10) <= 1918):
+			case (parseInt(year, 10) <= 1919):
 				return "Early Modernism";
 			default:
 				return "landing-page";

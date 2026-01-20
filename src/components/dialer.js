@@ -19,7 +19,7 @@ export function createDialer() {
 		</div>
 		<ul class="dialer">
 			${years.map(item => `<li data-year="${item.value}" data-period="${item.type}"><i>${item.value}</i><span>${item.value}</span></li>`).join('\n\t\t\t')}
-			<li class="today" data-year="TODAY" data-period="today"><i>TODAY</i><span>TODAY</span></li>
+			<li class="Today" data-year="Today" data-period="Today"><i>Today</i><span>Today</span></li>
 		</ul>
 	`;
 }

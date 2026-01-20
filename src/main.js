@@ -8,7 +8,7 @@ import { initDialerScroll } from './components/dialerScroll.js'
 localStorage.removeItem('currentYear');
 
 document.querySelector('#app').innerHTML = `
-  <div id="gallery">
+  <div id="gallery" class="landing-page">
   	${createPreloader()}
 	${createMainPage()}
   </div>
