@@ -12,8 +12,9 @@ export function createPreloader() {
 			const size = Math.floor(Math.random() * 3) + 1;
 			const delay = Math.random() * 5;
 			const duration = Math.random() * 3 + 2;
+			const direction = Math.random() < 0.5 ? '-100vw' : '100vw';
 
-			particles += `<div class="wind-particle" style="position: absolute; top: ${top}px; left: ${left}px; width: ${size}px; height: ${size}px; animation-delay: ${delay}s; animation-duration: ${duration}s;"></div>`;
+			particles += `<div class="wind-particle" style="position: absolute; top: ${top}px; left: ${left}px; width: ${size}px; height: ${size}px; animation-delay: ${delay}s; animation-duration: ${duration}s; --wind-direction: ${direction};"></div>`;
 		}
 
 		return particles;

@@ -277,7 +277,7 @@ export function initDialerScroll() {
 		gallery.classList.add(eraWrapperClass);
 
 		if (year === 'Today') {
-			exhibitLabel.innerHTML = `Welcome to Gogh With The Flow`;
+			exhibitLabel.innerHTML = `Time-traveling art gallery`;
 		} else {
 			exhibitLabel.innerHTML = `<i>→</i> Click me to see More from "${era}"`;
 		}

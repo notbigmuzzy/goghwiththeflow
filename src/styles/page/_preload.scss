@@ -46,10 +46,10 @@
 	}
 
 	.pane-window {
-		opacity: 0;
-		top: -30px;
+		// opacity: 0;
+		top: -50px;
 		transform: translateY(0);
-		transition: transform 0.5s ease, opacity 0.5s ease;
+		transition: transform 2s ease, opacity 0.5s ease;
 		transition-delay: 0.1s;
 	}
 
@@ -71,36 +71,16 @@
 
 		.pane-window {
 			opacity: 1;
-			transform: translateY(50px);
+			transform: translateY(100px);
 		}
 	}
 
 	.wind-particle {
 		position: absolute;
-		background: rgba(255, 255, 255, 0.7);
+		background: rgba(255, 255, 255, 0.5);
 		border-radius: 50%;
 		opacity: 0;
-		animation: windFloat 3s infinite ease-in-out;
-	}
-
-	@keyframes windFloat {
-		0% {
-			opacity: 0;
-			transform: translateX(0) translateY(0);
-		}
-
-		10% {
-			opacity: 1;
-		}
-
-		70% {
-			opacity: 1;
-		}
-
-		100% {
-			opacity: 0;
-			transform: translateX(100vw) translateY(-50px);
-		}
+		animation: windFloat 5s infinite ease-in-out;
 	}
 
 	&.downloading {
@@ -153,6 +133,26 @@
 	@keyframes shimmer-diagonal {
 		100% {
 			transform: translate(100%, 100%);
+		}
+	}
+
+	@keyframes windFloat {
+		0% {
+			opacity: 0;
+			transform: translateX(0) translateY(0);
+		}
+
+		10% {
+			opacity: 1;
+		}
+
+		70% {
+			opacity: 1;
+		}
+
+		100% {
+			opacity: 0;
+			transform: translateX(var(--wind-direction, -100vw)) translateY(50px);
 		}
 	}
 }

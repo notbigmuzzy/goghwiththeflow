@@ -10,7 +10,7 @@ export function createNavBar() {
 			<div class="link-wrapper middle">
 				<a href="#" id="moreLink" class="more-link">
 					<span id="exhibitLabel" class="exhibit-label">
-						Welcome to Gogh With The Flow
+						Time-traveling art gallery
 					</span>
 				</a>
 			</div>
