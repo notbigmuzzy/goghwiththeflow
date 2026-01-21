@@ -1,8 +1,8 @@
 import fs from 'fs';
 import https from 'https';
 
-const START_YEAR = 1921;
-const END_YEAR = 1950;
+const START_YEAR = 1440;
+const END_YEAR = 1471;
 const MAX_IDS = 100000;
 const DELAY_MS = 1300; // ~46 calls per minute to stay under 50/min limit
 

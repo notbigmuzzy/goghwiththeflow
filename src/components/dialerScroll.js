@@ -281,13 +281,11 @@ export function initDialerScroll() {
 		} else {
 			exhibitLabel.innerHTML = `<i>→</i> Click me to see More from "${era}"`;
 		}
-
-
 	}
 
 	function getEra(year) {
 		switch (true) {
-			case (parseInt(year, 10) < 1477):
+			case (parseInt(year, 10) < 1480):
 				return "Pre-Renaissance";
 			case (parseInt(year, 10) <= 1520):
 				return "High Renaissance";
