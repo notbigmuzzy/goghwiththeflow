@@ -2,10 +2,10 @@ export function createDialer() {
 
 	const years = [];
 	const excludedYears = [
-		1474
+		1474, 1920, 1923, 1924, 1925, 1927, 1928, 1929, 1931, 1932, 1933, 1934, 1935, 1937
 	];
 
-	for (let year = 1472; year <= 1919; year++) {
+	for (let year = 1472; year <= 1940; year++) {
 		if (!excludedYears.includes(year)) {
 			years.push({ value: year, type: 'year' });
 		}

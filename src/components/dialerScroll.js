@@ -303,9 +303,9 @@ export function initDialerScroll() {
 				return "Realism";
 			case (parseInt(year, 10) <= 1890):
 				return "Impressionism";
-			case (parseInt(year, 10) <= 1905):
+			case (parseInt(year, 10) <= 1915):
 				return "Post-Impressionism";
-			case (parseInt(year, 10) <= 1919):
+			case (parseInt(year, 10) <= 1940):
 				return "Early Modernism";
 			default:
 				return "landing-page";
