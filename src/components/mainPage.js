@@ -411,7 +411,7 @@ export function createPhotos(artworks = []) {
 	const numberOfPhotos = artworks.length;
 
 	const aspectRatio = 240 / 320;
-	const height = Math.floor(viewportHeight * 0.45);
+	const height = Math.floor(viewportHeight * 0.475);
 	const width = Math.floor(height * aspectRatio);
 
 	const dimensions = { width, height };

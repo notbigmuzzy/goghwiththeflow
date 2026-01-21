@@ -11,6 +11,21 @@
 	box-sizing: border-box;
 	background-color: transparent;
 	transition: transform 0.5s ease, opacity 0.5s ease, background-color 0.5s ease;
+	mix-blend-mode: difference;
+
+	&:before {
+		content: '';
+		display: block;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		margin: 0 auto;
+		width: 3px;
+		height: 3px;
+		background: rgba(255, 255, 255, 0.25);
+		border-radius: 50%;
+	}
 
 	.dialer {
 		display: flex;
@@ -38,9 +53,23 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			width: 80px;
+			width: 92px;
 			flex-shrink: 0;
+			border-top-left-radius: 10px;
+			border-top-right-radius: 10px;
 			transition: background-color 0.5s ease;
+
+			&:before {
+				content: '';
+				display: block;
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 1px;
+				height: 30%;
+				transition: background 0.5s ease;
+				background: linear-gradient(to top, rgba(255, 255, 255, 0.05), transparent);
+			}
 
 			span {
 				position: relative;
@@ -68,9 +97,13 @@
 
 	&.dialing,
 	&:hover {
-		background-color: rgba(0, 0, 0, 0.25);
+		background-color: rgba(255, 255, 255, 0.05);
 
 		.dialer li {
+			&:before {
+				background: linear-gradient(to top, rgba(255, 255, 255, 0.25), transparent);
+			}
+
 			span {
 				color: rgba(255, 255, 255, 1);
 			}
