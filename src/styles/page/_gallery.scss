@@ -57,7 +57,7 @@
 }
 
 #gallery.landing-page {
-	&+#navbar .navbar-content {
+	&~#navbar .navbar-content {
 		.more-link {
 			opacity: 1;
 			transform: translateY(64px) scale(2.5);

@@ -38,6 +38,13 @@ export async function makeApiCall(year, source) {
 			setTimeout(() => {
 				[mainpage, navbar].forEach(el => el.classList.add('show-exhibit'));
 			}, 300);
+		} else {
+			preloader.classList.remove('loading', 'downloading');
+			exhibitMoreBtn.classList.remove('loading');
+			timeline.classList.remove('dialing', 'downloading');
+			setTimeout(() => {
+				[mainpage, navbar].forEach(el => el.classList.add('show-exhibit'));
+			}, 300);
 		}
 	} else if (source === 'more') {
 		preloader.classList.add('loading');
