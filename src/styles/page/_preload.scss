@@ -127,24 +127,27 @@
 	.spiral {
 		position: relative;
 		top: 180px;
-		width: 500px;
+		width: 600px;
 		height: 500px;
 		margin: 0 auto;
 		pointer-events: none;
 		opacity: 0;
 		mix-blend-mode: difference;
-		transition: opacity 0.75s ease, scale 1.25s ease, rotate 0.75s ease;
+		transition: opacity 0.5s ease, scale 1.25s ease, rotate 0.75s ease;
 
 		svg {
 			position: relative;
-			right: -60px;
+			right: -90px;
 			width: 100%;
 			height: 100%;
 			mix-blend-mode: difference;
 			filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8));
 
 			path {
-				animation: spiralDraw 12s ease-in-out;
+				stroke-dasharray: 1000;
+				stroke-dashoffset: 1000;
+				opacity: 0;
+				animation: spiralDraw 12s ease-out forwards;
 			}
 		}
 	}
@@ -155,6 +158,7 @@
 			stroke-dashoffset: 1000;
 			opacity: 0;
 		}
+
 
 		100% {
 			stroke-dasharray: 1000;

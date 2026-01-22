@@ -90,7 +90,7 @@ export function createPreloader() {
 						a 55 55 0 0 0 55 55
 						a 89 89 0 0 0 89 -89
 						a 144 144 0 0 0 -144 -144
-						a 233 233 0 0 0 -233 233" 
+						a 233 233 0 0 0 -233 233"
 						fill="none" 
 						stroke="rgba(255, 255, 255, 0.25)" 
 						stroke-width="3"
