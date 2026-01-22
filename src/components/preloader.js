@@ -81,6 +81,23 @@ export function createPreloader() {
 			<div class="pane pane-window">
 				${createWindParticles()}
 			</div>
+			<div class="spiral">
+				<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+					<path d="M 250 250 
+						a 13 13 0 0 0 13 -13
+						a 21 21 0 0 0 -21 -21
+						a 34 34 0 0 0 -34 34
+						a 55 55 0 0 0 55 55
+						a 89 89 0 0 0 89 -89
+						a 144 144 0 0 0 -144 -144
+						a 233 233 0 0 0 -233 233" 
+						fill="none" 
+						stroke="rgba(255, 255, 255, 0.25)" 
+						stroke-width="3"
+						stroke-linecap="round"
+					/>
+				</svg>
+			</div>
 		</div>
 	`;
 }

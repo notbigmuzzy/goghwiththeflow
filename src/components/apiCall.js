@@ -11,9 +11,7 @@ export async function makeApiCall(year, source) {
 
 	if (year === 'Today') {
 		localStorage.setItem('currentYear', 'Today');
-		preloader.classList.remove('loading', 'downloading');
-		exhibitMoreBtn.classList.remove('loading');
-		timeline.classList.remove('dialing', 'downloading');
+		cleanUpLoadingStates();
 		[mainpage, navbar].forEach(el => el.classList.remove('show-exhibit'));
 		mainpage.classList.add('show-intro');
 		mainpage.querySelectorAll('.photo').forEach(photo => photo.remove());
@@ -22,31 +20,27 @@ export async function makeApiCall(year, source) {
 		return;
 	}
 
+	timeline.classList.add('downloading');
+	preloader.classList.add('downloading');
+
 	if (source === 'dialer') {
 		if (newYearSelected) {
-			const artworks = await fetchArtworks(year);
+			// PREP FOR NEW DATA
 			localStorage.setItem('currentYear', year);
 			mainpage.querySelectorAll('.photo').forEach(photo => photo.remove());
-
+			// FETCH AND DISPLAY NEW DATA
+			const artworks = await fetchArtworks(year);
 			const photoPane = mainpage.querySelector('.pane-photos');
 			photoPane.innerHTML = createPhotos(artworks);
+			// FINALIZE UI UPDATES
 			initPhotoInteractions();
-
-			preloader.classList.remove('loading', 'downloading');
-			exhibitMoreBtn.classList.remove('loading');
-			timeline.classList.remove('dialing', 'downloading');
-			setTimeout(() => {
-				[mainpage, navbar].forEach(el => el.classList.add('show-exhibit'));
-			}, 300);
+			// CLEAN UP LOADING STATES
+			cleanUpLoadingStates()
 		} else {
-			preloader.classList.remove('loading', 'downloading');
-			exhibitMoreBtn.classList.remove('loading');
-			timeline.classList.remove('dialing', 'downloading');
-			setTimeout(() => {
-				[mainpage, navbar].forEach(el => el.classList.add('show-exhibit'));
-			}, 300);
+			cleanUpLoadingStates()
 		}
 	} else if (source === 'more') {
+		// PREP FOR NEW DATA
 		preloader.classList.add('loading');
 		exhibitMoreBtn.classList.add('loading');
 		mainpage.classList.remove('show-exhibit');
@@ -54,18 +48,26 @@ export async function makeApiCall(year, source) {
 		timeline.classList.remove('hide');
 
 		setTimeout(async () => {
+			// FETCH AND DISPLAY NEW DATA
 			const artworks = await fetchArtworks(year);
 			const photoPane = mainpage.querySelector('.pane-photos');
 			photoPane.innerHTML = createPhotos(artworks);
+			// FINALIZE UI UPDATES
 			initPhotoInteractions();
-
-			exhibitMoreBtn.classList.remove('loading');
-			preloader.classList.remove('loading', 'downloading');
-			timeline.classList.remove('dialing', 'downloading');
-			setTimeout(() => {
-				[mainpage, navbar].forEach(el => el.classList.add('show-exhibit'));
-			}, 300);
+			// CLEAN UP LOADING STATES
+			cleanUpLoadingStates()
 		}, 500);
+	}
+
+	function cleanUpLoadingStates() {
+		preloader.classList.remove('loading');
+		preloader.classList.remove('downloading');
+		exhibitMoreBtn.classList.remove('loading');
+		timeline.classList.remove('dialing');
+		timeline.classList.remove('downloading');
+		setTimeout(() => {
+			[mainpage, navbar].forEach(el => el.classList.add('show-exhibit'));
+		}, 300);
 	}
 }
 

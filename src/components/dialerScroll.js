@@ -107,19 +107,13 @@ export function initDialerScroll() {
 
 		gsap.delayedCall(0, () => {
 			setActiveItem(centerItem);
-			timeline.classList.add('downloading');
 			makeApiCall(year, 'dialer');
 		});
 
 		gsap.to(dialer, {
 			scrollLeft: targetScroll,
 			duration: 0.5,
-			ease: 'power2.out',
-			onComplete: () => {
-				setTimeout(() => {
-					preloader.classList.add('downloading');
-				}, 150)
-			}
+			ease: 'power2.out'
 		});
 	};
 

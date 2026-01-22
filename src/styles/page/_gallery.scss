@@ -53,15 +53,18 @@
 
 	&.landing-page {
 		background-color: #0b0b1f;
+
+		.spiral {
+			opacity: 1;
+		}
 	}
 }
 
 #gallery.landing-page {
-	&~#navbar .navbar-content {
-		.more-link {
-			opacity: 1;
-			transform: translateY(64px) scale(2.5);
-			transition: transform 0.5s ease, scale 0.5s ease;
-		}
+	&~#navbar .navbar-content .more-link {
+		opacity: 1;
+		transform: translateY(64px) scale(2.5);
+		transition: transform 0.5s ease, scale 0.5s ease;
+
 	}
 }
