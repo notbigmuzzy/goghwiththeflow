@@ -9,6 +9,11 @@ let draggableInstances = [];
 let currentWrapperDraggable = null;
 
 export function initPhotoInteractions() {
+	initDraggables();
+	initEventListeners();
+}
+
+function initDraggables() {
 	draggableInstances = Draggable.create('.photo', {
 		type: 'x,y',
 		bounds: '#mainPage',
@@ -207,7 +212,9 @@ export function initPhotoInteractions() {
 			}
 		}
 	});
+}
 
+function initEventListeners() {
 	document.getElementById('mainPage').addEventListener('click', function (e) {
 		if (currentFullscreenPhoto) {
 			const clickedContent = e.target.closest('.img-wrapper') || e.target.closest('.photo-info');
