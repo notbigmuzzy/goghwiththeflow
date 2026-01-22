@@ -88,6 +88,10 @@
 				font-size: 18px;
 				line-height: 1.25;
 				font-weight: bold;
+				display: -webkit-box;
+				-webkit-box-orient: vertical;
+				-webkit-line-clamp: 3;
+				overflow: hidden;
 			}
 
 			.additional-info {
@@ -129,6 +133,8 @@
 					.photo-title {
 						font-size: 22px;
 						line-height: 1.25;
+						display: block;
+						overflow: visible;
 					}
 
 					.additional-info {
