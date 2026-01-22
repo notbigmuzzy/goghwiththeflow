@@ -5,7 +5,7 @@ export function createNavBar() {
 	return `
 		<div class="navbar-content">
 			<div class="link-wrapper first">
-				<a href="#" id="exhibitLink" target="_blank" class="exhibit-link">Exhibit link <i>⭡</i></a>
+				<a href="#" id="exhibitLink" target="_blank" class="exhibit-link">Exhibit link <i>→</i></a>
 			</div>
 			<div class="link-wrapper middle">
 				<a href="#" id="moreLink" class="more-link">

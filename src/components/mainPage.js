@@ -95,11 +95,14 @@ export function initPhotoInteractions() {
 
 						const photoInfo = photo.querySelector('.photo-info');
 						if (photoInfo) {
+							const photoInfoHeight = photoInfo.offsetHeight;
+							const centerY = (-targetHeight / 2) + (photoInfoHeight / 2);
 							gsap.to(photoInfo, {
 								x: targetWidth + 20,
-								y: -targetHeight * 0.45,
+								y: centerY,
 								width: 300,
 								duration: 0.5,
+								scale: 1.1,
 								ease: 'power2.inOut'
 							});
 						}
@@ -250,6 +253,7 @@ function exitFullscreen() {
 		gsap.to(photoInfo, {
 			x: 0,
 			y: 0,
+			scale: 1,
 			duration: 0.5,
 			ease: 'power2.inOut'
 		});

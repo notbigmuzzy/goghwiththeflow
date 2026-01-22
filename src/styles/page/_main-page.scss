@@ -88,10 +88,6 @@
 				font-size: 18px;
 				line-height: 1.25;
 				font-weight: bold;
-				display: -webkit-box;
-				-webkit-box-orient: vertical;
-				-webkit-line-clamp: 3;
-				overflow: hidden;
 			}
 
 			.additional-info {
@@ -125,17 +121,15 @@
 				.photo-info {
 					z-index: 100 !important;
 
-					.photo-artist {
-						font-size: 14px;
-						margin-bottom: 7px;
-					}
+					// .photo-artist {
+					// 	font-size: 14px;
+					// 	margin-bottom: 7px;
+					// }
 
-					.photo-title {
-						font-size: 22px;
-						line-height: 1.25;
-						display: block;
-						overflow: visible;
-					}
+					// .photo-title {
+					// 	font-size: 22px;
+					// 	line-height: 1.25;
+					// }
 
 					.additional-info {
 						display: block;
