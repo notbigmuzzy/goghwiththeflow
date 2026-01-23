@@ -98,22 +98,6 @@ export function createPreloader() {
 					/>
 				</svg>
 			</div>
-			<div class="instructions">
-				<p class="instruct"><i class="arrow-down"></i>Drag to explore by year</p>
-				<p>or</p>
-				<p class="instruct">
-					<i class="arrow-right"></i>
-					<span>Click to jump by century</span>
-					<span class="century-links">
-						<span><a href="#" data-century="1440" class="century-link">15th</a></span>
-						<span><a href="#" data-century="1501" class="century-link">16th</a></span>
-						<span><a href="#" data-century="1601" class="century-link">17th</a></span>
-						<span><a href="#" data-century="1701" class="century-link">18th</a></span>
-						<span><a href="#" data-century="1801" class="century-link">19th</a></span>
-						<span><a href="#" data-century="1901" class="century-link">20th</a></span>
-					</span>
-				</p>
-			</div>
 		</div>
 	`;
 }

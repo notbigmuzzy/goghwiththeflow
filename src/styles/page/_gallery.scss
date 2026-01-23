@@ -65,14 +65,24 @@
 }
 
 #gallery.landing-page {
-	&~#navbar .navbar-content .more-link {
-		pointer-events: none;
-		opacity: 1;
-		transform: translateY(64px) scale(2.5);
-		transition: transform 0.5s ease, scale 0.5s ease;
-		background-color: rgba(255, 255, 255, 0.1);
-		text-shadow: 0px 2px 10px white;
-		border-radius: 5px;
-		mix-blend-mode: initial;
+	&~#navbar {
+		.navbar-content .more-link {
+			pointer-events: none;
+			opacity: 1;
+			transform: translateY(64px) scale(2.5);
+			transition: transform 0.5s ease, scale 0.5s ease;
+			background-color: rgba(255, 255, 255, 0.1);
+			text-shadow: 0px 2px 10px white;
+			border-radius: 5px;
+			mix-blend-mode: initial;
+		}
+
+		&~#timeline:not(.dialing) {
+
+			.instructions {
+				opacity: 1 !important;
+				transform: translateY(-10px);
+			}
+		}
 	}
 }

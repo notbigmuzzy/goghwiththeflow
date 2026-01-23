@@ -16,17 +16,32 @@ export function createDialer() {
 	}
 
 	return `
-		<ul class="dialer">
-			${years.map(
-		item => `
+		<div class="preload-instructions">
+			<div class="instructions">
+				<p class="instruct"><i class="arrow-down"></i>Drag to explore by year</p>
+			</div>
+			<div class="century-links left">
+				<a href="#" data-century="1601" class="century-link">17c.</a>
+				<a href="#" data-century="1501" class="century-link">16c.</a>
+				<a href="#" data-century="1440" class="century-link">15c.</a>				
+			</div>
+			<div class="century-links right">
+				<a href="#" data-century="1901" class="century-link">20c.</a>
+				<a href="#" data-century="1801" class="century-link">19c.</a>
+				<a href="#" data-century="1701" class="century-link">18c.</a>
+			</div>
+		</div>
+		<div class="dialer-wrapper">
+			<ul class="dialer">
+				${years.map(item => `
 					<li data-year="${item.value}" data-period="${item.type}">
 						<span>${item.value}</span>
 					</li>
-				`).join('\n\t\t\t')
-		}
-			<li class="Today" data-year="Today" data-period="Today">
-				<span>Today</span>
-			</li>
-		</ul>
+				`).join('\n\t\t\t')}
+				<li class="Today" data-year="Today" data-period="Today">
+					<span>Today</span>
+				</li>
+			</ul>
+		</div>
 	`;
 }

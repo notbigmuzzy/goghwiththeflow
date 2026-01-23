@@ -19,7 +19,6 @@ export async function makeApiCall(year, source) {
 		navbar.classList.remove('show-exhibit');
 		mainpage.classList.add('show-intro');
 		mainpage.querySelectorAll('.photo').forEach(photo => photo.remove());
-		timeline.classList.add('dialing');
 
 		return;
 	}

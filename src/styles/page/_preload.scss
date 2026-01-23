@@ -79,11 +79,6 @@
 			scale: 0.8;
 			rotate: -45deg;
 		}
-
-		.instructions {
-			opacity: 0 !important;
-			transform: translateY(10px);
-		}
 	}
 
 	.wind-particle {
@@ -153,86 +148,6 @@
 				stroke-dashoffset: 1000;
 				opacity: 0;
 				animation: spiralDraw 12s ease-out forwards;
-			}
-		}
-	}
-
-	.instructions {
-		position: absolute;
-		bottom: 80px;
-		width: 100%;
-		text-align: center;
-		text-transform: uppercase;
-		font-size: 12px;
-		font-weight: bold;
-		color: rgba(255, 255, 255, 0.8);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		opacity: 0;
-		transition: opacity 0.25s ease, transform 0.25s ease;
-
-		p.instruct {
-			position: relative;
-			background-color: rgba(255, 255, 255, 0.1);
-			text-shadow: 0px 2px 5px rgba(255, 255, 255, 0.5);
-			border-radius: 5px;
-			padding: 12px 16px;
-			border-radius: 5px;
-
-			.arrow-down {
-				width: 0;
-				height: 0;
-				border-left: 8px solid transparent;
-				border-right: 8px solid transparent;
-				border-top: 10px solid rgba(255, 255, 255, 0.1);
-				position: absolute;
-				bottom: -10px;
-				left: 0;
-				right: 0;
-				margin: 0 auto;
-			}
-
-			.arrow-right {
-				width: 0;
-				height: 0;
-				border-top: 8px solid transparent;
-				border-bottom: 8px solid transparent;
-				border-left: 10px solid rgba(255, 255, 255, 0.1);
-				position: absolute;
-				right: -10px;
-				top: 0;
-				bottom: 0;
-				margin: auto 0;
-			}
-		}
-
-		p:not(.instruct) {
-			padding: 0 20px;
-		}
-
-		.century-links {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			padding: 0 10px;
-			pointer-events: all !important;
-			position: absolute;
-			left: 100%;
-			top: 30%;
-			z-index: 1;
-			font-weight: bold;
-
-			span {
-				a {
-					color: #fff;
-					text-decoration: none;
-					padding: 10px;
-
-					&:hover {
-						color: lightgoldenrodyellow;
-					}
-				}
 			}
 		}
 	}

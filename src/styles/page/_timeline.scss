@@ -4,13 +4,12 @@
 	height: 64px;
 	margin: 0 auto;
 	bottom: 0;
-	overflow: hidden;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	box-sizing: border-box;
 	background-color: transparent;
-	transition: transform 0.5s ease, opacity 0.5s ease, background-color 0.5s ease;
+	transition: transform 0.5s ease, opacity 0.5s ease;
 	mix-blend-mode: difference;
 
 	&:before {
@@ -26,6 +25,17 @@
 		background: rgba(255, 255, 255, 0.5);
 		border-radius: 50%;
 		mix-blend-mode: difference;
+	}
+
+	.dialer-wrapper {
+		position: relative;
+		width: 1016px;
+		height: 100%;
+		overflow: hidden;
+		border-top-right-radius: 10px;
+		border-top-left-radius: 10px;
+		background-color: transparent;
+		transition: background-color 0.5s ease;
 	}
 
 	.dialer {
@@ -98,7 +108,11 @@
 
 	&.dialing,
 	&:hover {
-		background-color: rgba(255, 255, 255, 0.05);
+
+		.dialer-wrapper {
+			background-color: rgba(255, 255, 255, 0.05);
+		}
+
 
 		.dialer li {
 			&:before {
@@ -124,5 +138,117 @@
 		opacity: 0;
 		pointer-events: none;
 		transform: translateY(64px);
+	}
+
+	.preload-instructions {
+		position: absolute;
+		bottom: 70px;
+		width: 100%;
+		text-align: center;
+		text-transform: uppercase;
+		font-size: 12px;
+		font-weight: bold;
+		color: rgba(255, 255, 255, 0.8);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		pointer-events: none;
+	}
+
+	.instructions {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		pointer-events: none;
+		opacity: 0;
+		transition: opacity 0.25s ease, transform 0.25s ease;
+
+		p.instruct {
+			position: relative;
+			background-color: rgba(255, 255, 255, 0.1);
+			text-shadow: 0px 2px 5px rgba(255, 255, 255, 0.5);
+			border-radius: 5px;
+			padding: 12px 16px;
+			border-radius: 5px;
+
+			.arrow-down {
+				width: 0;
+				height: 0;
+				border-left: 8px solid transparent;
+				border-right: 8px solid transparent;
+				border-top: 10px solid rgba(255, 255, 255, 0.1);
+				position: absolute;
+				bottom: -10px;
+				left: 0;
+				right: 0;
+				margin: 0 auto;
+			}
+
+			.arrow-right {
+				width: 0;
+				height: 0;
+				border-top: 8px solid transparent;
+				border-bottom: 8px solid transparent;
+				border-left: 10px solid rgba(255, 255, 255, 0.1);
+				position: absolute;
+				right: -10px;
+				top: 0;
+				bottom: 0;
+				margin: auto 0;
+			}
+		}
+
+		p:not(.instruct) {
+			padding: 0 20px;
+		}
+	}
+
+	.century-links {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		position: fixed;
+		right: 0;
+		bottom: 10px;
+		padding: 0;
+		pointer-events: all !important;
+		z-index: 1;
+		font-weight: bold;
+
+		&.left {
+			left: 0;
+			right: auto;
+
+			a {
+				border-top-right-radius: 5px;
+				border-bottom-right-radius: 5px;
+			}
+		}
+
+		&.right {
+			right: 0;
+			left: auto;
+
+			a {
+				border-top-left-radius: 5px;
+				border-bottom-left-radius: 5px;
+			}
+		}
+
+		a {
+			display: block;
+			color: #fff;
+			text-decoration: none;
+			padding: 10px;
+			background-color: rgba(255, 255, 255, 0.1);
+			margin: 5px 0;
+			text-transform: initial;
+
+			&:hover {
+				color: lightgoldenrodyellow;
+			}
+		}
+
 	}
 }

@@ -233,7 +233,6 @@ export function initDialerScroll() {
 		const itemCenter = itemToCenter.offsetLeft + itemToCenter.offsetWidth / 2;
 		const targetScroll = itemCenter - dialerCenter;
 
-		timeline.classList.add('dialing');
 		dialer.scrollLeft = targetScroll;
 		lastScrollPos = targetScroll;
 		setActiveItem(itemToCenter);

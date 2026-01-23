@@ -15,7 +15,7 @@ document.querySelector('#app').innerHTML = `
   <div id="navbar">
 	${createNavBar()}
   </div>
-  <div id="timeline" class="dialing">
+  <div id="timeline">
 	${createDialer()}
   </div>
 `
