@@ -48,6 +48,13 @@
 			}
 
 			&.getting-high-res {
+				z-index: 3000 !important;
+
+				.img-wrapper {
+					border-color: white;
+					box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+				}
+
 				&::after {
 					content: '';
 					position: absolute;
