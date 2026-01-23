@@ -260,6 +260,43 @@ export function initDialerScroll() {
 		makeApiCall(centerItem.dataset.year, 'more');
 	});
 
+	document.querySelectorAll('.century-link').forEach(link => {
+		link.addEventListener('click', (e) => {
+			e.preventDefault();
+			const target = e.target.closest('a');
+			if (!target) return;
+			const year = target.dataset.century;
+
+			const itemToCenter = dialer.querySelector(`li[data-year="${year}"]`);
+			if (!itemToCenter) return;
+
+			const dialerCenter = dialer.offsetWidth / 2;
+			const itemCenter = itemToCenter.offsetLeft + itemToCenter.offsetWidth / 2;
+			const targetScroll = itemCenter - dialerCenter;
+
+			// Stop any existing momentum
+			isDragging = false;
+			velocity = 0;
+			if (animationFrame) cancelAnimationFrame(animationFrame);
+			if (snapTimeout) clearTimeout(snapTimeout);
+
+			timeline.classList.add('dialing');
+			preloader.classList.add('loading');
+			mainpage.classList.remove('show-exhibit');
+
+			changePeriods(year);
+
+			gsap.to(dialer, {
+				scrollLeft: targetScroll,
+				duration: 2,
+				ease: 'power2.inOut',
+				onComplete: () => {
+					snapToCenter();
+				}
+			});
+		});
+	});
+
 	function changePeriods(year) {
 		const gallery = document.querySelector('#gallery');
 		const exhibitLabel = document.querySelector('#exhibitLabel');

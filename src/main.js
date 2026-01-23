@@ -9,8 +9,8 @@ localStorage.removeItem('currentYear');
 
 document.querySelector('#app').innerHTML = `
   <div id="gallery" class="landing-page">
- 	${createMainPage()} 	
-  	${createPreloader()}
+ 	${createPreloader()}	
+  	${createMainPage()} 	
   </div>
   <div id="navbar">
 	${createNavBar()}

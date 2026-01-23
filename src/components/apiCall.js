@@ -11,8 +11,12 @@ export async function makeApiCall(year, source) {
 
 	if (year === 'Today') {
 		localStorage.setItem('currentYear', 'Today');
-		cleanUpLoadingStates();
-		[mainpage, navbar].forEach(el => el.classList.remove('show-exhibit'));
+		preloader.classList.remove('loading');
+		preloader.classList.remove('downloading');
+		exhibitMoreBtn.classList.remove('loading');
+		timeline.classList.remove('dialing');
+		timeline.classList.remove('downloading'); mainpage.classList.remove('show-exhibit');
+		navbar.classList.remove('show-exhibit');
 		mainpage.classList.add('show-intro');
 		mainpage.querySelectorAll('.photo').forEach(photo => photo.remove());
 		timeline.classList.add('dialing');
