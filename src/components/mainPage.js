@@ -460,95 +460,92 @@ function addZoomHandler(target) {
 		});
 	};
 
-	{ // Touch zoom handler
-		const getTouchDistance = (touch1, touch2) => {
-			const dx = touch1.clientX - touch2.clientX;
-			const dy = touch1.clientY - touch2.clientY;
-			return Math.sqrt(dx * dx + dy * dy);
+	// Touch zoom handler
+	const getTouchDistance = (touch1, touch2) => {
+		const dx = touch1.clientX - touch2.clientX;
+		const dy = touch1.clientY - touch2.clientY;
+		return Math.sqrt(dx * dx + dy * dy);
+	};
+	const getTouchCenter = (touch1, touch2) => {
+		return {
+			x: (touch1.clientX + touch2.clientX) / 2,
+			y: (touch1.clientY + touch2.clientY) / 2
 		};
+	};
+	const touchStartHandler = (e) => {
+		if (e.touches.length === 2) {
+			e.preventDefault();
+			target.classList.add('zoom-in-progress');
+			if (currentWrapperDraggable) currentWrapperDraggable.disable();
 
-		const getTouchCenter = (touch1, touch2) => {
-			return {
-				x: (touch1.clientX + touch2.clientX) / 2,
-				y: (touch1.clientY + touch2.clientY) / 2
-			};
-		};
+			const img = target.querySelector('img');
+			initialScale = img ? (gsap.getProperty(img, 'scale') || 1) : 1;
+			initialPinchDistance = getTouchDistance(e.touches[0], e.touches[1]);
+			pinchCenter = getTouchCenter(e.touches[0], e.touches[1]);
+		}
+	};
+	const touchMoveHandler = (e) => {
+		if (e.touches.length === 2 && initialPinchDistance) {
+			e.preventDefault();
 
-		const touchStartHandler = (e) => {
-			if (e.touches.length === 2) {
-				e.preventDefault();
-				target.classList.add('zoom-in-progress');
-				if (currentWrapperDraggable) currentWrapperDraggable.disable();
+			const currentDistance = getTouchDistance(e.touches[0], e.touches[1]);
+			const currentCenter = getTouchCenter(e.touches[0], e.touches[1]);
 
-				const img = target.querySelector('img');
-				initialScale = img ? (gsap.getProperty(img, 'scale') || 1) : 1;
-				initialPinchDistance = getTouchDistance(e.touches[0], e.touches[1]);
-				pinchCenter = getTouchCenter(e.touches[0], e.touches[1]);
-			}
-		};
+			const minScale = target._gsap.initialFullscreenScale || 1;
+			const maxScale = minScale * 8;
 
-		const touchMoveHandler = (e) => {
-			if (e.touches.length === 2 && initialPinchDistance) {
-				e.preventDefault();
+			const scaleMultiplier = currentDistance / initialPinchDistance;
+			let newScale = initialScale * scaleMultiplier;
+			newScale = Math.max(minScale, Math.min(maxScale, newScale));
 
-				const currentDistance = getTouchDistance(e.touches[0], e.touches[1]);
-				const currentCenter = getTouchCenter(e.touches[0], e.touches[1]);
+			const img = target.querySelector('img');
+			const currentScale = img ? (gsap.getProperty(img, 'scale') || 1) : 1;
 
-				const minScale = target._gsap.initialFullscreenScale || 1;
-				const maxScale = minScale * 8;
+			const rect = target.getBoundingClientRect();
+			const currentX = gsap.getProperty(target, 'x');
+			const currentY = gsap.getProperty(target, 'y');
 
-				const scaleMultiplier = currentDistance / initialPinchDistance;
-				let newScale = initialScale * scaleMultiplier;
-				newScale = Math.max(minScale, Math.min(maxScale, newScale));
+			const photoCenterX = rect.left + rect.width / 2;
+			const photoCenterY = rect.top + rect.height / 2;
 
-				const img = target.querySelector('img');
-				const currentScale = img ? (gsap.getProperty(img, 'scale') || 1) : 1;
+			const deltaX = currentCenter.x - photoCenterX;
+			const deltaY = currentCenter.y - photoCenterY;
 
-				const rect = target.getBoundingClientRect();
-				const currentX = gsap.getProperty(target, 'x');
-				const currentY = gsap.getProperty(target, 'y');
+			const scaleChange = newScale / currentScale - 1;
+			const offsetX = -deltaX * scaleChange;
+			const offsetY = -deltaY * scaleChange;
 
-				const photoCenterX = rect.left + rect.width / 2;
-				const photoCenterY = rect.top + rect.height / 2;
-
-				const deltaX = currentCenter.x - photoCenterX;
-				const deltaY = currentCenter.y - photoCenterY;
-
-				const scaleChange = newScale / currentScale - 1;
-				const offsetX = -deltaX * scaleChange;
-				const offsetY = -deltaY * scaleChange;
-
-				if (img) {
-					const wrapper = target.classList.contains('img-wrapper') ? target : target.querySelector('.img-wrapper');
-					if (wrapper) {
-						if (newScale > minScale * 1.01) wrapper.classList.add('zoomed');
-						else wrapper.classList.remove('zoomed');
-					}
-					gsap.set(img, { scale: newScale });
+			if (img) {
+				const wrapper = target.classList.contains('img-wrapper') ? target : target.querySelector('.img-wrapper');
+				if (wrapper) {
+					if (newScale > minScale * 1.01) wrapper.classList.add('zoomed');
+					else wrapper.classList.remove('zoomed');
 				}
-
-				gsap.set(target, {
-					x: currentX + offsetX,
-					y: currentY + offsetY
-				});
+				gsap.set(img, { scale: newScale });
 			}
-		};
 
-		const touchEndHandler = (e) => {
-			if (e.touches.length < 2) {
-				initialPinchDistance = null;
-				target.classList.remove('zoom-in-progress');
-				if (currentWrapperDraggable) currentWrapperDraggable.enable();
-			}
-		};
+			gsap.set(target, {
+				x: currentX + offsetX,
+				y: currentY + offsetY
+			});
+		}
+	};
+	const touchEndHandler = (e) => {
+		if (e.touches.length < 2) {
+			initialPinchDistance = null;
+			target.classList.remove('zoom-in-progress');
+			if (currentWrapperDraggable) currentWrapperDraggable.enable();
+		}
+	};
+
+	{ // Bing event handlers for various zoom interactions
+		target.addEventListener('wheel', wheelHandler, { passive: false });
+		target.addEventListener('touchstart', touchStartHandler, { passive: false });
+		target.addEventListener('touchmove', touchMoveHandler, { passive: false });
+		target.addEventListener('touchend', doubleTapHandler);
+		target.addEventListener('touchend', touchEndHandler);
+		target.addEventListener('touchcancel', touchEndHandler);
 	}
-
-	target.addEventListener('wheel', wheelHandler, { passive: false });
-	target.addEventListener('touchstart', touchStartHandler, { passive: false });
-	target.addEventListener('touchmove', touchMoveHandler, { passive: false });
-	target.addEventListener('touchend', doubleTapHandler);
-	target.addEventListener('touchend', touchEndHandler);
-	target.addEventListener('touchcancel', touchEndHandler);
 
 	// Store handlers for cleanup
 	target._zoomHandlers = {
