@@ -213,22 +213,33 @@
 		font-weight: bold;
 
 		&.left {
-			left: 0;
+			left: -10px;
 			right: auto;
 
+
 			a {
+				padding-left: 20px;
 				border-top-right-radius: 5px;
 				border-bottom-right-radius: 5px;
+
+				&:hover {
+					transform: translateX(5px);
+				}
 			}
 		}
 
 		&.right {
-			right: 0;
+			right: -10px;
 			left: auto;
 
 			a {
+				padding-right: 20px;
 				border-top-left-radius: 5px;
 				border-bottom-left-radius: 5px;
+
+				&:hover {
+					transform: translateX(-5px);
+				}
 			}
 		}
 
@@ -241,7 +252,7 @@
 			background-color: rgba(255, 255, 255, 0.1);
 			margin: 5px 0;
 			text-transform: initial;
-			transition: background-color 0.25s ease, color 0.25s ease;
+			transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
 
 			&:hover {
 				color: rgba(255, 255, 255, 1);

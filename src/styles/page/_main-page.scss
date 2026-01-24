@@ -27,8 +27,9 @@
 				width: 100%;
 				height: 100%;
 				background-color: rgb(217 205 188);
-				border: 3px solid rgb(60 55 48);
-				border-radius: 3px;
+				border: 4px solid rgb(217 205 188);
+				border-radius: 4px;
+				box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 				will-change: transform, box-shadow, border-color, scale;
 				transition: background-color 0.5s ease, border-color 0.5s ease, opacity 0.5s ease, box-shadow 0.5s ease;
 
@@ -38,12 +39,12 @@
 					object-fit: contain;
 					will-change: scale;
 					transition: box-shadow 0.5s ease;
-					box-shadow: inset 2px 8px 24px rgba(0, 0, 0, 0.8);
+					box-shadow: inset 2px 8px 16px rgba(0, 0, 0, 0.5);
 				}
 
 				&:hover {
-					border-color: white;
-					box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+					background-color: rgb(121, 106, 85);
+					border: 4px solid rgb(121, 106, 85);
 				}
 			}
 
@@ -51,8 +52,8 @@
 				z-index: 3000 !important;
 
 				.img-wrapper {
-					border-color: white;
-					box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+					background-color: rgb(121, 106, 85);
+					border: 4px solid rgb(121, 106, 85);
 				}
 
 				&::after {
@@ -128,16 +129,6 @@
 				.photo-info {
 					z-index: 100 !important;
 
-					// .photo-artist {
-					// 	font-size: 14px;
-					// 	margin-bottom: 7px;
-					// }
-
-					// .photo-title {
-					// 	font-size: 22px;
-					// 	line-height: 1.25;
-					// }
-
 					.additional-info {
 						display: block;
 					}
@@ -145,9 +136,8 @@
 
 				.img-wrapper {
 					z-index: 1000;
-					background-color: rgb(217 205 188);
-					border: 2px solid rgb(60 55 48);
-					box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+					background-color: rgb(121, 106, 85);
+					border: 4px solid rgb(121, 106, 85);
 					cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="20" viewBox="0 0 120 20"><circle cx="6" cy="10" r="4" fill="none" stroke="white" stroke-width="1.5"/><line x1="9" y1="13" x2="12" y2="16" stroke="white" stroke-width="1.5" stroke-linecap="round"/><text x="16" y="15" font-family="monospace" font-size="12" fill="white" stroke="white" stroke-width="0.5">SCROLL TO ZOOM</text><line x1="111" y1="13" x2="108" y2="16" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>') 60 10, grab !important;
 
 					img {
