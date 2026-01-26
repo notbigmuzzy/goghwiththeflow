@@ -99,6 +99,12 @@
 			pointer-events: none !important;
 			opacity: 0.6 !important;
 		}
+
+		.exhibit-label {
+			display: block;
+			text-align: center;
+			line-height: 1.75;
+		}
 	}
 
 	&.fullscreen {

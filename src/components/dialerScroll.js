@@ -307,7 +307,7 @@ export function initDialerScroll() {
 		gallery.classList.add(eraWrapperClass);
 
 		if (year === 'Today') {
-			exhibitLabel.innerHTML = `Time-traveling art gallery`;
+			exhibitLabel.innerHTML = `Welcome to time-traveling<br>art gallery`;
 		} else {
 			exhibitLabel.innerHTML = `<i>→</i> Click me to see More from "${era}"`;
 		}

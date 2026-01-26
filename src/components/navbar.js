@@ -1,7 +1,5 @@
 export function createNavBar() {
 
-
-
 	return `
 		<div class="navbar-content">
 			<div class="link-wrapper first">
@@ -10,7 +8,7 @@ export function createNavBar() {
 			<div class="link-wrapper middle">
 				<a href="#" id="moreLink" class="more-link">
 					<span id="exhibitLabel" class="exhibit-label">
-						Time-traveling art gallery
+						Welcome to time-traveling<br>art gallery
 					</span>
 				</a>
 			</div>
