@@ -17,9 +17,15 @@ https://notbigmuzzy.github.io/goghwiththeflow/
 - Mega-Image Zoom: Click any work to ping the API for the full-resolution source. Once the real file hits, it swaps the source and enables scroll-based scaling for looking at brushstrokes and other details
 
 ---
+
 <img width="1300" height="800" alt="1" src="https://github.com/user-attachments/assets/81d960f0-ab6e-474b-9b58-45ef613a67bd" />
+
 ---
+
 <img width="1300" height="800" alt="2" src="https://github.com/user-attachments/assets/a32e3a62-26c7-4767-9f3d-5bcaefbf8507" />
+
 ---
+
 <img width="1300" height="800" alt="3" src="https://github.com/user-attachments/assets/c53c7614-af19-4e58-9a82-8ac91193bdcb" />
+
 ---
