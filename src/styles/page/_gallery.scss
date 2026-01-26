@@ -62,19 +62,25 @@
 
 #gallery.landing-page {
 	&~#navbar {
-		.navbar-content .more-link {
-			pointer-events: none;
-			opacity: 1;
-			transform: translateY(250px) scale(6);
-			transition: transform 0.5s ease, scale 0.5s ease;
-			border-radius: 5px;
-			mix-blend-mode: initial;
+		.navbar-content {
+			.attribution {
+				display: block;
+			}
 
-			.exhibit-label {
-				font-family: 'Cinzel', serif;
-				font-weight: 100;
-				text-transform: initial;
-				font-size: 13px;
+			.more-link {
+				pointer-events: none;
+				opacity: 1;
+				transform: translateY(300px) scale(6);
+				transition: transform 0.5s ease, scale 0.5s ease;
+				border-radius: 5px;
+				mix-blend-mode: initial;
+
+				.exhibit-label {
+					font-family: 'Cinzel', serif;
+					font-weight: 100;
+					text-transform: initial;
+					font-size: 13px;
+				}
 			}
 		}
 

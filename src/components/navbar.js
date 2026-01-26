@@ -11,6 +11,11 @@ export function createNavBar() {
 						Welcome to time-traveling<br>art gallery
 					</span>
 				</a>
+				<span class="attribution">
+					<span>Made with 🎨 by <a href="https://notbigmuzzy.github.io/" target="_blank">notbigmuzzy</a></span>
+					<span> | </span>
+					<span>Powered by <a href="https://metmuseum.github.io/" target="_blank">MetMuseum API</a></span>
+				</span>
 			</div>
 			<div class="link-wrapper last">
 				<a href="#" id="closeLink" class="close-link"><i>×</i> Exit Fullscreen</a>

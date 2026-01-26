@@ -103,7 +103,7 @@
 		.exhibit-label {
 			display: block;
 			text-align: center;
-			line-height: 1.75;
+			line-height: 1.5;
 		}
 	}
 
@@ -138,5 +138,14 @@
 		}
 	}
 
-
+	.attribution {
+		position: absolute;
+		left: 0;
+		right: 0;
+		margin: 0 auto;
+		text-align: center;
+		pointer-events: all;
+		font-size: 12px;
+		display: none;
+	}
 }
