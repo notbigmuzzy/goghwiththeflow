@@ -92,8 +92,12 @@ export async function fetchArtworks(year) {
 
 		for (const id of selectedIds) {
 			const objectUrl = `https://collectionapi.metmuseum.org/public/collection/v1/objects/${id}`;
+			const controller = new AbortController();
+			const timeoutId = setTimeout(() => controller.abort(), 10000);
+
 			try {
-				const response = await fetch(objectUrl);
+				const response = await fetch(objectUrl, { signal: controller.signal });
+				clearTimeout(timeoutId);
 
 				if (response.status === 403) {
 					showRateLimitPopup();
@@ -110,6 +114,10 @@ export async function fetchArtworks(year) {
 					artworks.push(artwork);
 				}
 			} catch (err) {
+				if (err.name === 'AbortError') {
+					continue;
+				}
+
 				failureCount++;
 
 				if (err.message && err.message.includes('Failed to fetch') && failureCount >= 2) {
