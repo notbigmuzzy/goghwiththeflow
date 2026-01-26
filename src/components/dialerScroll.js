@@ -262,7 +262,7 @@ export function initDialerScroll() {
 	document.querySelectorAll('.century-link').forEach(link => {
 		link.addEventListener('click', (e) => {
 			e.preventDefault();
-			const target = e.target.closest('a');
+			const target = e.target.closest('span');
 			if (!target) return;
 			const year = target.dataset.century;
 

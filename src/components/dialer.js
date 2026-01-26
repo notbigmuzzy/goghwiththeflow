@@ -21,14 +21,14 @@ export function createDialer() {
 				<p class="instruct"><i class="arrow-down"></i>Drag to explore by year</p>
 			</div>
 			<div class="century-links left">
-				<a href="#" data-century="1601" class="century-link">17c.</a>
-				<a href="#" data-century="1501" class="century-link">16c.</a>
-				<a href="#" data-century="1440" class="century-link">15c.</a>				
+				<span data-century="1440" class="century-link">XV</span>
+				<span data-century="1501" class="century-link">XVI</span>
+				<span data-century="1601" class="century-link">XVII</span>
 			</div>
 			<div class="century-links right">
-				<a href="#" data-century="1901" class="century-link">20c.</a>
-				<a href="#" data-century="1801" class="century-link">19c.</a>
-				<a href="#" data-century="1701" class="century-link">18c.</a>
+				<span data-century="1701" class="century-link">XVIII</span>
+				<span data-century="1801" class="century-link">XIX</span>
+				<span data-century="1901" class="century-link">XX</span>
 			</div>
 		</div>
 		<div class="dialer-wrapper">

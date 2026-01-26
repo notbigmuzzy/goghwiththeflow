@@ -6,11 +6,11 @@ export function createNavBar() {
 				<a href="#" id="exhibitLink" target="_blank" class="exhibit-link">Exhibit link <i>→</i></a>
 			</div>
 			<div class="link-wrapper middle">
-				<a href="#" id="moreLink" class="more-link">
+				<span id="moreLink" class="more-link">
 					<span id="exhibitLabel" class="exhibit-label">
 						Welcome to time-traveling<br>art gallery
 					</span>
-				</a>
+				</span>
 				<span class="attribution">
 					<span>Made with 🎨 by <a href="https://notbigmuzzy.github.io/" target="_blank">notbigmuzzy</a></span>
 					<span style="padding:0 5px;"> | </span>
@@ -18,7 +18,7 @@ export function createNavBar() {
 				</span>
 			</div>
 			<div class="link-wrapper last">
-				<a href="#" id="closeLink" class="close-link"><i>×</i> Exit Fullscreen</a>
+				<span id="closeLink" class="close-link"><i>×</i> Exit Fullscreen</span>
 			</div>
 		</div>
 	`

@@ -17,7 +17,9 @@
 	}
 
 	.link-wrapper {
-		a {
+
+		a,
+		span {
 			text-decoration: none;
 			mix-blend-mode: difference;
 
@@ -79,6 +81,7 @@
 	.exhibit-link,
 	.more-link,
 	.close-link {
+		cursor: pointer;
 		display: inline-block;
 		position: relative;
 		padding: 0 14px;
@@ -94,6 +97,7 @@
 	.more-link {
 		top: 0;
 		opacity: 1;
+		cursor: pointer;
 
 		&.loading {
 			pointer-events: none !important;
