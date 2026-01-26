@@ -17,9 +17,12 @@
 	}
 
 	.link-wrapper {
-
-		a,
 		span {
+			text-decoration: none;
+			mix-blend-mode: difference;
+		}
+
+		a {
 			text-decoration: none;
 			mix-blend-mode: difference;
 
@@ -151,5 +154,11 @@
 		pointer-events: all;
 		font-size: 12px;
 		display: none;
+		color: #fff;
+
+		a {
+			color: lightgoldenrodyellow;
+			text-decoration: overline;
+		}
 	}
 }
