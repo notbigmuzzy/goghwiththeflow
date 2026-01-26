@@ -13,7 +13,7 @@ export function createNavBar() {
 				</a>
 				<span class="attribution">
 					<span>Made with 🎨 by <a href="https://notbigmuzzy.github.io/" target="_blank">notbigmuzzy</a></span>
-					<span> | </span>
+					<span style="padding:0 5px;"> | </span>
 					<span>Powered by <a href="https://metmuseum.github.io/" target="_blank">MetMuseum API</a></span>
 				</span>
 			</div>

@@ -29,13 +29,33 @@
 
 	.dialer-wrapper {
 		position: relative;
-		width: 1016px;
 		height: 100%;
 		overflow: hidden;
 		border-top-right-radius: 10px;
 		border-top-left-radius: 10px;
 		background-color: transparent;
 		transition: background-color 0.5s ease;
+		width: 648px;
+
+		@media (min-width: 900px) {
+			width: 832px;
+		}
+
+		@media (min-width: 1100px) {
+			width: 1016px;
+		}
+
+		@media (min-width: 1500px) {
+			width: 1200px;
+		}
+
+		@media (min-width: 1700px) {
+			width: 1384px;
+		}
+
+		@media (min-width: 1900px) {
+			width: 1568px;
+		}
 
 		&.dialing,
 		&:hover {
