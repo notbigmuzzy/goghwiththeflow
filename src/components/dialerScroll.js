@@ -300,11 +300,14 @@ export function initDialerScroll() {
 		const gallery = document.querySelector('#gallery');
 		const exhibitLabel = document.querySelector('#exhibitLabel');
 		const era = getEra(year);
-		const eraWrapperClass = era.toLowerCase().replace(/\s+/g, '-');
+		const eraString = era.toLowerCase().replace(/\s+/g, '-');
 
 		// UI update for era change
 		gallery.classList.remove(...gallery.classList);
-		gallery.classList.add(eraWrapperClass);
+		gallery.classList.add(eraString);
+
+		// PLAY MUSIC
+		console.log(`Playing music for year: ${eraString}`);
 
 		if (year === 'Today') {
 			exhibitLabel.innerHTML = `Welcome to time-traveling<br>art gallery`;
@@ -318,7 +321,7 @@ export function initDialerScroll() {
 			case (parseInt(year, 10) < 1480):
 				return "Pre-Renaissance";
 			case (parseInt(year, 10) <= 1520):
-				return "High Renaissance";
+				return "High-Renaissance";
 			case (parseInt(year, 10) <= 1600):
 				return "Mannerism";
 			case (parseInt(year, 10) <= 1730):

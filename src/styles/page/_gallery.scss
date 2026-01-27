@@ -82,6 +82,18 @@
 					font-size: 13px;
 				}
 			}
+
+			.player-wrapper {
+				transform: translateY(0);
+				position: absolute;
+				top: 0;
+				right: 0;
+				transition: none;
+
+				&::after {
+					display: none;
+				}
+			}
 		}
 
 		&~#timeline:not(.dialing) {
