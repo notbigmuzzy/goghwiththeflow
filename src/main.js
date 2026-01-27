@@ -4,6 +4,7 @@ import { createNavBar } from './components/navbar.js'
 import { createPreloader } from './components/preloader.js'
 import { createMainPage } from './components/mainPage.js'
 import { initDialerScroll } from './components/dialerScroll.js'
+import { initNavBar } from './components/navbarLogic.js'
 
 localStorage.removeItem('currentYear');
 
@@ -21,3 +22,4 @@ document.querySelector('#app').innerHTML = `
 `
 
 initDialerScroll()
+initNavBar()

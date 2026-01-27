@@ -1,0 +1,82 @@
+{
+  "baroque": [
+    {
+      "song": {
+        "name": "J.S. Bach – Brandenburg Concerto No. 3 in G Major.mp3",
+        "url": "music/baroque/J.S. Bach – Brandenburg Concerto No. 3 in G Major.mp3"
+      }
+    }
+  ],
+  "early-modernism": [
+    {
+      "song": {
+        "name": "Igor Stravinsky – The Rite of Spring.mp3",
+        "url": "music/early-modernism/Igor Stravinsky – The Rite of Spring.mp3"
+      }
+    }
+  ],
+  "high-renaissance": [
+    {
+      "song": {
+        "name": "Giovanni Pierluigi da Palestrina – Missa Papae Marcelli.mp3",
+        "url": "music/high-renaissance/Giovanni Pierluigi da Palestrina – Missa Papae Marcelli.mp3"
+      }
+    }
+  ],
+  "impressionism": [
+    {
+      "song": {
+        "name": "Claude Debussy – Prelude a lapres-midi dun faune.mp3",
+        "url": "music/impressionism/Claude Debussy – Prelude a lapres-midi dun faune.mp3"
+      }
+    }
+  ],
+  "mannerism": [
+    {
+      "song": {
+        "name": "Carlo Gesualdo – Moro, lasso, al mio duolo.mp3",
+        "url": "music/mannerism/Carlo Gesualdo – Moro, lasso, al mio duolo.mp3"
+      }
+    }
+  ],
+  "post-impressionism": [
+    {
+      "song": {
+        "name": "Erik Satie – Gymnopedie No. 1.mp3",
+        "url": "music/post-impressionism/Erik Satie – Gymnopedie No. 1.mp3"
+      }
+    }
+  ],
+  "pre-renaissance": [
+    {
+      "song": {
+        "name": "Hildegard von Bingen – O viridissima virga.mp3",
+        "url": "music/pre-renaissance/Hildegard von Bingen – O viridissima virga.mp3"
+      }
+    }
+  ],
+  "realism": [
+    {
+      "song": {
+        "name": "Pietro Mascagni – Intermezzo from Cavalleria Rusticana.mp3",
+        "url": "music/realism/Pietro Mascagni – Intermezzo from Cavalleria Rusticana.mp3"
+      }
+    }
+  ],
+  "rococo": [
+    {
+      "song": {
+        "name": "Francois Couperin – Les Barricades Mysterieuses.mp3",
+        "url": "music/rococo/Francois Couperin – Les Barricades Mysterieuses.mp3"
+      }
+    }
+  ],
+  "romanticism": [
+    {
+      "song": {
+        "name": "Frederic Chopin - Nocturne in E-flat major Op9 No2.mp3",
+        "url": "music/romanticism/Frederic Chopin - Nocturne in E-flat major Op9 No2.mp3"
+      }
+    }
+  ]
+}

@@ -176,6 +176,13 @@
 				top: 5px;
 				left: 2px;
 			}
+
+			&.playing {
+				span {
+					opacity: 1;
+					text-decoration: none;
+				}
+			}
 		}
 
 		video {
@@ -185,8 +192,7 @@
 			pointer-events: none;
 		}
 
-		&:hover,
-		&.unmuted {
+		&:hover {
 			span {
 				opacity: 1;
 				text-decoration: none;
@@ -205,6 +211,12 @@
 		.more-link,
 		.player-wrapper .player-label {
 			transform: translateY(-32px);
+		}
+
+		.player-wrapper {
+			&:after {
+				display: none;
+			}
 		}
 
 		.exhibit-link,

@@ -1,5 +1,8 @@
 import gsap from 'gsap';
 import { makeApiCall } from './apiCall.js';
+import { updateMusic } from './musicPlayer.js';
+import { getEra } from './getEra.js';
+import { unmuteAndPlay } from './navbarLogic.js';
 
 export function initDialerScroll() {
 	const dialer = document.querySelector('.dialer');
@@ -127,6 +130,7 @@ export function initDialerScroll() {
 	};
 
 	const handleMouseDown = (e) => {
+		unmuteAndPlay();
 		const pageX = e.pageX || (e.touches && e.touches[0].pageX);
 
 		isDragging = true;
@@ -237,6 +241,8 @@ export function initDialerScroll() {
 		lastScrollPos = targetScroll;
 		setActiveItem(itemToCenter);
 
+		updateMusic(initialYear);
+
 		if (initialYear !== 'Today') {
 			timeline.classList.add('dialing');
 			preloader.classList.add('loading');
@@ -313,33 +319,6 @@ export function initDialerScroll() {
 			exhibitLabel.innerHTML = `Welcome to time-traveling<br>art gallery`;
 		} else {
 			exhibitLabel.innerHTML = `<i>→</i> Click me to see More from "${era}"`;
-		}
-	}
-
-	function getEra(year) {
-		switch (true) {
-			case (parseInt(year, 10) < 1480):
-				return "Pre-Renaissance";
-			case (parseInt(year, 10) <= 1520):
-				return "High-Renaissance";
-			case (parseInt(year, 10) <= 1600):
-				return "Mannerism";
-			case (parseInt(year, 10) <= 1730):
-				return "Baroque";
-			case (parseInt(year, 10) <= 1770):
-				return "Rococo";
-			case (parseInt(year, 10) <= 1830):
-				return "Romanticism";
-			case (parseInt(year, 10) <= 1870):
-				return "Realism";
-			case (parseInt(year, 10) <= 1890):
-				return "Impressionism";
-			case (parseInt(year, 10) <= 1915):
-				return "Post-Impressionism";
-			case (parseInt(year, 10) <= 1940):
-				return "Early Modernism";
-			default:
-				return "landing-page";
 		}
 	}
 }

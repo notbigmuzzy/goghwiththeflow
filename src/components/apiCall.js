@@ -1,4 +1,5 @@
 import { createPhotos, initPhotoInteractions } from './mainPage.js';
+import { updateMusic } from './musicPlayer.js';
 
 export async function makeApiCall(year, source) {
 	const storedYear = localStorage.getItem('currentYear');
@@ -8,6 +9,7 @@ export async function makeApiCall(year, source) {
 	const navbar = document.querySelector('#navbar');
 	const exhibitMoreBtn = document.querySelector('#moreLink');
 	const newYearSelected = storedYear !== String(year);
+	updateMusic(year);
 
 	if (year === 'Today') {
 		localStorage.setItem('currentYear', 'Today');
