@@ -17,8 +17,9 @@
 		.panel {
 			display: block;
 			position: absolute;
-			background-color: rgba(255, 255, 255, 0.1);
-			border: 1px solid rgba(255, 255, 255, 0.3);
+			background-color: rgba(255, 255, 255, 0.15);
+			border-radius: 2px;
+			clip-path: polygon(0% 0%, 0% 100%, 2.5% 100%, 2.5% 2.5%, 97.5% 2.5%, 97.5% 97.5%, 2.5% 97.5%, 2.5% 100%, 100% 100%, 100% 0%);
 		}
 	}
 
@@ -107,13 +108,13 @@
 				left: 0;
 				width: 100%;
 				height: 100%;
-				background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 100%);
+				background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100%);
 				transform: translateX(-100%);
 				animation: shimmer 1.5s infinite;
 			}
 
 			&:nth-child(even)::after {
-				background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 100%);
+				background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100%);
 				transform: translateY(-100%);
 				animation-name: shimmer-vertical;
 			}
@@ -124,7 +125,7 @@
 			}
 
 			&:nth-child(5)::after {
-				background: linear-gradient(45deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 100%);
+				background: linear-gradient(45deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100%);
 				transform: translate(-100%, -100%);
 				animation-name: shimmer-diagonal;
 			}
