@@ -21,12 +21,12 @@ export function unmuteAndPlay(video, playerLabel) {
 	}
 
 	if (video) {
-		if (video.paused) {
-			video.muted = false;
+		video.muted = false;
+
+		if (video.src && video.src !== window.location.href && video.paused) {
 			video.play().catch(e => console.log('Playback error:', e));
-		} else {
-			video.muted = false;
 		}
+
 		if (playerLabel) playerLabel.classList.add('playing');
 	}
 }

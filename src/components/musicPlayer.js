@@ -56,8 +56,18 @@ export async function updateMusic(year) {
 			const player = document.getElementById('thePlayer');
 
 			if (player) {
+				const wasPlayingOrInteract = !player.paused || !player.muted;
 				player.src = song.url;
 				player.load();
+
+				if (wasPlayingOrInteract) {
+					const playPromise = player.play();
+					if (playPromise !== undefined) {
+						playPromise.catch(e => {
+							console.log('Auto-play after source change failed:', e);
+						});
+					}
+				}
 			}
 		}
 	}
