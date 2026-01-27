@@ -85,13 +85,13 @@
 
 			.player-wrapper {
 				transform: translateY(0);
-				position: absolute;
-				top: 0;
-				right: 0;
-				transition: none;
 
 				&::after {
 					display: none;
+				}
+
+				.player-label:not(.playing) {
+					pointer-events: none !important;
 				}
 			}
 		}

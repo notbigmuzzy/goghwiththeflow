@@ -165,7 +165,9 @@
 			opacity: 0;
 			transition: opacity 0.3s ease, transform 0.3s ease, color 0.25s ease, text-shadow 0.15s ease;
 
-			span {
+			span,
+			svg {
+				transition: opacity 0.25s ease;
 				opacity: 0.6;
 				text-decoration: line-through;
 			}
@@ -178,9 +180,18 @@
 			}
 
 			&.playing {
-				span {
+
+				span,
+				svg {
 					opacity: 1;
 					text-decoration: none;
+				}
+			}
+
+			&:hover {
+
+				svg {
+					opacity: 1 !important;
 				}
 			}
 		}
@@ -190,13 +201,6 @@
 			height: 0;
 			opacity: 0;
 			pointer-events: none;
-		}
-
-		&:hover {
-			span {
-				opacity: 1;
-				text-decoration: none;
-			}
 		}
 	}
 

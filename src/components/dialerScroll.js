@@ -308,12 +308,8 @@ export function initDialerScroll() {
 		const era = getEra(year);
 		const eraString = era.toLowerCase().replace(/\s+/g, '-');
 
-		// UI update for era change
 		gallery.classList.remove(...gallery.classList);
 		gallery.classList.add(eraString);
-
-		// PLAY MUSIC
-		console.log(`Playing music for year: ${eraString}`);
 
 		if (year === 'Today') {
 			exhibitLabel.innerHTML = `Welcome to time-traveling<br>art gallery`;

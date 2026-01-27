@@ -38,22 +38,26 @@ export async function updateMusic(year) {
 
 	if (eraId && eraId !== currentEra) {
 		currentEra = eraId;
+
+		if (eraId === 'landing-page') {
+			const player = document.getElementById('thePlayer');
+			if (player) {
+				player.pause();
+				player.src = '';
+			}
+			return;
+		}
+
 		const eraData = data[eraId];
 
 		if (eraData && eraData.length > 0) {
-			const song = eraData[0].song;
+			const randomIndex = Math.floor(Math.random() * eraData.length);
+			const song = eraData[randomIndex].song;
 			const player = document.getElementById('thePlayer');
 
 			if (player) {
 				player.src = song.url;
 				player.load();
-
-				const playPromise = player.play();
-				if (playPromise !== undefined) {
-					playPromise.catch(e => {
-
-					});
-				}
 			}
 		}
 	}

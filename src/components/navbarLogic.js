@@ -21,8 +21,12 @@ export function unmuteAndPlay(video, playerLabel) {
 	}
 
 	if (video) {
-		video.muted = false;
-		video.play().catch(e => console.log('Playback error:', e));
+		if (video.paused) {
+			video.muted = false;
+			video.play().catch(e => console.log('Playback error:', e));
+		} else {
+			video.muted = false;
+		}
 		if (playerLabel) playerLabel.classList.add('playing');
 	}
 }
