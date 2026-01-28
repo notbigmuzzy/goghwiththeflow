@@ -166,7 +166,7 @@
 			span,
 			svg {
 				transition: opacity 0.25s ease;
-				opacity: 0.6;
+				opacity: 0.3;
 				text-decoration: line-through;
 			}
 
@@ -226,6 +226,7 @@
 			pointer-events: initial;
 			opacity: 1;
 			transform: translateY(32px);
+			mix-blend-mode: difference;
 		}
 	}
 

@@ -41,6 +41,8 @@ function initDraggables() {
 			photo._gsap.startY = gsap.getProperty(photo, 'y');
 			photo._gsap.originalWidth = parseFloat(getComputedStyle(photo).width);
 			photo._gsap.originalHeight = parseFloat(getComputedStyle(photo).height);
+			photo._gsap.originalStyleMaxWidth = photo.style.maxWidth;
+			photo._gsap.originalStyleMaxHeight = photo.style.maxHeight;
 
 			const rect = photo.getBoundingClientRect();
 			const vw = window.innerWidth;
@@ -63,12 +65,15 @@ function initDraggables() {
 					img.removeEventListener('load', onLoad);
 					img.removeEventListener('error', onError);
 
-					const scaleX = vw / rect.width;
-					const scaleY = vh / rect.height;
-					const scale = Math.min(scaleX, scaleY) * 0.9;
+					// const scaleX = vw / rect.width;
+					// const scaleY = vh / rect.height;
+					// const scale = Math.min(scaleX, scaleY) * 0.9;
 
-					const targetWidth = rect.width * scale;
-					const targetHeight = rect.height * scale;
+					// const targetWidth = rect.width * scale;
+					// const targetHeight = rect.height * scale;
+
+					const targetHeight = vh * 0.9;
+					const targetWidth = targetHeight * (240 / 320);
 
 					const visualCenterX = (vw * 0.25) + (rect.width / 2);
 					const targetX = visualCenterX - (targetWidth / 2) - rect.left + currentX;
@@ -121,7 +126,7 @@ function initDraggables() {
 
 						const startScale = freshRect.width / targetWidth;
 
-						gsap.set(photo, { width: targetWidth, height: targetHeight });
+						gsap.set(photo, { width: targetWidth, height: targetHeight, maxWidth: 'none', maxHeight: 'none' });
 
 						const centerX = freshRect.left + freshRect.width / 2;
 						const centerY = freshRect.top + freshRect.height / 2;
@@ -256,53 +261,74 @@ function exitFullscreen() {
 	navbar.classList.remove('fullscreen');
 
 	const photoInfo = photo.querySelector('.photo-info');
-	if (photoInfo) {
-		gsap.to(photoInfo, {
-			x: 0,
-			y: 0,
-			scale: 1,
-			duration: 0.5,
-			ease: 'power2.inOut'
-		});
-	}
-	const animProps = {
-		x: photo._gsap.startX || 0,
-		y: photo._gsap.startY || 0,
-		scale: photo._gsap.originalWidth / parseFloat(photo.style.width),
+	const fsRect = photo.getBoundingClientRect();
+	const fsCenterX = fsRect.left + fsRect.width / 2;
+	const fsCenterY = fsRect.top + fsRect.height / 2;
+	const fsWidth = fsRect.width;
+
+	if (photo._gsap.originalWidth) photo.style.width = 'auto';
+	if (photo._gsap.originalHeight) photo.style.height = 'auto';
+	if (photo._gsap.originalStyleMaxWidth) photo.style.maxWidth = photo._gsap.originalStyleMaxWidth;
+	if (photo._gsap.originalStyleMaxHeight) photo.style.maxHeight = photo._gsap.originalStyleMaxHeight;
+
+	const destX = photo._gsap.currentX || 0;
+	const destY = photo._gsap.currentY || 0;
+
+	gsap.set(photo, { x: destX, y: destY, scale: 1, rotation: 0, rotationX: 0, rotationY: 0 });
+
+	const smRect = photo.getBoundingClientRect();
+	const smCenterX = smRect.left + smRect.width / 2;
+	const smCenterY = smRect.top + smRect.height / 2;
+	const scale = fsWidth / smRect.width;
+	const startX = destX + (fsCenterX - smCenterX);
+	const startY = destY + (fsCenterY - smCenterY);
+	const startInfoX = (fsWidth + 20) / scale;
+	const startInfoY = 0;
+
+	gsap.fromTo(photoInfo, {
+		x: startInfoX,
+		y: startInfoY,
+		scale: 1.1,
+	}, {
+		x: 0,
+		y: 0,
+		scale: 1,
 		duration: 0.5,
-		ease: 'power2.inOut',
-		onComplete: () => {
-			if (photo._gsap.originalWidth) photo.style.width = photo._gsap.originalWidth + 'px';
-			if (photo._gsap.originalHeight) photo.style.height = photo._gsap.originalHeight + 'px';
-			gsap.set(photo, {
-				scale: 1,
-				x: photo._gsap.currentX || 0,
-				y: photo._gsap.currentY || 0
-			});
-			setTimeout(() => {
+		ease: 'power2.inOut'
+	});
+
+	gsap.fromTo(photo,
+		{
+			x: startX,
+			y: startY,
+			scale: scale
+		},
+		{
+			x: destX,
+			y: destY,
+			scale: 1,
+			duration: 0.5,
+			ease: 'power2.inOut',
+			onComplete: () => {
 				photo.style.transition = '';
-			}, 20);
+			}
 		}
-	};
+	);
 
-	gsap.to(photo, animProps);
-	if (wrapper) {
-		gsap.to(wrapper, {
-			scale: 1,
-			x: 0,
-			y: 0,
-			duration: 0.5,
-			ease: 'power2.inOut'
-		});
-	}
+	gsap.to(wrapper, {
+		scale: 1,
+		x: 0,
+		y: 0,
+		duration: 0.5,
+		ease: 'power2.inOut'
+	});
 
-	if (img) {
-		gsap.to(img, {
-			scale: 1,
-			duration: 0.5,
-			ease: 'power2.inOut'
-		});
-	}
+	gsap.to(img, {
+		scale: 1,
+		duration: 0.5,
+		ease: 'power2.inOut'
+	});
+
 
 	removeZoomHandler();
 
@@ -631,7 +657,7 @@ export function createPhotos(artworks = []) {
 		const artwork = shuffledArtworks[i];
 
 		photos += `
-			<div class="photo photo-${i + 1}" data-id="${artwork.objectID}" data-object-url="${artwork.objectURL}" style="position: absolute; top: ${top}px; left: ${left}px; width: ${dimensions.width}px; height: ${dimensions.height}px;">
+			<div class="photo photo-${i + 1}" data-id="${artwork.objectID}" data-object-url="${artwork.objectURL}" style="position: absolute; top: ${top}px; left: ${left}px; max-width: ${dimensions.width}px; max-height: ${dimensions.height}px; width: auto; height: auto;">
 				<div class="img-wrapper">
 					<img src="${artwork.primaryImageSmall}" loading="lazy" alt="${artwork.title} by ${artwork.artistDisplayName} (${artwork.objectDate})" />
 				</div>
