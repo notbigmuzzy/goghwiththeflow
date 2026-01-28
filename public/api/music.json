@@ -58,8 +58,62 @@
   "realism": [
     {
       "song": {
+        "name": "Boris Godunov: Scene With the Clock.mp3",
+        "url": "music/realism/Boris Godunov: Scene With the Clock.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Franz Schubert Der Leiermann.mp3",
+        "url": "music/realism/Franz Schubert Der Leiermann.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Georges Bizet - Carmen Suite Seguedille.mp3",
+        "url": "music/realism/Georges Bizet - Carmen Suite Seguedille.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Georges Bizet - Habanera from Carmen Suite No.2.mp3",
+        "url": "music/realism/Georges Bizet - Habanera from Carmen Suite No.2.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Georges Bizet - Votre Toast.mp3",
+        "url": "music/realism/Georges Bizet - Votre Toast.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Georges Bizet: Carmen: Flower Song.mp3",
+        "url": "music/realism/Georges Bizet: Carmen: Flower Song.mp3"
+      }
+    },
+    {
+      "song": {
         "name": "Pietro Mascagni – Intermezzo from Cavalleria Rusticana.mp3",
         "url": "music/realism/Pietro Mascagni – Intermezzo from Cavalleria Rusticana.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Puccini - La Bohème - Musettas Waltz.mp3",
+        "url": "music/realism/Puccini - La Bohème - Musettas Waltz.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Puccini: La bohème Act : Sì Mi chiamano Mimì.mp3",
+        "url": "music/realism/Puccini: La bohème Act : Sì Mi chiamano Mimì.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Puccini: La bohème Act I: Che gelida manina.mp3",
+        "url": "music/realism/Puccini: La bohème Act I: Che gelida manina.mp3"
       }
     }
   ],
