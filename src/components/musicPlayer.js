@@ -5,8 +5,8 @@ let musicData = null;
 let fetchPromise = null;
 
 function getMusicData() {
-
 	if (musicData) return Promise.resolve(musicData);
+
 	if (!fetchPromise) {
 		fetchPromise = fetch('/goghwiththeflow/api/music.json')
 			.then(res => {
@@ -27,48 +27,36 @@ function getMusicData() {
 }
 
 export async function updateMusic(year) {
-
 	const targetYear = year === 'Today' ? new Date().getFullYear() : parseInt(year, 10);
-
 	const data = await getMusicData();
-	if (!data) return;
-
 	const eraName = getEra(targetYear);
 	const eraId = eraName.toLowerCase().replace(/\s+/g, '-');
 
 	if (eraId && eraId !== currentEra) {
+		const player = document.getElementById('thePlayer');
 		currentEra = eraId;
 
 		if (eraId === 'landing-page') {
-			const player = document.getElementById('thePlayer');
-			if (player) {
-				player.pause();
-				player.src = '';
-			}
-			return;
-		}
-
-		const eraData = data[eraId];
-
-		if (eraData && eraData.length > 0) {
+			player.pause();
+			player.src = '';
+		} else {
+			const eraData = data[eraId];
 			const randomIndex = Math.floor(Math.random() * eraData.length);
 			const song = eraData[randomIndex].song;
-			const player = document.getElementById('thePlayer');
+			const wasPlayingOrInteract = !player.paused || !player.muted;
 
-			if (player) {
-				const wasPlayingOrInteract = !player.paused || !player.muted;
-				player.src = song.url;
-				player.load();
+			player.src = song.url;
+			player.load();
 
-				if (wasPlayingOrInteract) {
-					const playPromise = player.play();
-					if (playPromise !== undefined) {
-						playPromise.catch(e => {
-							console.log('Auto-play after source change failed:', e);
-						});
-					}
+			if (wasPlayingOrInteract) {
+				const playPromise = player.play();
+				if (playPromise !== undefined) {
+					playPromise.catch(e => {
+						console.log('Auto-play after source change failed:', e);
+					});
 				}
 			}
+
 		}
 	}
 }
