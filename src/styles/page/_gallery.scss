@@ -12,43 +12,43 @@
 	transition: background-color 0.5s ease;
 
 	&.pre-renaissance {
-		background-color: #1f0b0b; // Deep burgundy - Medieval richness
+		background-color: #cbb3b380; // Pastel burgundy - Medieval richness
 	}
 
 	&.high-renaissance {
-		background-color: #1f150b; // Warm amber - Golden age warmth
+		background-color: #cbb7a680; // Pastel amber - Golden age warmth
 	}
 
 	&.mannerism {
-		background-color: #150b1f; // Deep violet - Dramatic tension
+		background-color: #bab3cb80; // Pastel violet - Dramatic tension
 	}
 
 	&.baroque {
-		background-color: #1f0b15; // Dark crimson - Opulent drama
+		background-color: #cbb3bc80; // Pastel crimson - Opulent drama
 	}
 
 	&.rococo {
-		background-color: #1f1a1f; // Soft plum - Delicate elegance
+		background-color: #d1bec580; // Pastel plum - Delicate elegance
 	}
 
 	&.romanticism {
-		background-color: #0b0f1f; // Midnight blue - Emotional depth
+		background-color: #b3becb80; // Pastel blue - Emotional depth
 	}
 
 	&.realism {
-		background-color: #0f1f0b; // Dark forest - Earthy naturalism
+		background-color: #b9cbb380; // Pastel forest - Earthy naturalism
 	}
 
 	&.impressionism {
-		background-color: #0b1a1f; // Deep teal - Water and light
+		background-color: #b3cbc780; // Pastel teal - Water and light
 	}
 
 	&.post-impressionism {
-		background-color: #1f1f0b; // Dark olive - Vibrant experimentation
+		background-color: #c7cbb380; // Pastel olive - Vibrant experimentation
 	}
 
 	&.early-modernism {
-		background-color: #1f0b1f; // Deep magenta - Bold innovation
+		background-color: #cbb3c780; // Pastel magenta - Bold innovation
 	}
 
 	&.landing-page {
@@ -73,7 +73,7 @@
 				transform: translateY(300px) scale(6);
 				transition: transform 0.5s ease-in-out, scale 0.5s ease-in-out;
 				border-radius: 5px;
-				mix-blend-mode: initial;
+				// mix-blend-mode: initial;
 
 				.exhibit-label {
 					font-family: 'Cinzel', serif;
