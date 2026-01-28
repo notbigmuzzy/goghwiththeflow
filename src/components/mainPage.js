@@ -55,166 +55,159 @@ function initDraggables() {
 			const currentX = gsap.getProperty(photo, 'x');
 			const currentY = gsap.getProperty(photo, 'y');
 
-			if (img) {
-				const currentSrc = img.src;
-				const highResSrc = currentSrc.replace('web-large', 'original');
-				photo.classList.add('getting-high-res');
+			const targetHeight = vh * 0.9;
+			const targetWidth = targetHeight * (240 / 320);
 
-				const onLoad = () => {
-					photo.classList.remove('getting-high-res');
-					img.removeEventListener('load', onLoad);
-					img.removeEventListener('error', onError);
+			const visualCenterX = (vw * 0.25) + (rect.width / 2);
+			const targetX = visualCenterX - (targetWidth / 2) - rect.left + currentX;
+			const targetY = (vh - targetHeight) / 2 - rect.top + currentY;
 
-					// const scaleX = vw / rect.width;
-					// const scaleY = vh / rect.height;
-					// const scale = Math.min(scaleX, scaleY) * 0.9;
+			setTimeout(() => {
+				const navbar = document.querySelector('#navbar');
+				photo.classList.add('fullscreen');
+				navbar.classList.add('fullscreen');
+				document.querySelectorAll('.photo').forEach(p => {
+					if (p !== photo) {
+						p.classList.add('faded');
+					}
+				});
+				const timeline = document.querySelector('#timeline');
+				if (timeline) timeline.classList.add('hide');
 
-					// const targetWidth = rect.width * scale;
-					// const targetHeight = rect.height * scale;
+				const exhibitLink = document.querySelector('#exhibitLink');
+				if (exhibitLink) {
+					const objectURL = photo.dataset.objectUrl;
+					if (objectURL) exhibitLink.href = objectURL;
+				}
 
-					const targetHeight = vh * 0.9;
-					const targetWidth = targetHeight * (240 / 320);
+				currentFullscreenPhoto = photo;
 
-					const visualCenterX = (vw * 0.25) + (rect.width / 2);
-					const targetX = visualCenterX - (targetWidth / 2) - rect.left + currentX;
-					const targetY = (vh - targetHeight) / 2 - rect.top + currentY;
+				const photoDraggable = getDraggableInstance(photo);
+				if (photoDraggable) photoDraggable.disable();
 
-					setTimeout(() => {
-						const navbar = document.querySelector('#navbar');
-						photo.classList.add('fullscreen');
-						navbar.classList.add('fullscreen');
-						document.querySelectorAll('.photo').forEach(p => {
-							if (p !== photo) {
-								p.classList.add('faded');
-							}
-						});
-						const timeline = document.querySelector('#timeline');
-						if (timeline) timeline.classList.add('hide');
+				const photoInfo = photo.querySelector('.photo-info');
+				if (photoInfo) {
+					const photoInfoHeight = photoInfo.offsetHeight;
+					const centerY = (-targetHeight / 2) + (photoInfoHeight / 2);
+					gsap.to(photoInfo, {
+						x: targetWidth + 20,
+						y: centerY,
+						width: 300,
+						duration: 0.5,
+						scale: 1.1,
+						ease: 'power2.inOut'
+					});
+				}
 
-						const exhibitLink = document.querySelector('#exhibitLink');
-						if (exhibitLink) {
-							const objectURL = photo.dataset.objectUrl;
-							if (objectURL) exhibitLink.href = objectURL;
-						}
+				gsap.killTweensOf(photo);
+				photo.style.transition = 'none';
 
-						currentFullscreenPhoto = photo;
+				const freshRect = photo.getBoundingClientRect();
+				const freshCurrentX = gsap.getProperty(photo, 'x');
+				const freshCurrentY = gsap.getProperty(photo, 'y');
+				const startScale = freshRect.width / targetWidth;
 
-						const photoDraggable = getDraggableInstance(photo);
-						if (photoDraggable) photoDraggable.disable();
+				gsap.set(photo, { width: targetWidth, height: targetHeight, maxWidth: 'none', maxHeight: 'none' });
 
-
-						const photoInfo = photo.querySelector('.photo-info');
-						if (photoInfo) {
-							const photoInfoHeight = photoInfo.offsetHeight;
-							const centerY = (-targetHeight / 2) + (photoInfoHeight / 2);
-							gsap.to(photoInfo, {
-								x: targetWidth + 20,
-								y: centerY,
-								width: 300,
-								duration: 0.5,
-								scale: 1.1,
-								ease: 'power2.inOut'
-							});
-						}
-
-						gsap.killTweensOf(photo);
-						photo.style.transition = 'none';
-
-						const freshRect = photo.getBoundingClientRect();
-						const freshCurrentX = gsap.getProperty(photo, 'x');
-						const freshCurrentY = gsap.getProperty(photo, 'y');
-
-						const startScale = freshRect.width / targetWidth;
-
-						gsap.set(photo, { width: targetWidth, height: targetHeight, maxWidth: 'none', maxHeight: 'none' });
-
-						const centerX = freshRect.left + freshRect.width / 2;
-						const centerY = freshRect.top + freshRect.height / 2;
-
-						const staticLeft = freshRect.left - freshCurrentX;
-						const staticTop = freshRect.top - freshCurrentY;
-
-						const centerOfTargetIfStatic = {
-							x: staticLeft + targetWidth / 2,
-							y: staticTop + targetHeight / 2
-						};
-
-						const startX = centerX - centerOfTargetIfStatic.x;
-						const startY = centerY - centerOfTargetIfStatic.y;
-
-						photo._gsap.startX = startX;
-						photo._gsap.startY = startY;
-						photo._gsap.originalWidth = freshRect.width;
-						photo._gsap.originalHeight = freshRect.height;
-						photo._gsap.currentX = freshCurrentX;
-						photo._gsap.currentY = freshCurrentY;
-
-						gsap.fromTo(photo,
-							{
-								x: startX,
-								y: startY,
-								scale: startScale,
-								rotationX: 0,
-								rotationY: 0
-							},
-							{
-								x: targetX,
-								y: targetY,
-								scale: 1,
-								rotationX: 0,
-								rotationY: 0,
-								duration: 0.5,
-								ease: 'power2.inOut',
-								onComplete: () => {
-									photo.style.transition = '';
-								}
-							}
-						);
-
-						if (wrapper) {
-							gsap.to(wrapper, {
-								scale: 1,
-								x: 0,
-								y: 0,
-								duration: 0.5,
-								ease: 'power2.inOut',
-								onComplete: () => {
-									if (currentWrapperDraggable) currentWrapperDraggable.kill();
-									currentWrapperDraggable = Draggable.create(wrapper, {
-										type: 'x,y',
-										inertia: true,
-										onDragStart: function () {
-											this.target.classList.add('drag-in-progress');
-										},
-										onDragEnd: function () {
-											if (!this.isThrowing) {
-												this.target.classList.remove('drag-in-progress');
-											}
-										},
-										onThrowComplete: function () {
-											this.target.classList.remove('drag-in-progress');
-										}
-									})[0];
-								}
-							});
-							wrapper._gsap = wrapper._gsap || {};
-							wrapper._gsap.initialFullscreenScale = 1;
-							addZoomHandler(wrapper);
-						}
-					}, 300);
+				const centerX = freshRect.left + freshRect.width / 2;
+				const centerY = freshRect.top + freshRect.height / 2;
+				const staticLeft = freshRect.left - freshCurrentX;
+				const staticTop = freshRect.top - freshCurrentY;
+				const centerOfTargetIfStatic = {
+					x: staticLeft + targetWidth / 2,
+					y: staticTop + targetHeight / 2
 				};
 
-				const onError = () => {
-					photo.classList.remove('getting-high-res');
-					img.src = currentSrc;
-					img.removeEventListener('load', onLoad);
-					img.removeEventListener('error', onError);
-				};
+				const startX = centerX - centerOfTargetIfStatic.x;
+				const startY = centerY - centerOfTargetIfStatic.y;
 
-				img.addEventListener('load', onLoad);
-				img.addEventListener('error', onError);
-				img.src = highResSrc;
-			}
+				photo._gsap.startX = startX;
+				photo._gsap.startY = startY;
+				photo._gsap.originalWidth = freshRect.width;
+				photo._gsap.originalHeight = freshRect.height;
+				photo._gsap.currentX = freshCurrentX;
+				photo._gsap.currentY = freshCurrentY;
+
+				gsap.fromTo(photo,
+					{
+						x: startX,
+						y: startY,
+						scale: startScale,
+						rotationX: 0,
+						rotationY: 0
+					},
+					{
+						x: targetX,
+						y: targetY,
+						scale: 1,
+						rotationX: 0,
+						rotationY: 0,
+						duration: 0.5,
+						ease: 'power2.inOut',
+						onComplete: () => {
+							photo.style.transition = '';
+							if (img) {
+								console.log('Loading high-res image for fullscreen view');
+								const currentSrc = img.src;
+								if (!currentSrc.includes('original')) {
+									console.log('Swapping to high-res image:', currentSrc);
+									const highResSrc = currentSrc.replace('web-large', 'original');
+									photo.classList.add('getting-high-res');
+
+									const onLoad = () => {
+										photo.classList.remove('getting-high-res');
+										photo.classList.add('zoomable');
+										img.removeEventListener('load', onLoad);
+										img.removeEventListener('error', onError);
+									};
+
+									const onError = () => {
+										photo.classList.remove('getting-high-res');
+										img.src = currentSrc;
+										img.removeEventListener('load', onLoad);
+										img.removeEventListener('error', onError);
+									};
+
+									img.addEventListener('load', onLoad);
+									img.addEventListener('error', onError);
+									img.src = highResSrc;
+								}
+							}
+						}
+					}
+				);
+
+				if (wrapper) {
+					gsap.to(wrapper, {
+						scale: 1,
+						x: 0,
+						y: 0,
+						duration: 0.5,
+						ease: 'power2.inOut',
+						onComplete: () => {
+							if (currentWrapperDraggable) currentWrapperDraggable.kill();
+							currentWrapperDraggable = Draggable.create(wrapper, {
+								type: 'x,y',
+								inertia: true,
+								onDragStart: function () {
+									this.target.classList.add('drag-in-progress');
+								},
+								onDragEnd: function () {
+									if (!this.isThrowing) {
+										this.target.classList.remove('drag-in-progress');
+									}
+								},
+								onThrowComplete: function () {
+									this.target.classList.remove('drag-in-progress');
+								}
+							})[0];
+						}
+					});
+					wrapper._gsap = wrapper._gsap || {};
+					wrapper._gsap.initialFullscreenScale = 1;
+					addZoomHandler(wrapper);
+				}
+			}, 50);
 		}
 	});
 }
