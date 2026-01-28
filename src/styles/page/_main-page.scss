@@ -20,14 +20,14 @@
 			will-change: transform, box-shadow, border-color, width, height, opacity;
 
 			.img-wrapper {
-				position: absolute;
+				position: relative;
 				display: flex;
 				justify-content: center;
 				align-items: center;
 				width: 100%;
 				height: 100%;
 				background-color: #d9cdbc;
-				border: 4px ridge #d9cdbc;
+				border: 4px ridge #ad943eb8;
 				border-radius: 2px;
 				box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 				will-change: transform, box-shadow, border-color, scale;
@@ -46,7 +46,7 @@
 
 				&:hover {
 					background-color: #796a55;
-					border-color: #534b3e;
+					border-color: #ad943eb8;
 					background: radial-gradient(circle, transparent 20%, #796a55 20%, #796a55 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, #796a55 20%, #796a55 80%, transparent 80%, transparent) 30px 30px, linear-gradient(#5c4f3d 2.4px, transparent 2.4px) 0 -1.2px, linear-gradient(90deg, #5c4f3d 2.4px, #796a55 2.4px) -1.2px 0;
 					background-size: 60px 60px, 60px 60px, 30px 30px, 30px 30px;
 				}
@@ -57,7 +57,7 @@
 
 				.img-wrapper {
 					background-color: #796a55;
-					border-color: #534b3e;
+					border-color: #ad943eb8;
 					background: radial-gradient(circle, transparent 20%, #796a55 20%, #796a55 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, #796a55 20%, #796a55 80%, transparent 80%, transparent) 30px 30px, linear-gradient(#5c4f3d 2.4px, transparent 2.4px) 0 -1.2px, linear-gradient(90deg, #5c4f3d 2.4px, #796a55 2.4px) -1.2px 0;
 					background-size: 60px 60px, 60px 60px, 30px 30px, 30px 30px;
 				}
@@ -79,6 +79,7 @@
 			}
 
 			.photo-info {
+				display: none;
 				position: absolute;
 				bottom: 0;
 				left: 0;
@@ -168,6 +169,7 @@
 				}
 
 				.photo-info {
+					display: block;
 					z-index: 100 !important;
 
 					.additional-info,
@@ -179,7 +181,7 @@
 				.img-wrapper {
 					z-index: 1000;
 					background-color: #796a55;
-					border-color: #534b3e;
+					border-color: #ad943eb8;
 					background: radial-gradient(circle, transparent 20%, #796a55 20%, #796a55 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, #796a55 20%, #796a55 80%, transparent 80%, transparent) 30px 30px, linear-gradient(#5c4f3d 2.4px, transparent 2.4px) 0 -1.2px, linear-gradient(90deg, #5c4f3d 2.4px, #796a55 2.4px) -1.2px 0;
 					background-size: 60px 60px, 60px 60px, 30px 30px, 30px 30px;
 					cursor: url('/images/scroll-to-zoom.svg') 60 10, grab !important;
