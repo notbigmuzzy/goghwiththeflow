@@ -42,8 +42,38 @@
   "post-impressionism": [
     {
       "song": {
+        "name": "Claude Debussy - Clair de lune",
+        "url": "music/post-impressionism/Claude Debussy - Clair de lune.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Claude Debussy Prélude à l'Après-midi d'un faune",
+        "url": "music/post-impressionism/Claude Debussy Prélude à l'Après-midi d'un faune.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Debussy - La cathédrale engloutie",
+        "url": "music/post-impressionism/Debussy - La cathédrale engloutie.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Debussy - Reflets dans l'eau",
+        "url": "music/post-impressionism/Debussy - Reflets dans l'eau.mp3"
+      }
+    },
+    {
+      "song": {
         "name": "Erik Satie – Gymnopedie No. 1",
         "url": "music/post-impressionism/Erik Satie – Gymnopedie No. 1.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Maurice Ravel - Daybreak",
+        "url": "music/post-impressionism/Maurice Ravel - Daybreak.mp3"
       }
     }
   ],
