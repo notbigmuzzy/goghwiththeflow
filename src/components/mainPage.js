@@ -147,10 +147,8 @@ function initDraggables() {
 						onComplete: () => {
 							photo.style.transition = '';
 							if (img) {
-								console.log('Loading high-res image for fullscreen view');
 								const currentSrc = img.src;
 								if (!currentSrc.includes('original')) {
-									console.log('Swapping to high-res image:', currentSrc);
 									const highResSrc = currentSrc.replace('web-large', 'original');
 									photo.classList.add('getting-high-res');
 
@@ -239,6 +237,7 @@ function exitFullscreen() {
 
 	const photo = currentFullscreenPhoto;
 	photo.classList.remove('getting-high-res');
+	photo.classList.remove('zoomable');
 	photo.style.transition = 'none';
 
 	if (currentWrapperDraggable) {
@@ -356,6 +355,8 @@ function addZoomHandler(target) {
 
 	// Double tap zoom handler
 	const doubleTapHandler = (e) => {
+		if (!target.classList.contains('zoomable')) return;
+
 		const currentTime = new Date().getTime();
 		const tapInterval = currentTime - lastTapTime;
 
@@ -414,6 +415,9 @@ function addZoomHandler(target) {
 	// Wheel zoom handler
 	wheelHandler = (e) => {
 		if (target.classList.contains('drag-in-progress')) return;
+		
+		const photo = target.closest('.photo');
+		if (!photo || !photo.classList.contains('zoomable')) return;
 
 		e.preventDefault();
 		e.stopPropagation();
@@ -492,7 +496,8 @@ function addZoomHandler(target) {
 		};
 	};
 	const touchStartHandler = (e) => {
-		if (e.touches.length === 2) {
+		const photo = target.closest('.photo');
+		if (e.touches.length === 2 && photo && photo.classList.contains('zoomable')) {
 			e.preventDefault();
 			target.classList.add('zoom-in-progress');
 			if (currentWrapperDraggable) currentWrapperDraggable.disable();
