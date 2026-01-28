@@ -619,10 +619,11 @@ export function createPhotos(artworks = []) {
 
 	const topRowCount = Math.min(3, numberOfPhotos);
 	const topRowLefts = [0.175, 0.5, 0.825];
+	const topRowTops = [0.125, 0.075, 0.120];
 
 	for (let i = 0; i < topRowCount; i++) {
 		positions.push({
-			top: 0.1,
+			top: topRowTops[i],
 			left: topRowLefts[i]
 		});
 	}
@@ -632,9 +633,13 @@ export function createPhotos(artworks = []) {
 		const bottomRowLefts = bottomRowCount === 1 ? [0.35] :
 			bottomRowCount === 2 ? [0.35, 0.65] :
 				[0.2, 0.5, 0.8];
+		const bottomRowTops = bottomRowCount === 1 ? [0.4] :
+			bottomRowCount === 2 ? [0.35, 0.45] :
+				[0.3, 0.4, 0.35];
+
 		for (let i = 0; i < bottomRowCount; i++) {
 			positions.push({
-				top: 0.4,
+				top: bottomRowTops[i],
 				left: bottomRowLefts[i]
 			});
 		}
