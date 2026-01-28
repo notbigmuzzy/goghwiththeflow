@@ -66,16 +66,88 @@
   "rococo": [
     {
       "song": {
+        "name": "C.P.E. Bach Cello Concerto in A Major Wq 172.mp3",
+        "url": "music/rococo/C.P.E. Bach Cello Concerto in A Major Wq 172.mp3"
+      }
+    },
+    {
+      "song": {
         "name": "Francois Couperin – Les Barricades Mysterieuses.mp3",
         "url": "music/rococo/Francois Couperin – Les Barricades Mysterieuses.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "François Couperin Vingt - septième Ordre en si mineur.mp3",
+        "url": "music/rococo/François Couperin Vingt - septième Ordre en si mineur.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Johann Christian Bach - Symphony op.6 no.1 in G major W. C7.mp3",
+        "url": "music/rococo/Johann Christian Bach - Symphony op.6 no.1 in G major W. C7.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Leopold Mozart Toy Symphony Symphonie des jouets.mp3",
+        "url": "music/rococo/Leopold Mozart Toy Symphony Symphonie des jouets.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Luigi Boccherini - String Quintet for 2 violins viola and 2 cellos No.6 in B-flat major.mp3",
+        "url": "music/rococo/Luigi Boccherini - String Quintet for 2 violins viola and 2 cellos No.6 in B-flat major.mp3"
       }
     }
   ],
   "romanticism": [
     {
       "song": {
+        "name": "Brahms - 5 Lieder, Op. 49: No. 4, Wiegenlied (Brahms Lullaby).mp3",
+        "url": "music/romanticism/Brahms - 5 Lieder, Op. 49: No. 4, Wiegenlied (Brahms Lullaby).mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Dvořák - Serenade for Strings in E Major, Op. 22: I. Moderato.mp3",
+        "url": "music/romanticism/Dvořák - Serenade for Strings in E Major, Op. 22: I. Moderato.mp3"
+      }
+    },
+    {
+      "song": {
         "name": "Frederic Chopin - Nocturne in E-flat major Op9 No2.mp3",
         "url": "music/romanticism/Frederic Chopin - Nocturne in E-flat major Op9 No2.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Grieg - Peer Gynt Suite_ Morning Mood.mp3",
+        "url": "music/romanticism/Grieg - Peer Gynt Suite_ Morning Mood.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Puccini - Gianni Schicchi_ O Mio Babbino Caro.mp3",
+        "url": "music/romanticism/Puccini - Gianni Schicchi_ O Mio Babbino Caro.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Rachmaninoff - Rhapsody on a Theme of Paganini: Var. XVIII.mp3",
+        "url": "music/romanticism/Rachmaninoff - Rhapsody on a Theme of Paganini: Var. XVIII.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Schubert - Schwanengesang_ Ständchen (Serenade).mp3",
+        "url": "music/romanticism/Schubert - Schwanengesang_ Ständchen (Serenade).mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Tchaikovsky - Swan Lake_ Scene by a Lake.mp3",
+        "url": "music/romanticism/Tchaikovsky - Swan Lake_ Scene by a Lake.mp3"
       }
     }
   ]

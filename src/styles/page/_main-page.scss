@@ -102,6 +102,11 @@
 				font-size: 18px;
 				line-height: 1.25;
 				font-weight: bold;
+				display: -webkit-box;
+				-webkit-line-clamp: 3;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
+				text-overflow: ellipsis;
 			}
 
 			.additional-info {
@@ -157,6 +162,10 @@
 
 			&.fullscreen {
 				z-index: 9999 !important;
+
+				.photo-title {
+					-webkit-line-clamp: none;
+				}
 
 				.photo-info {
 					z-index: 100 !important;
