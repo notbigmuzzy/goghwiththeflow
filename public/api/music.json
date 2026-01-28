@@ -2,7 +2,7 @@
   "baroque": [
     {
       "song": {
-        "name": "J.S. Bach – Brandenburg Concerto No. 3 in G Major.mp3",
+        "name": "J.S. Bach – Brandenburg Concerto No. 3 in G Major",
         "url": "music/baroque/J.S. Bach – Brandenburg Concerto No. 3 in G Major.mp3"
       }
     }
@@ -10,7 +10,7 @@
   "early-modernism": [
     {
       "song": {
-        "name": "Igor Stravinsky – The Rite of Spring.mp3",
+        "name": "Igor Stravinsky – The Rite of Spring",
         "url": "music/early-modernism/Igor Stravinsky – The Rite of Spring.mp3"
       }
     }
@@ -18,7 +18,7 @@
   "high-renaissance": [
     {
       "song": {
-        "name": "Giovanni Pierluigi da Palestrina – Missa Papae Marcelli.mp3",
+        "name": "Giovanni Pierluigi da Palestrina – Missa Papae Marcelli",
         "url": "music/high-renaissance/Giovanni Pierluigi da Palestrina – Missa Papae Marcelli.mp3"
       }
     }
@@ -26,7 +26,7 @@
   "impressionism": [
     {
       "song": {
-        "name": "Claude Debussy – Prelude a lapres-midi dun faune.mp3",
+        "name": "Claude Debussy – Prelude a lapres-midi dun faune",
         "url": "music/impressionism/Claude Debussy – Prelude a lapres-midi dun faune.mp3"
       }
     }
@@ -34,7 +34,7 @@
   "mannerism": [
     {
       "song": {
-        "name": "Carlo Gesualdo – Moro, lasso, al mio duolo.mp3",
+        "name": "Carlo Gesualdo – Moro, lasso, al mio duolo",
         "url": "music/mannerism/Carlo Gesualdo – Moro, lasso, al mio duolo.mp3"
       }
     }
@@ -42,7 +42,7 @@
   "post-impressionism": [
     {
       "song": {
-        "name": "Erik Satie – Gymnopedie No. 1.mp3",
+        "name": "Erik Satie – Gymnopedie No. 1",
         "url": "music/post-impressionism/Erik Satie – Gymnopedie No. 1.mp3"
       }
     }
@@ -50,69 +50,117 @@
   "pre-renaissance": [
     {
       "song": {
-        "name": "Hildegard von Bingen – O viridissima virga.mp3",
+        "name": "Choral In dulci jubilo BuxWV 197",
+        "url": "music/pre-renaissance/Choral In dulci jubilo BuxWV 197.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "G. G. Kapsperger - Toccata Arpeggiata & Passacaglia",
+        "url": "music/pre-renaissance/G. G. Kapsperger - Toccata Arpeggiata & Passacaglia.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "GIOVANNI DE MACQUE - Consonanze stravaganti",
+        "url": "music/pre-renaissance/GIOVANNI DE MACQUE - Consonanze stravaganti.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Go from my windowe P 64",
+        "url": "music/pre-renaissance/Go from my windowe P 64.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Hildegard von Bingen – O viridissima virga",
         "url": "music/pre-renaissance/Hildegard von Bingen – O viridissima virga.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Lachrimae P 15",
+        "url": "music/pre-renaissance/Lachrimae P 15.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Passacaglia in G minor for Solo Violin",
+        "url": "music/pre-renaissance/Passacaglia in G minor for Solo Violin.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Sinfonia sesto tuono Op 22",
+        "url": "music/pre-renaissance/Sinfonia sesto tuono Op 22.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Sonata in Ecco con tre Violini Op 8",
+        "url": "music/pre-renaissance/Sonata in Ecco con tre Violini Op 8.mp3"
       }
     }
   ],
   "realism": [
     {
       "song": {
-        "name": "Boris Godunov: Scene With the Clock.mp3",
+        "name": "Boris Godunov: Scene With the Clock",
         "url": "music/realism/Boris Godunov: Scene With the Clock.mp3"
       }
     },
     {
       "song": {
-        "name": "Franz Schubert Der Leiermann.mp3",
+        "name": "Franz Schubert Der Leiermann",
         "url": "music/realism/Franz Schubert Der Leiermann.mp3"
       }
     },
     {
       "song": {
-        "name": "Georges Bizet - Carmen Suite Seguedille.mp3",
+        "name": "Georges Bizet - Carmen Suite Seguedille",
         "url": "music/realism/Georges Bizet - Carmen Suite Seguedille.mp3"
       }
     },
     {
       "song": {
-        "name": "Georges Bizet - Habanera from Carmen Suite No.2.mp3",
+        "name": "Georges Bizet - Habanera from Carmen Suite No.2",
         "url": "music/realism/Georges Bizet - Habanera from Carmen Suite No.2.mp3"
       }
     },
     {
       "song": {
-        "name": "Georges Bizet - Votre Toast.mp3",
+        "name": "Georges Bizet - Votre Toast",
         "url": "music/realism/Georges Bizet - Votre Toast.mp3"
       }
     },
     {
       "song": {
-        "name": "Georges Bizet: Carmen: Flower Song.mp3",
+        "name": "Georges Bizet: Carmen: Flower Song",
         "url": "music/realism/Georges Bizet: Carmen: Flower Song.mp3"
       }
     },
     {
       "song": {
-        "name": "Pietro Mascagni – Intermezzo from Cavalleria Rusticana.mp3",
+        "name": "Pietro Mascagni – Intermezzo from Cavalleria Rusticana",
         "url": "music/realism/Pietro Mascagni – Intermezzo from Cavalleria Rusticana.mp3"
       }
     },
     {
       "song": {
-        "name": "Puccini - La Bohème - Musettas Waltz.mp3",
+        "name": "Puccini - La Bohème - Musettas Waltz",
         "url": "music/realism/Puccini - La Bohème - Musettas Waltz.mp3"
       }
     },
     {
       "song": {
-        "name": "Puccini: La bohème Act : Sì Mi chiamano Mimì.mp3",
+        "name": "Puccini: La bohème Act : Sì Mi chiamano Mimì",
         "url": "music/realism/Puccini: La bohème Act : Sì Mi chiamano Mimì.mp3"
       }
     },
     {
       "song": {
-        "name": "Puccini: La bohème Act I: Che gelida manina.mp3",
+        "name": "Puccini: La bohème Act I: Che gelida manina",
         "url": "music/realism/Puccini: La bohème Act I: Che gelida manina.mp3"
       }
     }
@@ -120,37 +168,37 @@
   "rococo": [
     {
       "song": {
-        "name": "C.P.E. Bach Cello Concerto in A Major Wq 172.mp3",
+        "name": "C.P.E. Bach Cello Concerto in A Major Wq 172",
         "url": "music/rococo/C.P.E. Bach Cello Concerto in A Major Wq 172.mp3"
       }
     },
     {
       "song": {
-        "name": "Francois Couperin – Les Barricades Mysterieuses.mp3",
+        "name": "Francois Couperin – Les Barricades Mysterieuses",
         "url": "music/rococo/Francois Couperin – Les Barricades Mysterieuses.mp3"
       }
     },
     {
       "song": {
-        "name": "François Couperin Vingt - septième Ordre en si mineur.mp3",
+        "name": "François Couperin Vingt - septième Ordre en si mineur",
         "url": "music/rococo/François Couperin Vingt - septième Ordre en si mineur.mp3"
       }
     },
     {
       "song": {
-        "name": "Johann Christian Bach - Symphony op.6 no.1 in G major W. C7.mp3",
+        "name": "Johann Christian Bach - Symphony op.6 no.1 in G major W. C7",
         "url": "music/rococo/Johann Christian Bach - Symphony op.6 no.1 in G major W. C7.mp3"
       }
     },
     {
       "song": {
-        "name": "Leopold Mozart Toy Symphony Symphonie des jouets.mp3",
+        "name": "Leopold Mozart Toy Symphony Symphonie des jouets",
         "url": "music/rococo/Leopold Mozart Toy Symphony Symphonie des jouets.mp3"
       }
     },
     {
       "song": {
-        "name": "Luigi Boccherini - String Quintet for 2 violins viola and 2 cellos No.6 in B-flat major.mp3",
+        "name": "Luigi Boccherini - String Quintet for 2 violins viola and 2 cellos No.6 in B-flat major",
         "url": "music/rococo/Luigi Boccherini - String Quintet for 2 violins viola and 2 cellos No.6 in B-flat major.mp3"
       }
     }
@@ -158,49 +206,49 @@
   "romanticism": [
     {
       "song": {
-        "name": "Brahms - 5 Lieder, Op. 49: No. 4, Wiegenlied (Brahms Lullaby).mp3",
+        "name": "Brahms - 5 Lieder, Op. 49: No. 4, Wiegenlied (Brahms Lullaby)",
         "url": "music/romanticism/Brahms - 5 Lieder, Op. 49: No. 4, Wiegenlied (Brahms Lullaby).mp3"
       }
     },
     {
       "song": {
-        "name": "Dvořák - Serenade for Strings in E Major, Op. 22: I. Moderato.mp3",
+        "name": "Dvořák - Serenade for Strings in E Major, Op. 22: I. Moderato",
         "url": "music/romanticism/Dvořák - Serenade for Strings in E Major, Op. 22: I. Moderato.mp3"
       }
     },
     {
       "song": {
-        "name": "Frederic Chopin - Nocturne in E-flat major Op9 No2.mp3",
+        "name": "Frederic Chopin - Nocturne in E-flat major Op9 No2",
         "url": "music/romanticism/Frederic Chopin - Nocturne in E-flat major Op9 No2.mp3"
       }
     },
     {
       "song": {
-        "name": "Grieg - Peer Gynt Suite_ Morning Mood.mp3",
+        "name": "Grieg - Peer Gynt Suite_ Morning Mood",
         "url": "music/romanticism/Grieg - Peer Gynt Suite_ Morning Mood.mp3"
       }
     },
     {
       "song": {
-        "name": "Puccini - Gianni Schicchi_ O Mio Babbino Caro.mp3",
+        "name": "Puccini - Gianni Schicchi_ O Mio Babbino Caro",
         "url": "music/romanticism/Puccini - Gianni Schicchi_ O Mio Babbino Caro.mp3"
       }
     },
     {
       "song": {
-        "name": "Rachmaninoff - Rhapsody on a Theme of Paganini: Var. XVIII.mp3",
+        "name": "Rachmaninoff - Rhapsody on a Theme of Paganini: Var. XVIII",
         "url": "music/romanticism/Rachmaninoff - Rhapsody on a Theme of Paganini: Var. XVIII.mp3"
       }
     },
     {
       "song": {
-        "name": "Schubert - Schwanengesang_ Ständchen (Serenade).mp3",
+        "name": "Schubert - Schwanengesang_ Ständchen (Serenade)",
         "url": "music/romanticism/Schubert - Schwanengesang_ Ständchen (Serenade).mp3"
       }
     },
     {
       "song": {
-        "name": "Tchaikovsky - Swan Lake_ Scene by a Lake.mp3",
+        "name": "Tchaikovsky - Swan Lake_ Scene by a Lake",
         "url": "music/romanticism/Tchaikovsky - Swan Lake_ Scene by a Lake.mp3"
       }
     }

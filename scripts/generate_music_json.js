@@ -32,7 +32,7 @@ function main() {
 			const songs = files.map(filename => {
 				return {
 					song: {
-						name: filename,
+						name: filename.replace('.mp3', ''),
 						url: `music/${era}/${filename}`
 					}
 				};
