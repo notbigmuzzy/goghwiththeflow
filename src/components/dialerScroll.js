@@ -130,12 +130,7 @@ export function initDialerScroll() {
 	};
 
 	const handleMouseDown = (e) => {
-		const video = document.getElementById('thePlayer');
-		// Only unmute if we already have a source
-		if (video) {
-			video.muted = false;
-			unmuteAndPlay();
-		}
+		unmuteAndPlay();
 
 		const pageX = e.pageX || (e.touches && e.touches[0].pageX);
 
@@ -291,11 +286,7 @@ export function initDialerScroll() {
 			if (animationFrame) cancelAnimationFrame(animationFrame);
 			if (snapTimeout) clearTimeout(snapTimeout);
 
-			const video = document.getElementById('thePlayer');
-			if (video) {
-				video.muted = false;
-				unmuteAndPlay();
-			}
+			unmuteAndPlay();
 
 			timeline.classList.add('dialing');
 			preloader.classList.add('loading');

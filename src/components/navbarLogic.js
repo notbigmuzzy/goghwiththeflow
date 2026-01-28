@@ -1,32 +1,15 @@
+import { toggleGlobalMute, setGlobalUnmute } from './musicPlayer.js';
+
 export function initNavBar() {
 	const playerLabel = document.querySelector('.player-label');
-	const video = document.getElementById('thePlayer');
 
-	if (playerLabel && video) {
+	if (playerLabel) {
 		playerLabel.addEventListener('click', () => {
-			if (video.muted) {
-				unmuteAndPlay(video, playerLabel);
-			} else {
-				video.muted = true;
-				playerLabel.classList.remove('playing');
-			}
+			toggleGlobalMute();
 		});
 	}
 }
 
-export function unmuteAndPlay(video, playerLabel) {
-	if (!video || !playerLabel) {
-		video = document.getElementById('thePlayer');
-		playerLabel = document.querySelector('.player-label');
-	}
-
-	if (video) {
-		video.muted = false;
-
-		if (video.src && video.src !== window.location.href && video.paused) {
-			video.play().catch(e => console.log('Playback error:', e));
-		}
-
-		if (playerLabel) playerLabel.classList.add('playing');
-	}
+export function unmuteAndPlay() {
+	setGlobalUnmute();
 }
