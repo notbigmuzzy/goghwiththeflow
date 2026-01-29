@@ -18,8 +18,38 @@
   "high-renaissance": [
     {
       "song": {
+        "name": "Asola - Te Gloriosus Apostolorum",
+        "url": "music/high-renaissance/Asola - Te Gloriosus Apostolorum.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Casteliono Lute Book",
+        "url": "music/high-renaissance/Casteliono Lute Book.mp3"
+      }
+    },
+    {
+      "song": {
         "name": "Giovanni Pierluigi da Palestrina – Missa Papae Marcelli",
         "url": "music/high-renaissance/Giovanni Pierluigi da Palestrina – Missa Papae Marcelli.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Miserere Mei Deus Allegri",
+        "url": "music/high-renaissance/Miserere Mei Deus Allegri.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Music for a while by Henry Purcell",
+        "url": "music/high-renaissance/Music for a while by Henry Purcell.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Thomas Tallis - Hear the Voice and Prayer",
+        "url": "music/high-renaissance/Thomas Tallis - Hear the Voice and Prayer.mp3"
       }
     }
   ],
