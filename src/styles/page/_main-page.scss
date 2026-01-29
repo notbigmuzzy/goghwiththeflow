@@ -199,11 +199,11 @@
 						}
 					}
 				}
-			}
 
-			&.zoomable {
-				.img-wrapper {
-					cursor: url('/images/scroll-to-zoom.svg') 60 10, grab !important;
+				&.zoomable {
+					.img-wrapper {
+						cursor: url('/images/scroll-to-zoom.svg') 60 10, grab !important;
+					}
 				}
 			}
 
@@ -221,15 +221,5 @@
 			transform: scale(1);
 			transition: transform 0.5s ease, opacity 0.5s ease;
 		}
-	}
-}
-
-@keyframes spin {
-	0% {
-		transform: rotate(0deg);
-	}
-
-	100% {
-		transform: rotate(360deg);
 	}
 }

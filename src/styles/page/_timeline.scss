@@ -180,7 +180,7 @@
 
 		p.instruct {
 			position: relative;
-			background-color: rgba(255, 255, 255, 0.1);
+			background-color: rgba(255, 255, 255, 0.2);
 			text-shadow: 0px 2px 5px rgba(255, 255, 255, 0.5);
 			border-radius: 5px;
 			padding: 12px 16px;
@@ -191,7 +191,7 @@
 				height: 0;
 				border-left: 8px solid transparent;
 				border-right: 8px solid transparent;
-				border-top: 10px solid rgba(255, 255, 255, 0.1);
+				border-top: 10px solid rgba(255, 255, 255, 0.2);
 				position: absolute;
 				bottom: -10px;
 				left: 0;
@@ -221,8 +221,6 @@
 	.century-links {
 		display: flex;
 		flex-direction: column;
-		align-items: center;
-		justify-content: center;
 		position: fixed;
 		right: 0;
 		bottom: 5px;
@@ -232,9 +230,10 @@
 		font-weight: bold;
 
 		&.left {
+			align-items: flex-start;
+			justify-content: flex-start;
 			left: -10px;
 			right: auto;
-
 
 			span {
 				padding-left: 20px;
@@ -248,6 +247,8 @@
 		}
 
 		&.right {
+			align-items: flex-end;
+			justify-content: flex-end;
 			right: -10px;
 			left: auto;
 
@@ -262,7 +263,7 @@
 			}
 		}
 
-		span {
+		.century-link {
 			display: block;
 			text-decoration: none;
 			padding: 10px;
@@ -272,10 +273,18 @@
 			text-transform: initial;
 			transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
 
+			i {
+				display: none;
+			}
+
 			&:hover {
 				cursor: pointer;
 				color: rgba(255, 255, 255, 1);
 				background-color: rgba(255, 255, 255, 0.25);
+
+				i {
+					display: inline;
+				}
 			}
 		}
 

@@ -177,19 +177,19 @@
 				left: 2px;
 			}
 
+			&:hover {
+
+				svg {
+					opacity: 1;
+				}
+			}
+
 			&.playing {
 
 				span,
 				svg {
 					opacity: 1;
 					text-decoration: none;
-				}
-			}
-
-			&:hover {
-
-				svg {
-					opacity: 1 !important;
 				}
 			}
 		}

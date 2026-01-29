@@ -415,7 +415,7 @@ function addZoomHandler(target) {
 	// Wheel zoom handler
 	wheelHandler = (e) => {
 		if (target.classList.contains('drag-in-progress')) return;
-		
+
 		const photo = target.closest('.photo');
 		if (!photo || !photo.classList.contains('zoomable')) return;
 
@@ -632,8 +632,8 @@ export function createPhotos(artworks = []) {
 			bottomRowCount === 2 ? [0.35, 0.65] :
 				[0.2, 0.5, 0.8];
 		const bottomRowTops = bottomRowCount === 1 ? [0.4] :
-			bottomRowCount === 2 ? [0.35, 0.45] :
-				[0.3, 0.4, 0.35];
+			bottomRowCount === 2 ? [0.35, 0.4] :
+				[0.3, 0.375, 0.325];
 
 		for (let i = 0; i < bottomRowCount; i++) {
 			positions.push({

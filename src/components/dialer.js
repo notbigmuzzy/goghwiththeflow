@@ -18,17 +18,17 @@ export function createDialer() {
 	return `
 		<div class="preload-instructions">
 			<div class="instructions">
-				<p class="instruct"><i class="arrow-down"></i>Drag to explore by year</p>
+				<p class="instruct"><i class="arrow-down"></i>Drag me to flow trough the years</p>
 			</div>
 			<div class="century-links left">
-				<span data-century="1440" class="century-link">XV</span>
-				<span data-century="1501" class="century-link">XVI</span>
-				<span data-century="1601" class="century-link">XVII</span>
+				<span data-century="1601" class="century-link">XVII <i>century</i></span>
+				<span data-century="1501" class="century-link">XVI <i>century</i></span>
+				<span data-century="1440" class="century-link">XV <i>century</i></span>
 			</div>
 			<div class="century-links right">
-				<span data-century="1701" class="century-link">XVIII</span>
-				<span data-century="1801" class="century-link">XIX</span>
-				<span data-century="1901" class="century-link">XX</span>
+				<span data-century="1701" class="century-link">XVIII <i>century</i></span>
+				<span data-century="1801" class="century-link">XIX <i>century</i></span>
+				<span data-century="1901" class="century-link">XX <i>century</i></span>
 			</div>
 		</div>
 		<div class="dialer-wrapper">
