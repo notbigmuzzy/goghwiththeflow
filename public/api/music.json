@@ -26,8 +26,32 @@
   "impressionism": [
     {
       "song": {
+        "name": "Claude Debussy - La Mer",
+        "url": "music/impressionism/Claude Debussy - La Mer.mp3"
+      }
+    },
+    {
+      "song": {
         "name": "Claude Debussy – Prelude a lapres-midi dun faune",
         "url": "music/impressionism/Claude Debussy – Prelude a lapres-midi dun faune.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Debussy - Clair de Lune",
+        "url": "music/impressionism/Debussy - Clair de Lune.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Maurice Ravel - Daybreak",
+        "url": "music/impressionism/Maurice Ravel - Daybreak.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Ravel: Jeux DEau",
+        "url": "music/impressionism/Ravel: Jeux DEau.mp3"
       }
     }
   ],
