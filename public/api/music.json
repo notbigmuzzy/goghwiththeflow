@@ -10,8 +10,32 @@
   "early-modernism": [
     {
       "song": {
+        "name": "Bela Bartok  String quartet Nr. 4 C-major",
+        "url": "music/early-modernism/Bela Bartok  String quartet Nr. 4 C-major.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Brettl-Lieder VI Jedem das Seine",
+        "url": "music/early-modernism/Brettl-Lieder VI Jedem das Seine.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Claude Debussy Images Book 1",
+        "url": "music/early-modernism/Claude Debussy Images Book 1.mp3"
+      }
+    },
+    {
+      "song": {
         "name": "Igor Stravinsky – The Rite of Spring",
         "url": "music/early-modernism/Igor Stravinsky – The Rite of Spring.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Sergei Prokofiev - Symphony no.1, op.25",
+        "url": "music/early-modernism/Sergei Prokofiev - Symphony no.1, op.25.mp3"
       }
     }
   ],
