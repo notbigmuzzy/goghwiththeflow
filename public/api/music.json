@@ -2,8 +2,86 @@
   "baroque": [
     {
       "song": {
-        "name": "J.S. Bach – Brandenburg Concerto No. 3 in G Major",
-        "url": "music/baroque/J.S. Bach – Brandenburg Concerto No. 3 in G Major.mp3"
+        "name": "A.MARCELLO - Adagio from Oboe Concerto in C Minor",
+        "url": "music/baroque/A.MARCELLO - Adagio from Oboe Concerto in C Minor.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "ALBINONI - Giazotto - Adagio in G Minor",
+        "url": "music/baroque/ALBINONI - Giazotto - Adagio in G Minor.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "CORELLI - Pastorale from Concerto grosso No. 8 - Op.6 - Christmas Concerto",
+        "url": "music/baroque/CORELLI - Pastorale from Concerto grosso No. 8 - Op.6 - Christmas Concerto.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "HANDEL - Allegro Finale from Fireworks Music",
+        "url": "music/baroque/HANDEL - Allegro Finale from Fireworks Music.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "HANDEL - Allegro from Concerto grosso No. 12",
+        "url": "music/baroque/HANDEL - Allegro from Concerto grosso No. 12.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "HANDEL - Larghetto from Xerxes",
+        "url": "music/baroque/HANDEL - Larghetto from Xerxes.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "HANDEL - Presto from Water Music",
+        "url": "music/baroque/HANDEL - Presto from Water Music.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "J.S.BACH - Air on G String",
+        "url": "music/baroque/J.S.BACH - Air on G String.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "J.S.BACH - Badinerie from Suite No. 2",
+        "url": "music/baroque/J.S.BACH - Badinerie from Suite No. 2.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "J.S.BACH - Second Movement from Concerto for 2 Violins",
+        "url": "music/baroque/J.S.BACH - Second Movement from Concerto for 2 Violins.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "TELEMANN - Andante from Concerto for Viola",
+        "url": "music/baroque/TELEMANN - Andante from Concerto for Viola.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "VIVALDI - Allegor from Concerto in B flat for 2 Trumpets",
+        "url": "music/baroque/VIVALDI - Allegor from Concerto in B flat for 2 Trumpets.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "VIVALDI - Allegro from Autumn - The Four Seasons",
+        "url": "music/baroque/VIVALDI - Allegro from Autumn - The Four Seasons.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "VIVALDI - Allegro from Concerto No. 1 Op. 8. Spring",
+        "url": "music/baroque/VIVALDI - Allegro from Concerto No. 1 Op. 8. Spring.mp3"
       }
     }
   ],
