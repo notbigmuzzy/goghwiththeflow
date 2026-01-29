@@ -34,8 +34,38 @@
   "mannerism": [
     {
       "song": {
-        "name": "Carlo Gesualdo – Moro, lasso, al mio duolo",
-        "url": "music/mannerism/Carlo Gesualdo – Moro, lasso, al mio duolo.mp3"
+        "name": "Carlo Gesualdo - from Tenebrae Responsories",
+        "url": "music/mannerism/Carlo Gesualdo - from Tenebrae Responsories.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Carlo Gesualdo – Moro lasso al mio duolo",
+        "url": "music/mannerism/Carlo Gesualdo – Moro lasso al mio duolo.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Luca Marenzio - Solo e pensoso",
+        "url": "music/mannerism/Luca Marenzio - Solo e pensoso.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Peter Philips - Tirsi, di Luca Marenzio",
+        "url": "music/mannerism/Peter Philips - Tirsi, di Luca Marenzio.mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Sigismondo d'India: Piangono al pianger mio [Pc_6oUKGHB0]",
+        "url": "music/mannerism/Sigismondo d'India: Piangono al pianger mio [Pc_6oUKGHB0].mp3"
+      }
+    },
+    {
+      "song": {
+        "name": "Sigismondo dIndia - Dispietata pietate",
+        "url": "music/mannerism/Sigismondo dIndia - Dispietata pietate.mp3"
       }
     }
   ],
