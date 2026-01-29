@@ -63,7 +63,9 @@
 #gallery.landing-page {
 	&~#navbar {
 		.navbar-content {
-			.attribution {
+
+			.attribution,
+			.headphones {
 				display: block;
 			}
 

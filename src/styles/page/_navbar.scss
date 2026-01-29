@@ -133,6 +133,45 @@
 		}
 	}
 
+	.headphones {
+		position: absolute;
+		top: 42px;
+		right: -10px;
+		bottom: 0;
+		margin: auto 0;
+		pointer-events: all;
+		font-size: 16px;
+		color: #fff;
+		display: none;
+		cursor: pointer;
+		transform: rotate(45deg);
+		opacity: 0.2;
+		pointer-events: none;
+
+		svg {
+			position: absolute;
+			top: -25px;
+			left: -2px;
+			right: 0;
+			margin: 0 auto;
+			scale: 2.5;
+			text-align: center;
+		}
+
+		span {
+			position: relative;
+			font-size: 10px;
+			line-height: 1.25;
+			font-weight: bold;
+			color: #fff;
+			display: block;
+			width: 100px;
+			margin-top: 10px;
+			text-transform: uppercase;
+			text-align: center;
+		}
+	}
+
 	.player-wrapper {
 		position: relative;
 		top: -32px;
