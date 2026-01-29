@@ -62,15 +62,34 @@
 					background: radial-gradient(circle, transparent 20%, #796a55 20%, #796a55 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, #796a55 20%, #796a55 80%, transparent 80%, transparent) 30px 30px, linear-gradient(#5c4f3d 2.4px, transparent 2.4px) 0 -1.2px, linear-gradient(90deg, #5c4f3d 2.4px, #796a55 2.4px) -1.2px 0;
 					background-size: 60px 60px, 60px 60px, 30px 30px, 30px 30px;
 
+					@keyframes ellipsis {
+						0% {
+							content: "Loading High-Res Image";
+						}
+
+						25% {
+							content: "Loading High-Res Image.";
+						}
+
+						50% {
+							content: "Loading High-Res Image..";
+						}
+
+						75% {
+							content: "Loading High-Res Image...";
+						}
+					}
+
 					&::after {
-						content: "Loading High-Res Image...";
+						content: "Loading High-Res Image";
+						animation: ellipsis 2s infinite;
 						position: absolute;
 						top: 10px;
 						left: 10px;
 						width: auto;
 						height: auto;
 						font-size: 10px;
-						text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+						text-shadow: 1px 2px 5px rgba(0, 0, 0, 0.8);
 						text-transform: uppercase;
 						font-weight: 600;
 						color: #fff;
