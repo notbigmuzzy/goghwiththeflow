@@ -1,5 +1,10 @@
-# NICE TO HAVE
+# MUST
+- player when done plays next random song
+- no pinch to zoom on site
+- responsive
 
+
+# NICE TO HAVE
 ## Virtual Postcard (Canvas Export)
 - Use an off-screen HTML5 Canvas.
 	1. Draw the painting image to the canvas
