@@ -75,13 +75,20 @@
 				transform: translateY(300px) scale(6);
 				transition: transform 0.5s ease-in-out, scale 0.5s ease-in-out;
 				border-radius: 5px;
-				// mix-blend-mode: initial;
 
 				.exhibit-label {
 					font-family: 'Cinzel', serif;
 					font-weight: 100;
 					text-transform: initial;
 					font-size: 13px;
+				}
+
+				@media (max-width: 768px) {
+					transform: translateY(250px) scale(1);
+
+					.exhibit-label {
+						font-size: 45px;
+					}
 				}
 			}
 
