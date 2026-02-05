@@ -311,13 +311,23 @@ export function initDialerScroll() {
 		const era = getEra(year);
 		const eraString = era.toLowerCase().replace(/\s+/g, '-');
 
+		const viewportWidth = window.innerWidth;
+		const isMobile = viewportWidth < 768;
+		let mobileExhibitLabel = '';
+
 		gallery.classList.remove(...gallery.classList);
 		gallery.classList.add(eraString);
+
+		if (isMobile) {
+			mobileExhibitLabel = `<i>→</i> More from "${era}"`;
+		} else {
+			mobileExhibitLabel = `<i>→</i> Click me to see More from "${era}"`;
+		}
 
 		if (year === 'Today') {
 			exhibitLabel.innerHTML = `Welcome to time-traveling<br>art gallery`;
 		} else {
-			exhibitLabel.innerHTML = `<i>→</i> Click me to see More from "${era}"`;
+			exhibitLabel.innerHTML = mobileExhibitLabel;
 		}
 	}
 }

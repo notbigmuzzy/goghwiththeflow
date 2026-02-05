@@ -606,42 +606,8 @@ export function createPhotos(artworks = []) {
 
 	const viewportWidth = window.innerWidth;
 	const viewportHeight = window.innerHeight;
-	const numberOfPhotos = artworks.length;
-
-	const aspectRatio = 240 / 320;
-	const height = Math.floor(viewportHeight * 0.475);
-	const width = Math.floor(height * aspectRatio);
-
-	const dimensions = { width, height };
-	const positions = [];
-
-	const topRowCount = Math.min(3, numberOfPhotos);
-	const topRowLefts = [0.175, 0.5, 0.825];
-	const topRowTops = [0.125, 0.075, 0.120];
-
-	for (let i = 0; i < topRowCount; i++) {
-		positions.push({
-			top: topRowTops[i],
-			left: topRowLefts[i]
-		});
-	}
-
-	const bottomRowCount = numberOfPhotos - topRowCount;
-	if (bottomRowCount > 0) {
-		const bottomRowLefts = bottomRowCount === 1 ? [0.35] :
-			bottomRowCount === 2 ? [0.35, 0.65] :
-				[0.2, 0.5, 0.8];
-		const bottomRowTops = bottomRowCount === 1 ? [0.4] :
-			bottomRowCount === 2 ? [0.35, 0.4] :
-				[0.3, 0.375, 0.325];
-
-		for (let i = 0; i < bottomRowCount; i++) {
-			positions.push({
-				top: bottomRowTops[i],
-				left: bottomRowLefts[i]
-			});
-		}
-	}
+	const isTablet = viewportWidth < 1024;
+	const isMobile = viewportWidth < 768;
 
 	const shuffle = (array) => {
 		for (let i = array.length - 1; i > 0; i--) {
@@ -651,13 +617,84 @@ export function createPhotos(artworks = []) {
 		return array;
 	};
 
-	const shuffledArtworks = shuffle([...artworks]);
+	let displayArtworks = shuffle([...artworks]);
+	if (isTablet) {
+		displayArtworks = displayArtworks.slice(0, 3);
+	}
+
+	const numberOfPhotos = displayArtworks.length;
+
+	const aspectRatio = 240 / 320;
+	let height = Math.floor(viewportHeight * 0.475);
+
+	if (isMobile) {
+		height = Math.floor(viewportHeight * 0.30);
+	}
+
+	const width = Math.floor(height * aspectRatio);
+
+	const dimensions = { width, height };
+	const positions = [];
+
+	if (isTablet) {
+		const spacing = 20;
+		const bottomSpacing = 160;
+
+		switch (true) {
+			case numberOfPhotos >= 3:
+				positions.push({
+					top: (viewportHeight - height - bottomSpacing) / viewportHeight,
+					left: (spacing + width / 2) / viewportWidth
+				});
+			case numberOfPhotos >= 2:
+				positions.push({
+					top: (viewportHeight / 2 - height / 2) / viewportHeight,
+					left: (viewportWidth - spacing - width / 2) / viewportWidth
+				});
+			case numberOfPhotos >= 1:
+				positions.push({
+					top: (spacing / viewportHeight) * 2,
+					left: (spacing + width / 2) / viewportWidth
+				});
+				break;
+		}
+
+		positions.reverse();
+	} else {
+		const topRowCount = Math.min(3, numberOfPhotos);
+		const topRowLefts = [0.175, 0.5, 0.825];
+		const topRowTops = [0.125, 0.075, 0.120];
+
+		for (let i = 0; i < topRowCount; i++) {
+			positions.push({
+				top: topRowTops[i],
+				left: topRowLefts[i]
+			});
+		}
+
+		const bottomRowCount = numberOfPhotos - topRowCount;
+		if (bottomRowCount > 0) {
+			const bottomRowLefts = bottomRowCount === 1 ? [0.35] :
+				bottomRowCount === 2 ? [0.35, 0.65] :
+					[0.2, 0.5, 0.8];
+			const bottomRowTops = bottomRowCount === 1 ? [0.4] :
+				bottomRowCount === 2 ? [0.35, 0.4] :
+					[0.3, 0.375, 0.325];
+
+			for (let i = 0; i < bottomRowCount; i++) {
+				positions.push({
+					top: bottomRowTops[i],
+					left: bottomRowLefts[i]
+				});
+			}
+		}
+	}
 
 	let photos = '';
 	for (let i = 0; i < numberOfPhotos; i++) {
 		const top = Math.floor(viewportHeight * positions[i].top);
 		const left = Math.floor(viewportWidth * positions[i].left) - Math.floor(width / 2);
-		const artwork = shuffledArtworks[i];
+		const artwork = displayArtworks[i];
 
 		photos += `
 			<div class="photo photo-${i + 1}" data-id="${artwork.objectID}" data-object-url="${artwork.objectURL}" style="position: absolute; top: ${top}px; left: ${left}px; max-width: ${dimensions.width}px; max-height: ${dimensions.height}px; width: auto; height: auto;">
