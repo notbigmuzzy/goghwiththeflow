@@ -152,3 +152,31 @@ export async function updateMusic(year) {
 		}
 	}
 }
+
+function playNextSong() {
+	if (!currentEra || !musicData) return;
+
+	const eraData = musicData[currentEra];
+	if (!eraData || eraData.length === 0) return;
+
+	const randomIndex = Math.floor(Math.random() * eraData.length);
+	const song = eraData[randomIndex].song;
+
+	const player = getActivePlayer();
+	if (player) {
+		player.src = song.url;
+		player.play().catch(e => console.error("Auto-advance play failed", e));
+	}
+}
+
+export function initMusicListeners() {
+	const p1 = getPlayer1();
+	const p2 = getPlayer2();
+
+	const onEnded = () => {
+		playNextSong();
+	};
+
+	if (p1) p1.addEventListener('ended', onEnded);
+	if (p2) p2.addEventListener('ended', onEnded);
+}

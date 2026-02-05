@@ -1,7 +1,8 @@
 # MUST
-- player when done plays next random song
-- no pinch to zoom on site
+- [x] player when done plays next random song
+- [x] no pinch to zoom on site
 - responsive
+- [x] OG image and info
 
 
 # NICE TO HAVE
