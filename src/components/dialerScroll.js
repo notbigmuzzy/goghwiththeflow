@@ -330,4 +330,8 @@ export function initDialerScroll() {
 			exhibitLabel.innerHTML = mobileExhibitLabel;
 		}
 	}
+
+	// Export functions for use in keyboard navigation
+	window.changePeriods = changePeriods;
+	window.findCenterItem = findCenterItem;
 }
