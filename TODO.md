@@ -1,4 +1,6 @@
 # NICE TO HAVE
+- keyboard navigation
+- pwa
 
 ## Virtual Postcard (Canvas Export)
 - Use an off-screen HTML5 Canvas.
