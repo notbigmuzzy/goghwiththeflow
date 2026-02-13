@@ -182,8 +182,8 @@
     },
     {
       "song": {
-        "name": "Ravel: Jeux DEau",
-        "url": "music/impressionism/Ravel: Jeux DEau.mp3"
+        "name": "Ravel-Jeux-Deau",
+        "url": "music/impressionism/Ravel-Jeux-Deau.mp3"
       }
     }
   ],
@@ -214,14 +214,14 @@
     },
     {
       "song": {
-        "name": "Sigismondo d'India: Piangono al pianger mio [Pc_6oUKGHB0]",
-        "url": "music/mannerism/Sigismondo d'India: Piangono al pianger mio [Pc_6oUKGHB0].mp3"
+        "name": "Sigismondo dIndia - Dispietata pietate",
+        "url": "music/mannerism/Sigismondo dIndia - Dispietata pietate.mp3"
       }
     },
     {
       "song": {
-        "name": "Sigismondo dIndia - Dispietata pietate",
-        "url": "music/mannerism/Sigismondo dIndia - Dispietata pietate.mp3"
+        "name": "Sigismondo dIndia Piangono al pianger mio",
+        "url": "music/mannerism/Sigismondo dIndia Piangono al pianger mio.mp3"
       }
     }
   ],
@@ -322,8 +322,8 @@
   "realism": [
     {
       "song": {
-        "name": "Boris Godunov: Scene With the Clock",
-        "url": "music/realism/Boris Godunov: Scene With the Clock.mp3"
+        "name": "Boris Godunov Scene With the Clock",
+        "url": "music/realism/Boris Godunov Scene With the Clock.mp3"
       }
     },
     {
@@ -352,8 +352,8 @@
     },
     {
       "song": {
-        "name": "Georges Bizet: Carmen: Flower Song",
-        "url": "music/realism/Georges Bizet: Carmen: Flower Song.mp3"
+        "name": "Georges Bizet Carmen Flower Song",
+        "url": "music/realism/Georges Bizet Carmen Flower Song.mp3"
       }
     },
     {
@@ -370,14 +370,14 @@
     },
     {
       "song": {
-        "name": "Puccini: La bohème Act : Sì Mi chiamano Mimì",
-        "url": "music/realism/Puccini: La bohème Act : Sì Mi chiamano Mimì.mp3"
+        "name": "Puccini La boheme Act I Che gelida manina",
+        "url": "music/realism/Puccini La boheme Act I Che gelida manina.mp3"
       }
     },
     {
       "song": {
-        "name": "Puccini: La bohème Act I: Che gelida manina",
-        "url": "music/realism/Puccini: La bohème Act I: Che gelida manina.mp3"
+        "name": "Puccini La boheme Act Sì Mi chiamano Mimì",
+        "url": "music/realism/Puccini La boheme Act Sì Mi chiamano Mimì.mp3"
       }
     }
   ],
@@ -422,14 +422,14 @@
   "romanticism": [
     {
       "song": {
-        "name": "Brahms - 5 Lieder, Op. 49: No. 4, Wiegenlied (Brahms Lullaby)",
-        "url": "music/romanticism/Brahms - 5 Lieder, Op. 49: No. 4, Wiegenlied (Brahms Lullaby).mp3"
+        "name": "Brahms - 5 Lieder Op 49 No. 4, Wiegenlied (Brahms Lullaby)",
+        "url": "music/romanticism/Brahms - 5 Lieder Op 49 No. 4, Wiegenlied (Brahms Lullaby).mp3"
       }
     },
     {
       "song": {
-        "name": "Dvořák - Serenade for Strings in E Major, Op. 22: I. Moderato",
-        "url": "music/romanticism/Dvořák - Serenade for Strings in E Major, Op. 22: I. Moderato.mp3"
+        "name": "Dvořák - Serenade for Strings in E Major, Op. 22 I. Moderato",
+        "url": "music/romanticism/Dvořák - Serenade for Strings in E Major, Op. 22 I. Moderato.mp3"
       }
     },
     {
@@ -452,8 +452,8 @@
     },
     {
       "song": {
-        "name": "Rachmaninoff - Rhapsody on a Theme of Paganini: Var. XVIII",
-        "url": "music/romanticism/Rachmaninoff - Rhapsody on a Theme of Paganini: Var. XVIII.mp3"
+        "name": "Rachmaninoff - Rhapsody on a Theme of Paganini Var. XVIII",
+        "url": "music/romanticism/Rachmaninoff - Rhapsody on a Theme of Paganini Var. XVIII.mp3"
       }
     },
     {
