@@ -422,18 +422,6 @@
   "romanticism": [
     {
       "song": {
-        "name": "Brahms - 5 Lieder Op 49 No. 4, Wiegenlied (Brahms Lullaby)",
-        "url": "music/romanticism/Brahms - 5 Lieder Op 49 No. 4, Wiegenlied (Brahms Lullaby).mp3"
-      }
-    },
-    {
-      "song": {
-        "name": "Dvořák - Serenade for Strings in E Major, Op. 22 I. Moderato",
-        "url": "music/romanticism/Dvořák - Serenade for Strings in E Major, Op. 22 I. Moderato.mp3"
-      }
-    },
-    {
-      "song": {
         "name": "Frederic Chopin - Nocturne in E-flat major Op9 No2",
         "url": "music/romanticism/Frederic Chopin - Nocturne in E-flat major Op9 No2.mp3"
       }
@@ -448,12 +436,6 @@
       "song": {
         "name": "Puccini - Gianni Schicchi_ O Mio Babbino Caro",
         "url": "music/romanticism/Puccini - Gianni Schicchi_ O Mio Babbino Caro.mp3"
-      }
-    },
-    {
-      "song": {
-        "name": "Rachmaninoff - Rhapsody on a Theme of Paganini Var. XVIII",
-        "url": "music/romanticism/Rachmaninoff - Rhapsody on a Theme of Paganini Var. XVIII.mp3"
       }
     },
     {
