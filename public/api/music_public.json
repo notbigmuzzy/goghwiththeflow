@@ -179,12 +179,6 @@
         "name": "Maurice Ravel - Daybreak",
         "url": "https://notbigmuzzy.github.io/goghwiththeflow/music/impressionism/Maurice Ravel - Daybreak.mp3"
       }
-    },
-    {
-      "song": {
-        "name": "Ravel-Jeux-Deau",
-        "url": "https://notbigmuzzy.github.io/goghwiththeflow/music/impressionism/Ravel-Jeux-Deau.mp3"
-      }
     }
   ],
   "mannerism": [
@@ -216,12 +210,6 @@
       "song": {
         "name": "Sigismondo dIndia - Dispietata pietate",
         "url": "https://notbigmuzzy.github.io/goghwiththeflow/music/mannerism/Sigismondo dIndia - Dispietata pietate.mp3"
-      }
-    },
-    {
-      "song": {
-        "name": "Sigismondo dIndia Piangono al pianger mio",
-        "url": "https://notbigmuzzy.github.io/goghwiththeflow/music/mannerism/Sigismondo dIndia Piangono al pianger mio.mp3"
       }
     }
   ],
@@ -322,12 +310,6 @@
   "realism": [
     {
       "song": {
-        "name": "Boris Godunov Scene With the Clock",
-        "url": "https://notbigmuzzy.github.io/goghwiththeflow/music/realism/Boris Godunov Scene With the Clock.mp3"
-      }
-    },
-    {
-      "song": {
         "name": "Franz Schubert Der Leiermann",
         "url": "https://notbigmuzzy.github.io/goghwiththeflow/music/realism/Franz Schubert Der Leiermann.mp3"
       }
@@ -352,12 +334,6 @@
     },
     {
       "song": {
-        "name": "Georges Bizet Carmen Flower Song",
-        "url": "https://notbigmuzzy.github.io/goghwiththeflow/music/realism/Georges Bizet Carmen Flower Song.mp3"
-      }
-    },
-    {
-      "song": {
         "name": "Pietro Mascagni – Intermezzo from Cavalleria Rusticana",
         "url": "https://notbigmuzzy.github.io/goghwiththeflow/music/realism/Pietro Mascagni – Intermezzo from Cavalleria Rusticana.mp3"
       }
@@ -366,18 +342,6 @@
       "song": {
         "name": "Puccini - La Bohème - Musettas Waltz",
         "url": "https://notbigmuzzy.github.io/goghwiththeflow/music/realism/Puccini - La Bohème - Musettas Waltz.mp3"
-      }
-    },
-    {
-      "song": {
-        "name": "Puccini La boheme Act I Che gelida manina",
-        "url": "https://notbigmuzzy.github.io/goghwiththeflow/music/realism/Puccini La boheme Act I Che gelida manina.mp3"
-      }
-    },
-    {
-      "song": {
-        "name": "Puccini La boheme Act Sì Mi chiamano Mimì",
-        "url": "https://notbigmuzzy.github.io/goghwiththeflow/music/realism/Puccini La boheme Act Sì Mi chiamano Mimì.mp3"
       }
     }
   ],
